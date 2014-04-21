@@ -2,11 +2,7 @@ entities:
     person:          
         processes:          
             death:
-                ############# Tirage ###########
-                - dead: if(ISMALE,
-                           logit_regr(0.0, align='param\\demo\\hyp_mortaliteH.csv'),
-                           logit_regr(0.0, align='param\\demo\\hyp_mortaliteF.csv'))
-                       
+                - death: (pers2fut.civilstate == -2)
                 # - test_dead: age/100
                 # - test_log: logistic((age-50)/10)
                 # - test_logit: logit_score(age/100)

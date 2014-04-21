@@ -45,7 +45,7 @@ simulation:
         - person: [death]
 #        - person: [migration]
         - person: [independance]
-        - person: [birth]
+        - futur: [birth]
         - menage: [men_composition]
         - declar: [cases,empty_declar]
         - person: [[into_couple,'year']]
