@@ -9,6 +9,7 @@ entities:
             - pere:   int
             - mere:   int
             - conj: int
+            - naiss: int
             - civilstate: int
         # education    
             - education_level: {type: int, initialdata: false, default: 10}
@@ -19,11 +20,39 @@ entities:
 
         links:
             fut2pers:  {type: many2one, target: person, field: id} #Could be a one2one if exist
+            l_futmere:  {type: many2one, target: futur, field: mere}
+            l_futpere:  {type: many2one, target: futur, field: pere}
+            l_futconj:  {type: many2one, target: futur, field: conj}
+            
+        macros:
+            UNSET: -1
+            
+            ISMALE: sexe == 0
+            ISFEMALE: sexe == 1
+            
+            MARRIED: 2 
+            SINGLE: 1
+            DIVORCED: 4
+            WIDOW: 3
+            PACS : 5
+            
+            INACTIVE:  1
+            UNEMPLOYED: 2
+            NON_CADRE: 3
+            CADRE:     4
+            FONCT_A:   5
+            FONCT_S:   6
+            INDEP  :   7           
+            AVPF   :   8            
+            PRE_RET:   9 
+            RETIRED:   10 
+            STUDENT:   11
+                    
             
         processes:
             load:
                 - rien: 1
-                - show('le nombre d'évenement dans futur', count(id>0))
+                - show('number of events', count(id>0))
                 - show(count(id>0), count(fut2pers.id>0))
                 # - assertTrue( count(id>0) == count(fut2pers.id>0))
                 

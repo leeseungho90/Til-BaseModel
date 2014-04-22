@@ -19,6 +19,7 @@ import:
     - _consumption//conso.yml
     - _wealth//save.yml
     - _jobs//companies.yml
+    - _Futur/futur.yml
 
 globals:
     periodic:
