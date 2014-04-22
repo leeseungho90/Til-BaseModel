@@ -1,9 +1,10 @@
 entities:
-    person:          
+    futur:          
         processes:          
             birth:  
                 - new_born: naiss != -1 # naiss == period or period/100
                 - new('person', filter=new_born,
+                      id = id,
                       mere = mere,
                       pere = pere,
                       age = 0,
@@ -16,20 +17,20 @@ entities:
                       sali = 0,
                       rsti = 0,
                       choi = 0,
-                      men = men,
+                      men = l_futmere.fut2pers.men,
                       quimen = 2,
-                      foy = foy,
+                      foy = l_futmere.foy,
                       findet = findet,
                       wprm_init = wprm_init,
                       quifoy = 2
                       )   
-                - new('register', filter=(age == 0) ,
+                - new('register', filter=new_born,
                         id=id, sexe=sexe, pere=pere, mere=mere, vivant=True, naiss=period, findet=findet)
                 
-                - show('Avg age of "young" mothers', avg(age, filter=to_give_birth and ISFEMALE))
-                - show('Avg age of "young" fathers', avg(l_conj.age, filter=to_give_birth and ISFEMALE and ISMARRIED))
-                - show('Avg age of all mothers', avg(l_mere.age, filter=l_mere.age>-1))  #la condition -1 permet de ne prendre que les vraies meres !
-                - show('Avg age of all fathers', avg(l_pere.age, filter=l_pere.age>-1 ))  
-                - show('Number of birth', count(age==0))
+                # - show('Avg age of "young" mothers', avg(age, filter=new_born and ISFEMALE))
+                # - show('Avg age of "young" fathers', avg(l_futconj.age, filter=new_born))
+                # - show('Avg age of all mothers', avg(l_futmere.age, filter=l_futmere.fut2pers.age>-1))  #la condition -1 permet de ne prendre que les vraies meres !
+                # - show('Avg age of all fathers', avg(l_futpere.age, filter=l_futpere.fut2pers.age>-1 ))  
+                # - show('Number of birth', count(age==0))
                 
               
