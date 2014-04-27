@@ -2,7 +2,10 @@ entities:
     futur:          
         processes:          
             birth:  
-                - new_born: naiss != -1 # naiss == period or period/100
+            #TODO: check why there is some naiss without parents
+                - new_born: (naiss != -1) & ( mere != -1) # naiss == period or period/100
+                # test que les gens de futur sont bien dans individus
+                # - test: if(new_born, -1, fut2pers.men)
                 - new('person', filter=new_born,
                       id = id,
                       mere = mere,
@@ -17,13 +20,14 @@ entities:
                       sali = 0,
                       rsti = 0,
                       choi = 0,
-                      men = l_futmere.fut2pers.men,
+                      men = -1,
                       quimen = 2,
-                      foy = l_futmere.foy,
+                      foy = -1,
                       findet = findet,
                       wprm_init = wprm_init,
                       quifoy = 2
-                      )   
+                      )
+                      
                 - new('register', filter=new_born,
                         id=id, sexe=sexe, pere=pere, mere=mere, vivant=True, naiss=period, findet=findet)
                 
@@ -32,5 +36,3 @@ entities:
                 # - show('Avg age of all mothers', avg(l_futmere.age, filter=l_futmere.fut2pers.age>-1))  #la condition -1 permet de ne prendre que les vraies meres !
                 # - show('Avg age of all fathers', avg(l_futpere.age, filter=l_futpere.fut2pers.age>-1 ))  
                 # - show('Number of birth', count(age==0))
-                
-              

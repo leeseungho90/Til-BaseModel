@@ -1,0 +1,7 @@
+entities:
+    person:          
+        processes:          
+            new_born_men:
+                - new_born: agem == 0 #
+                - men: if(new_born, l_mere.men, men)
+                - foy: if(new_born, l_mere.foy, foy)

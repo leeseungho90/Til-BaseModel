@@ -19,7 +19,7 @@ entities:
             - sali:  {type: float, default: 0.0}
 
         links:
-            fut2pers:  {type: many2one, target: person, field: id} #Could be a one2one if exist
+            fut2pers:  {type: one2one, target: person, field: id} #Could be a one2one if exist
             l_futmere:  {type: many2one, target: futur, field: mere}
             l_futpere:  {type: many2one, target: futur, field: pere}
             l_futconj:  {type: many2one, target: futur, field: conj}
