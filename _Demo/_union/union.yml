@@ -6,7 +6,7 @@ entities:
                 - dur_out_couple : 0
                 
             into_couple:
-                - to_couple: conj == -1 and pers2fut.conj != -1 and pers2fut.civilstate == 2
+                - to_couple: conj == -1 and pers2fut.conj != -1 and (pers2fut.civilstate == 2 or pers2fut.civilstate == 5)
                 - conj: if(to_couple, pers2fut.conj, conj)
                                  
                 # on corrige les incestes qui n'ont pas ete interdit dans le matching
@@ -25,8 +25,8 @@ entities:
             
                 - to_move_together: (INCOUPLE and dur_in_couple > 1)
                 # on s'assure qu'on ne vit pas déjà ensemble
-                - to_move_together: if(quimen==1 or l_conj.quimen==1 ,False, to_move_together)
-                - to_move_together: if(quimen==2 and l_conj.quimen==2 and men==l_conj.men ,False, to_move_together)
+                - to_move_together: if(quimen==1 or l_conj.quimen==1, False, to_move_together)
+                - to_move_together: if(quimen==2 and l_conj.quimen==2 and men==l_conj.men, False, to_move_together)
                 # - csv(dump(id, to_move_together, sexe, l_conj.id, l_conj.age, dur_in_couple, quimen , l_conj.dur_in_couple, l_conj.quimen,  l_conj.to_move_together, l_conj.conj))
                 - assertEqual( count(to_move_together) , count(l_conj.to_move_together))
                 - assertTrue( count(to_move_together) % 2 == 0 )

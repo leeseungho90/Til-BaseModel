@@ -36,3 +36,9 @@ entities:
                 # - show('Avg age of all mothers', avg(l_futmere.age, filter=l_futmere.fut2pers.age>-1))  #la condition -1 permet de ne prendre que les vraies meres !
                 # - show('Avg age of all fathers', avg(l_futpere.age, filter=l_futpere.fut2pers.age>-1 ))  
                 # - show('Number of birth', count(age==0))
+                
+                # Test de la base Destinie qu'on fait là (même si on ne devrait pas forcément...)
+                # to correct a bug in Destinie DataBase
+                - change_conj: conj != fut2pers.conj
+                - conj: if( l_futconj.change_conj and not change_conj, -1, conj)
+                

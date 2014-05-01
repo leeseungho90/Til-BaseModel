@@ -2,10 +2,11 @@ entities:
     person:          
         processes:     
             divorce : 
-                - divorce: ISFEMALE and INCOUPLE and (pers2fut.civilstate != 2 or pers2fut.conj != conj)
-                - to_divorce: divorce or l_conj.divorce
-              
-                
+                - new_civilstate: pers2fut.civilstate != -1 and pers2fut.civilstate != 2 and pers2fut.civilstate != 5
+                - new_conj: pers2fut.conj != -1 and pers2fut.conj != conj
+                - divorce: INCOUPLE and (new_civilstate or new_conj)
+                - to_divorce: divorce or l_conj.divorce              
+
                 ### men 
                 # smallest id move out from house
                 # TODO: à améliorer en fonction de la propriété, de qui part et tout
