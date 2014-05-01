@@ -1,0 +1,12 @@
+entities:
+    person:          
+        processes:      
+            # le programme est pense pour faire tourner d'abord entree chomage et ensuite entree_emploi
+            work:
+              - workstate: if(pers2fut.workstate != workstate and pers2fut.workstate != -1, 
+                      pers2fut.workstate,
+                      workstate)
+              - sali: if(ISINWORK and pers2fut.sali != -1, 
+                      pers2fut.sali,
+                      sali)
+              - assertTrue( count(ISINWORK and pers2fut.sali == -1) == 0 )
