@@ -2,7 +2,7 @@ entities:
     person:          
         processes:          
             death:
-                - dead: (pers2fut.civilstate == -2)
+                - dead: (pers2fut.death == period)
                 # - test_dead: age/100
                 # - test_log: logistic((age-50)/10)
                 # - test_logit: logit_score(age/100)
