@@ -51,6 +51,8 @@ simulation:
         - person: [new_born_men]
         - menage: [men_composition]
         - declar: [cases,empty_declar]
+        - person: [divorce]
+        - menage: [men_composition]
         - person: [[into_couple,'year']]
         - person: [move_together]
         - person: [legal_union]
@@ -58,8 +60,6 @@ simulation:
         - menage: [[men_composition,'year']]
         - declar: [[cases,'year']]
         - declar: [[empty_declar,'year']]        
-        - person: [divorce]
-        - menage: [men_composition]
         - declar: [cases,empty_declar]
         - person: [ineducation, outwork, inwork, retire, chomage, salaire #, retraite
 #            dump_all            
