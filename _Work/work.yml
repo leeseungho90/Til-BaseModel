@@ -10,3 +10,12 @@ entities:
                       pers2fut.sali,
                       sali)
               - assertTrue( count(ISINWORK and pers2fut.sali == -1) == 0 )
+              
+
+            retraite: 
+                - rsti: if(ISRETIRED, 
+                             if(BEGINER, 0.7*sali, rsti), 
+                          0)
+                - salaire_annee_derniere : lag(sali,1)
+                - pension: pension_func() #filter=(age>61)
+                - test : count(rsti>0)

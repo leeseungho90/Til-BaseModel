@@ -60,12 +60,12 @@ simulation:
         - declar: [[cases,'year']]
         - declar: [[empty_declar,'year']]        
         - declar: [cases,empty_declar]
-        - person: [ineducation, work #, retraite
+        - person: [ineducation, work, # retraite
 #            dump_all            
         ]
         - menage: [init_value,consumption,saving]
         - companies: [rien]
-        #- legislation: [2009] #[annee leg] = année de départ de la simulation
+        - legislation: [2009] #[annee leg] = année de départ de la simulation
         # - register: [alive]
         # - register: [sum_indiv]
         - person: [stat_period]
