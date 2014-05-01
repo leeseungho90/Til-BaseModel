@@ -29,7 +29,7 @@ globals:
 simulation:
     init: 
         - menage: [init_weight_men, init_region_id, init_rent, init_value, init_wealth, init_owner, men_composition]
-        - person: [init_weight_ind, init_couple, init_education_level]
+        - person: [init_weight_ind, init_couple,]
         - companies: [init_size]
         - declar: [cases,empty_declar]
         - register: [init_reg]
