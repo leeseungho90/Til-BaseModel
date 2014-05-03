@@ -17,5 +17,8 @@ entities:
                              if(BEGINER, 0.7*sali, rsti), 
                           0)
                 - salaire_annee_derniere : lag(sali,1)
-                - pension: pension_func() #filter=(age>61)
+                - max_age_child: max( invl_mere.max(age), invl_pere.max(age))
+                - nb_born: invl_mere.count(age <= 20) + invl_pere.count(age <= 20)
+                - nb_pac: invl_mere.count(age <= 18) + invl_pere.count(age <= 18)
+                - pension: pension_func() #filter=(age>61) #need max_age_child and nb_child
                 - test : count(rsti>0)

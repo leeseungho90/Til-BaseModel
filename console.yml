@@ -60,7 +60,7 @@ simulation:
         - declar: [[cases,'year']]
         - declar: [[empty_declar,'year']]        
         - declar: [cases,empty_declar]
-        - person: [ineducation, work, # retraite
+        - person: [ineducation, work, retraite
 #            dump_all            
         ]
         - menage: [init_value,consumption,saving]
