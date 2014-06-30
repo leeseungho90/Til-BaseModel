@@ -57,8 +57,14 @@ entities:
             # - psoc: {type: int, initialdata: false} 
             # - mini: {type: int, initialdata: false} 
             # - pfam: {type: int, initialdata: false} 
-            # - logt: {type: int, initialdata: false}       
-         
+            # - logt: {type: int, initialdata: false}   
+            
+        # legislation retraite
+            - nb_enf: {type: int, initialdata: false, default: 0}   
+            - nb_enf_RG: {type: int, initialdata: false, default: 0}   
+            - nb_enf_RSI: {type: int, initialdata: false, default: 0}   
+            - nb_enf_FP: {type: int, initialdata: false, default: 0} 
+            - tauxprime: float
          
         links:
             l_men:      {type: many2one, target: menage, field: men}
