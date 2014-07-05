@@ -2,7 +2,7 @@ entities:
     person:          
         processes:     
             divorce : 
-                - new_civilstate: pers2fut.civilstate != -1 and pers2fut.civilstate != 2 and pers2fut.civilstate != 5
+                - new_civilstate: pers2fut.civilstate != UNSET and pers2fut.civilstate != MARRIED and pers2fut.civilstate != PACS
                 - new_conj: pers2fut.conj != -1 and pers2fut.conj != conj
                 - divorce: INCOUPLE and (new_civilstate or new_conj)
                 - to_divorce: divorce or l_conj.divorce              

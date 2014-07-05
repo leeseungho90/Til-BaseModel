@@ -6,7 +6,7 @@ entities:
                 - dur_out_couple : 0
                 
             into_couple:
-                - to_couple: conj == -1 and pers2fut.conj != -1 and (pers2fut.civilstate == 2 or pers2fut.civilstate == 5)
+                - to_couple: conj == -1 and pers2fut.conj != -1 and (pers2fut.civilstate == MARRIED or pers2fut.civilstate == PACS)
                 - conj: if(to_couple, pers2fut.conj, conj)
                                  
                 # on corrige les incestes qui n'ont pas ete interdit dans le matching
