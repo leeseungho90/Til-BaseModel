@@ -31,10 +31,10 @@ entities:
             ISMALE: sexe == 0
             ISFEMALE: sexe == 1
             
-            MARRIED: 2 
-            SINGLE: 1
-            DIVORCED: 4
-            WIDOW: 3
+            MARRIED: 1 
+            SINGLE: 2
+            DIVORCED: 3
+            WIDOW: 4
             PACS : 5
             
             INACTIVE:  1
