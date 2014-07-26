@@ -25,6 +25,7 @@ entities:
                 # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
                 - inacdur: inacdur5 + inacdur4 + inacdur3 + inacdur2 + inacdur1
                 
+ 
                 
            # Probability of transition from the reference stage
            probability:
@@ -38,7 +39,7 @@ entities:
                 - invalidity: if(ISMALE,exp("Xbeta_m3")/denom, exp("Xbeta3")/denom)
                 - outwork: if(ISMALE,exp("Xbeta_m4")/denom, exp("Xbeta4")/denom)
             
-            decision:
+                # DECISION
                 - to_work: align(0.0, filter = ISUNEMPLOYED,proportions=0.025) # proportion à changer en fonction du scénario et de la projection INSEE
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
