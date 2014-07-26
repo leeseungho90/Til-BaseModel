@@ -1,0 +1,88 @@
+entities:
+    person:          
+        processes:
+           # Calculer les probabilités de changement
+           caracateristic:
+                # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
+                # UNEMPLOYMENT DURING THE LAST 5 YEARS
+                # unempdur$ signifie l'indicatrice du chômage il y a "$" années
+                # Comme on avance dans le temps, unempdur$ prend la valeur de unempdur"$-1" et unempdur1 prend l'état actuel
+                - unempdur5: if(unempdur4>0,unempdur4,0)
+                - unempdur4: if(unempdur3>0,unempdur3,0)
+                - unempdur3: if(unempdur2>0,unempdur2,0)
+                - unempdur2: if(unempdur1>0,unempdur1,0)
+                - unempdur1: if(ISUNEMPLOYED,1,0)
+                # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - unempdur: unempdur5 + unempdur4 + unempdur3 + unempdur2 + unempdur1 
+            
+            
+                # INACTIVITY DURING THE LAST 5 YEARS
+                - inacdur5: if(unempdur4>0,unempdur4,0)
+                - inacdur4: if(unempdur3>0,unempdur3,0)
+                - inacdur3: if(unempdur2>0,unempdur2,0)
+                - inacdur2: if(unempdur1>0,unempdur1,0)
+                - inacdur1: if(ISOTHERINACTIVE,1,0)
+                # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - inacdur: inacdur5 + inacdur4 + inacdur3 + inacdur2 + inacdur1
+                
+                
+           # Probability of transition from the reference stage
+           probability:
+                # Estimation is done separately for men and women
+                # denominator of the logit function
+                - denom:  if(ISMALE,1 + exp("Xbeta1") + exp("Xbeta2") + exp("Xbeta3") + exp("Xbeta4"),1 + exp("Xbeta1") + exp("Xbeta2") + exp("Xbeta3") + exp("Xbeta4"))
+                # unemployment is the reference state
+                - unemployment: 1/denom
+                - private: if(ISMALE,exp("Xbeta_m1")/denom, exp("Xbeta1")/denom)
+                - public: if(ISMALE,exp("Xbeta_m2")/denom, exp("Xbeta2")/denom)
+                - invalidity: if(ISMALE,exp("Xbeta_m3")/denom, exp("Xbeta3")/denom)
+                - outwork: if(ISMALE,exp("Xbeta_m4")/denom, exp("Xbeta4")/denom)
+            
+            decision:
+                - to_work: align(0.0, filter = ISUNEMPLOYED,proportions=0.025) # proportion à changer en fonction du scénario et de la projection INSEE
+                # The assignment is done based on the threshold probability computed above
+                # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
+                - type_act: if(to_work, choice([UNEMPLOYMENT, PRIVATE, PUBLIC, INVALIDITY, OUTWORK], [unemployment, private, public, invalidity, outwork]))
+            
+            retirement: 
+                - pension: retraite()
+                - workstate: if(age>65, RETIRED, workstate)    
+            
+            
+            
+            
+            
+            
+            
+    
+
+
+
+
+
+
+       
+            # le programme est pense pour faire tourner d'abord entree chomage et ensuite entree_emploi         
+            outwork: 
+                - xpr: xpr + 1
+                - anc: anc + 1
+                ## proba_entree_chomage <- 0.025
+                - unemp: align(0.0, filter = ISINWORK, proportions=0.025) 
+                - workstate: if(unemp, UNEMPLOYED, workstate)
+                - xpr: if(unemp, 1, xpr)
+                - anc: if(unemp, 1, anc)
+                
+            inwork: 
+                - to_work: align(0.0, filter = ISUNEMPLOYED,proportions=0.025)
+                # choix entrepreneur, public, prive
+                - type_act: if(to_work,
+                                choice([ NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP], [0.3, 0.1, 0.1, 0.2, 0.3])
+                                ,0)
+                - workstate: if(to_work, type_act, workstate)
+                - xpr: if(to_work, 1, xpr)
+                - anc: if(to_work, 1, anc)  
+                - dur_rest_ARE: if(ISINWORK, 0, dur_rest_ARE)
+                
+            retire: 
+                - pension: retraite()
+                - workstate: if(age>65, RETIRED, workstate)   
