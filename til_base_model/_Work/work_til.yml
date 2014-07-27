@@ -1,3 +1,29 @@
+
+
+
+
+# LIAM2 information: globals are variables that do not relate to any particular entity defined in the model (they can be used in any entity)
+# thus, it can be used to import parameter coefficients 
+globals:
+    work_coefficients:
+        # TODO: il faudrait créer une variable indiquant le chemin
+        path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest_f.csv 
+        transposed: true
+        fields:
+            - prive_age: float
+            - prive_age2: float
+            - prive_exper: float
+            - prive_exper2: float
+            - prive_cons: float
+            - prive_age2: float
+            # Question!! ainsi de suite, ça marche?
+            
+    # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre            
+    periodic:
+        path: input/macro.csv
+        # PERIOD is an implicit column of the periodic table (You need to put the name "PERIOD" in your table)
+        - unemp_rate: float
+
 entities:
     person:          
         processes:
@@ -5,29 +31,37 @@ entities:
            caracateristic:
                 # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
                 # UNEMPLOYMENT DURING THE LAST 5 YEARS
-                # unempdur$ signifie l'indicatrice du chômage il y a "$" années
-                # Comme on avance dans le temps, unempdur$ prend la valeur de unempdur"$-1" et unempdur1 prend l'état actuel
-                - unempdur5: if(unempdur4>0,unempdur4,0)
-                - unempdur4: if(unempdur3>0,unempdur3,0)
-                - unempdur3: if(unempdur2>0,unempdur2,0)
-                - unempdur2: if(unempdur1>0,unempdur1,0)
-                - unempdur1: if(ISUNEMPLOYED,1,0)
+                # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
+                # Comme on avance dans le temps, isunemployed$ prend la valeur de isunemployed"$-1" et isunemployed1 prend l'état actuel
+                - isunemployed5: if(isunemployed4>0,isunemployed4,0)
+                - isunemployed4: if(isunemployed3>0,isunemployed3,0)  
+                - isunemployed3: if(isunemployed2>0,isunemployed2,0)
+                - isunemployed2: if(isunemployed1>0,isunemployed1,0)
+                - isunemployed1: if(ISUNEMPLOYED,1,0)
                 # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-                - unempdur: unempdur5 + unempdur4 + unempdur3 + unempdur2 + unempdur1 
+                - unempdur: isunemployed5 + isunemployed4 + isunemployed3 + isunemployed2 + isunemployed1 
             
             
                 # INACTIVITY DURING THE LAST 5 YEARS
-                - inacdur5: if(unempdur4>0,unempdur4,0)
-                - inacdur4: if(unempdur3>0,unempdur3,0)
-                - inacdur3: if(unempdur2>0,unempdur2,0)
-                - inacdur2: if(unempdur1>0,unempdur1,0)
-                - inacdur1: if(ISOTHERINACTIVE,1,0)
+                - isinactive5: if(isinactive4>0,isinactive4,0)
+                - isinactive4: if(isinactive3>0,isinactive3,0)
+                - isinactive3: if(isinactive2>0,isinactive2,0)
+                - isinactive2: if(isinactive1>0,isinactive1,0)
+                - isinactive1: if(ISOTHERINACTIVE,1,0)
                 # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-                - inacdur: inacdur5 + inacdur4 + inacdur3 + inacdur2 + inacdur1
+                - inacdur: isinactive5 + isinactive4 + isinactive3 + isinactive2 + isinactive1
                 
- 
+                # INVALIDITY DURING THE LAST 5 YEARS
+                - isinvalid5: if(isinvalid4>0,isinvalid4,0)
+                - isinvalid4: if(isinvalid3>0,isinvalid3,0)
+                - isinvalid3: if(isinvalid2>0,isinvalid2,0)
+                - isinvalid2: if(isinvalid1>0,isinvalid1,0)
+                - isinvalid1: if(ISINVALID,1,0)
+                # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - invaldur: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
                 
-           # Probability of transition from the reference stage
+                
+           # Probability of transition from the reference state
            probability:
                 # Estimation is done separately for men and women
                 # denominator of the logit function
@@ -39,12 +73,17 @@ entities:
                 - invalidity: if(ISMALE,exp("Xbeta_m3")/denom, exp("Xbeta3")/denom)
                 - outwork: if(ISMALE,exp("Xbeta_m4")/denom, exp("Xbeta4")/denom)
             
-                # DECISION
-                - to_work: align(0.0, filter = ISUNEMPLOYED,proportions=0.025) # proportion à changer en fonction du scénario et de la projection INSEE
+           # DECISION
+                 # TODO: reprendre les valeurs importées sur le taux de chômage
+                - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.025) # proportion à changer en fonction du scénario et de la projection INSEE
+                
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
                 - type_act: if(to_work, choice([UNEMPLOYMENT, PRIVATE, PUBLIC, INVALIDITY, OUTWORK], [unemployment, private, public, invalidity, outwork]))
             
+            
+            
+            # TODO: à modifier
             retirement: 
                 - pension: retraite()
                 - workstate: if(age>65, RETIRED, workstate)    
