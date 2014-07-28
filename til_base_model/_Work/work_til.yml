@@ -1,5 +1,13 @@
 entities:
-    person:          
+    person:
+        # Un moyen de récupérer les coefficients estimés?
+        path: input\estim_coeff.csv
+        fields:
+            - workstate:  int
+            - civilstate: int
+            - partner_id: int
+ 
+                  
         processes:
            # Calculer les probabilités de changement
            caracateristic:
@@ -31,6 +39,7 @@ entities:
            probability:
                 # Estimation is done separately for men and women
                 # denominator of the logit function
+                # TODO!!!! How to import all the coefficients from estimation
                 - denom:  if(ISMALE,1 + exp("Xbeta1") + exp("Xbeta2") + exp("Xbeta3") + exp("Xbeta4"),1 + exp("Xbeta1") + exp("Xbeta2") + exp("Xbeta3") + exp("Xbeta4"))
                 # unemployment is the reference state
                 - unemployment: 1/denom
@@ -44,7 +53,10 @@ entities:
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
                 - type_act: if(to_work, choice([UNEMPLOYMENT, PRIVATE, PUBLIC, INVALIDITY, OUTWORK], [unemployment, private, public, invalidity, outwork]))
-            
+                - xpr: xpr + 1
+                - anc: anc + 1
+                - anc: if(to_work, 1, anc)
+                
             retirement: 
                 - pension: retraite()
                 - workstate: if(age>65, RETIRED, workstate)    
