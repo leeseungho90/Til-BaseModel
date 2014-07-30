@@ -1,0 +1,201 @@
+
+
+
+
+# LIAM2 information: globals are variables that do not relate to any particular entity defined in the model (they can be used in any entity)
+# thus, it can be used to import parameter coefficients 
+globals:
+    work_coefficients:
+        # TODO: il faudrait créer une variable indiquant le chemin
+        # Il faut 4 fois ce nombre de coefficients car on a 2 cas (age <= ou > 50)* 2 cas (homme ou femme)
+        
+        # Ici, les coefficients pour les HOMMES de moins de 50ANS
+        path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest50_m.csv 
+        transposed: true
+        fields:
+            - private_age: float
+            - private_age2: float
+            - private_exper: float
+            - private_exper2: float
+            - private_chomage5: float
+            - private_inactive5: float
+            - private_invalide5: float
+            - private_cons: float
+            # Question!! ainsi de suite, ça marche?
+            - public_age: float
+            - public_age2: float
+            - public_exper: float
+            - public_exper2: float
+            - public_chomage5: float
+            - public_inactive5: float
+            - public_invalide5: float
+            - public_cons: float
+                        
+            - retired_age: float
+            - retired_age2: float
+            - retired_exper: float
+            - retired_exper2: float
+            - retired_chomage5: float
+            - retired_inactive5: float
+            - retired_invalide5: float
+            - retired_cons: float
+            
+            - unemployed_age: float
+            - unemployed_age2: float
+            - unemployed_exper: float
+            - unemployed_exper2: float
+            - unemployed_chomage5: float
+            - unemployed_inactive5: float
+            - unemployed_invalide5: float
+            - unemployed_cons: float   
+                    
+            - inactive_age: float
+            - inactive_age2: float
+            - inactive_exper: float
+            - inactive_exper2: float
+            - inactive_chomage5: float
+            - inactive_inactive5: float
+            - inactive_invalide5: float
+            - inactive_cons: float
+            
+            # TODO les coefficients pour les HOMMES de plus de 50ANS
+            # TODO les coefficients pour les FEMMES de moins de 50ANS
+            # TODO les coefficients pour les FEMMES de plus de 50ANS
+            
+    # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
+    periodic:
+        path: input/macro.csv
+        # PERIOD is an implicit column of the periodic table (You need to put the name "PERIOD" in your table)
+        - unemp_rate: float
+
+entities:
+    person:
+                        
+        processes:
+           # Calculer les probabilités de changement
+           caracateristic:
+                # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
+                # UNEMPLOYMENT DURING THE LAST 5 YEARS
+                # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
+                # Comme on avance dans le temps, isunemployed$ prend la valeur de isunemployed"$-1" et isunemployed1 prend l'état actuel
+                - isunemployed5: if(isunemployed4>0,isunemployed4,0)
+                - isunemployed4: if(isunemployed3>0,isunemployed3,0)  
+                - isunemployed3: if(isunemployed2>0,isunemployed2,0)
+                - isunemployed2: if(isunemployed1>0,isunemployed1,0)
+                - isunemployed1: if(ISUNEMPLOYED,1,0)
+                # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - unempdur5: isunemployed5 + isunemployed4 + isunemployed3 + isunemployed2 + isunemployed1 
+            
+            
+                # INACTIVITY DURING THE LAST 5 YEARS
+                - isinactive5: if(isinactive4>0,isinactive4,0)
+                - isinactive4: if(isinactive3>0,isinactive3,0)
+                - isinactive3: if(isinactive2>0,isinactive2,0)
+                - isinactive2: if(isinactive1>0,isinactive1,0)
+                - isinactive1: if(ISOTHERINACTIVE,1,0)
+                # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - inacdur5: isinactive5 + isinactive4 + isinactive3 + isinactive2 + isinactive1
+                
+                # INVALIDITY DURING THE LAST 5 YEARS
+                - isinvalid5: if(isinvalid4>0,isinvalid4,0)
+                - isinvalid4: if(isinvalid3>0,isinvalid3,0)
+                - isinvalid3: if(isinvalid2>0,isinvalid2,0)
+                - isinvalid2: if(isinvalid1>0,isinvalid1,0)
+                - isinvalid1: if(ISINVALID,1,0)
+                # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
+                
+                
+           # Probability of transition from the reference state
+           probability:
+                # Estimation is done separately for men and women
+                # denominator of the logit function
+                # README: Un exmeple de "Xbeta" avec private.
+                # On distingue le cas "age>50" ou "age<50"
+                - denom:  if(age<=50,if(ISMALE,1 + exp(private_age*age + private_age2*age2 + private_exper*xpr + private_expr2*xpr2 + private_chomage5*unempdur5 + private_inactive5*inacdur5 + private_invalide5*invaldur5)
+                                      + exp("Xbeta2") 
+                                      + exp("Xbeta3") 
+                                      + exp("Xbeta4"),
+                                    1 + exp("Xbeta1") 
+                                      + exp("Xbeta2") 
+                                      + exp("Xbeta3") 
+                                      + exp("Xbeta4")),
+                                    if(ISMALE,1 + exp(private_age*age + private_age2*age2 + private_exper*xpr + private_expr2*xpr2 + private_chomage5*unempdur5 + private_inactive5*inacdur5 + private_invalide5*invaldur5)
+                                      + exp("Xbeta2") 
+                                      + exp("Xbeta3") 
+                                      + exp("Xbeta4"),
+                                    1 + exp("Xbeta1") 
+                                      + exp("Xbeta2") 
+                                      + exp("Xbeta3") 
+                                      + exp("Xbeta4"))
+                                      
+                # On distingue le cas "age>50" ou "age<50"
+                - invalidity: 1/denom
+                - private: if(age<=50,if(ISMALE,exp("Xbeta_m1")/denom, exp("Xbeta1")/denom),if(ISMALE,exp("Xbeta_m1")/denom, exp("Xbeta1")/denom))
+                - public: if(age<=50, if(ISMALE,exp("Xbeta_m2")/denom, exp("Xbeta2")/denom), if(ISMALE,exp("Xbeta_m2")/denom, exp("Xbeta2")/denom))
+                - unemployment: if(age<=50, if(ISMALE,exp("Xbeta_m3")/denom, exp("Xbeta3")/denom), if(ISMALE,exp("Xbeta_m2")/denom, exp("Xbeta2")/denom))
+                - inactivity: if(age<=50, if(ISMALE,exp("Xbeta_m4")/denom, exp("Xbeta4")/denom), if(ISMALE,exp("Xbeta_m4")/denom, exp("Xbeta4")/denom))
+                - private: if(age<=50,if(ISMALE,exp("Xbeta_m5")/denom, exp("Xbeta1")/denom),if(ISMALE,exp("Xbeta_m5")/denom, exp("Xbeta1")/denom))
+           # DECISION
+                # TODO: reprendre les valeurs importées sur le taux de chômage
+                - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=unemp_rate) # unemp_rate est issu de la projection INSEE
+                
+                # The assignment is done based on the threshold probability computed above
+                # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
+                - type_act: if(to_work, choice([PRIVATE, PUBLIC, UNEMPLOYED, INVALIDITY, RETIRED, INACTIVE ], [private, public, unemployment, invalidity, retirement, inactivity]))
+            
+           # TODO: alignement
+
+           # INDIVIDUAL CHARACTERISTIC (updating)
+                 # Nombre d'années d'expérience
+                - xpr: if(ISEMPLOYED,xpr + 1,xpr)
+                - age: age + 1
+                
+            
+           # TODO: Il faudrait trouver une modélisation de comportement de départ en retraite
+            retirement: 
+                - pension: retraite()
+                - workstate: if(age>65, RETIRED, workstate)    
+            
+            
+            
+            
+            
+            
+            
+    
+
+
+
+
+
+
+
+
+
+
+       
+            # le programme est pense pour faire tourner d'abord entree chomage et ensuite entree_emploi         
+            outwork: 
+                - xpr: xpr + 1
+                - anc: anc + 1
+                ## proba_entree_chomage <- 0.025
+                - unemp: align(0.0, filter = ISINWORK, proportions=0.025) 
+                - workstate: if(unemp, UNEMPLOYED, workstate)
+                - xpr: if(unemp, 1, xpr)
+                - anc: if(unemp, 1, anc)
+                
+            inwork: 
+                - to_work: align(0.0, filter = ISUNEMPLOYED,proportions=0.025)
+                # choix entrepreneur, public, prive
+                - type_act: if(to_work,
+                                choice([ NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP], [0.3, 0.1, 0.1, 0.2, 0.3])
+                                ,0)
+                - workstate: if(to_work, type_act, workstate)
+                - xpr: if(to_work, 1, xpr)
+                - anc: if(to_work, 1, anc)  
+                - dur_rest_ARE: if(ISINWORK, 0, dur_rest_ARE)
+                
+            retire: 
+                - pension: retraite()
+                - workstate: if(age>65, RETIRED, workstate)   
