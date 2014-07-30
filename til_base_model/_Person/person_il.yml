@@ -41,31 +41,28 @@ entities:
             - xpr: int # name to avoid confusion with function exp
             - anc: int
             - dur_rest_ARE: {type: int, initialdata: false}
-            
-                - isunemployed5: int
-                - isunemployed4: int
-                - isunemployed3: int
-                - isunemployed2: int
-                - isunemployed1: int
-                - unempdur5: int
-            
-                # INACTIVITY DURING THE LAST 5 YEARS
-                - isinactive5: int
-                - isinactive4: int
-                - isinactive3: int
-                - isinactive2: int
-                - isinactive1: int
+            - isunemployed5: int
+            - isunemployed4: int
+            - isunemployed3: int
+            - isunemployed2: int
+            - isunemployed1: int
+            - unempdur5: int
+            # INACTIVITY DURING THE LAST 5 YEARS
+            - isinactive5: int
+            - isinactive4: int
+            - isinactive3: int
+            - isinactive2: int
+            - isinactive1: int
                 # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-                - inacdur5: int
-                
-                # INVALIDITY DURING THE LAST 5 YEARS
-                - isinvalid5: int
-                - isinvalid4: int
-                - isinvalid3: int
-                - isinvalid2: int
-                - isinvalid1: int
+            - inacdur5: int               
+               # INVALIDITY DURING THE LAST 5 YEARS
+            - isinvalid5: int
+            - isinvalid4: int
+            - isinvalid3: int
+            - isinvalid2: int
+            - isinvalid1: int
                 # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-                - invaldur5: int
+            - invaldur5: int
                 
         # patrimoine
             - patrimoine: {type: float, initialdata: false}
@@ -143,6 +140,7 @@ entities:
             PRE_RET:   9 
             RETIRED:   10 
             STUDENT:   11
+            INVALID: 12
                     
             #ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7)
             ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7) or(workstate == 40) or (workstate == 50)  
@@ -154,6 +152,7 @@ entities:
             #ISRETIRED:    (workstate == 10)
             ISRETIRED:    (workstate == 10) or (workstate == 9) 
             ISOTHERINACTIVE: (workstate == 1)
+            ISINVALID: (workstate == 12)
             ISPRIVATE: (workstate == 40)
             ISPUBLIC: (workstate == 50)
 
