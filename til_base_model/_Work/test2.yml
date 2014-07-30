@@ -10,7 +10,7 @@ globals:
         # Il faut 4 fois ce nombre de coefficients car on a 2 cas (age <= ou > 50)* 2 cas (homme ou femme)
         
         # Ici, les coefficients pour les HOMMES de moins de 50ANS
-        path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest50_m.csv 
+        path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest.csv 
         transposed: true
         fields:
           fields:
@@ -62,10 +62,10 @@ globals:
             
          
     # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
-    periodic:
-        path: input/macro.csv
+    #periodic:
+    #    path: input/macro.csv
         # PERIOD is an implicit column of the periodic table (You need to put the name "PERIOD" in your table)
-        - unemp_rate: float
+    #    - unemp_rate: float
 
 entities:
     person:
@@ -111,24 +111,24 @@ entities:
                 # denominator of the logit function
                 # README: Un exmeple de "Xbeta" avec private.
                 # On distingue le cas "age>50" ou "age<50"
-                - denom:  1 + exp(private_age*age + private_age2*age2 + private_exper*xpr + private_expr2*xpr2 + private_chomage5*unempdur5 + private_inactive5*inacdur5 + private_invalide5*invaldur5) #
-                            + exp(public_age*age + public_age2*age2 + public_exper*xpr + public_expr2*xpr2 + public_chomage5*unempdur5 + public_inactive5*inacdur5 + public_invalide5*invaldur5) #
-                            + exp(retired_age*age + retired_age2*age2 + retired_exper*xpr + retired_expr2*xpr2 + retired_chomage5*unempdur5 + retired_inactive5*inacdur5 + retired_invalide5*invaldur5) #
-                            + exp(unemployed_age*age + unemployed_age2*age2 + unemployed_exper*xpr + unemployed_expr2*xpr2 + unemployed_chomage5*unempdur5 + unemployed_inactive5*inacdur5 + unemployed_invalide5*invaldur5)
-                            + exp(inactive_age*age + inactive_age2*age2 + inactive_exper*xpr + inactive_expr2*xpr2 + inactive_chomage5*unempdur5 + inactive_inactive5*inacdur5 + inactive_invalide5*invaldur5)
+                - denom:  1 + exp(private_age*age + private_age2*age*age + private_exper*xpr + private_expr2*xpr*xpr + private_chomage5*unempdur5 + private_inactive5*inacdur5 + private_invalide5*invaldur5) #
+                            + exp(public_age*age + public_age2*age*age + public_exper*xpr + public_expr2*xpr*xpr + public_chomage5*unempdur5 + public_inactive5*inacdur5 + public_invalide5*invaldur5) #
+                            + exp(retired_age*age + retired_age2*age*age + retired_exper*xpr + retired_expr2*xpr*xpr + retired_chomage5*unempdur5 + retired_inactive5*inacdur5 + retired_invalide5*invaldur5) #
+                            + exp(unemployed_age*age + unemployed_age2*age*age + unemployed_exper*xpr + unemployed_expr2*xpr*xpr + unemployed_chomage5*unempdur5 + unemployed_inactive5*inacdur5 + unemployed_invalide5*invaldur5)
+                            + exp(inactive_age*age + inactive_age2*age*age + inactive_exper*xpr + inactive_expr2*xpr*xpr + inactive_chomage5*unempdur5 + inactive_inactive5*inacdur5 + inactive_invalide5*invaldur5)
                 
                         
                 # On distingue le cas "age>50" ou "age<50"
-               - invalidity: 1/denom
-                - private: exp(private_age*age + private_age2*age2 + private_exper*xpr + private_expr2*xpr2 + private_chomage5*unempdur5 + private_inactive5*inacdur5 + private_invalide5*invaldur5)/denom
+                - invalidity: 1/denom
+                - private: exp(private_age*age + private_age2*age*age + private_exper*xpr + private_expr2*xpr*xpr + private_chomage5*unempdur5 + private_inactive5*inacdur5 + private_invalide5*invaldur5)/denom
                                                 
-                - public: exp(public_age*age + public_age2*age2 + public_exper*xpr + public_expr2*xpr2 + public_chomage5*unempdur5 + public_inactive5*inacdur5 + public_invalide5*invaldur5)/denom
+                - public: exp(public_age*age + public_age2*age*age + public_exper*xpr + public_expr2*xpr*xpr + public_chomage5*unempdur5 + public_inactive5*inacdur5 + public_invalide5*invaldur5)/denom
                                                 
-                - retired: exp(retired_age*age + retired_age2*age2 + retired_exper*xpr + retired_expr2*xpr2 + retired_chomage5*unempdur5 + retired_inactive5*inacdur5 + retired_invalide5*invaldur5)/denom
+                - retired: exp(retired_age*age + retired_age2*age*age + retired_exper*xpr + retired_expr2*xpr*xpr + retired_chomage5*unempdur5 + retired_inactive5*inacdur5 + retired_invalide5*invaldur5)/denom
                                                       
-                - unemployment: exp(unemployed_age*age + unemployed_age2*age2 + unemployed_exper*xpr + unemployed_expr2*xpr2 + unemployed_chomage5*unempdur5 + unemployed_inactive5*inacdur5 + unemployed_invalide5*invaldur5)/denom
+                - unemployment: exp(unemployed_age*age + unemployed_age2*age*age + unemployed_exper*xpr + unemployed_expr2*xpr*xpr + unemployed_chomage5*unempdur5 + unemployed_inactive5*inacdur5 + unemployed_invalide5*invaldur5)/denom
                                                                                                             
-                - inactivity: exp(inactive_age*age + inactive_age2*age2 + inactive_exper*xpr + inactive_exper2*xpr2 + inactive_chomage5*unempdur5 + inactive_inactive5*inacdur5 + inactive_invalide5*invaldur5)/denom
+                - inactivity: exp(inactive_age*age + inactive_age2*age*age + inactive_exper*xpr + inactive_exper2*xpr*xpr + inactive_chomage5*unempdur5 + inactive_inactive5*inacdur5 + inactive_invalide5*invaldur5)/denom
 
                 
            # DECISION
@@ -137,7 +137,7 @@ entities:
                 
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
-                - type_act: if(to_work, choice([PRIVATE, PUBLIC, UNEMPLOYED, INVALIDITY, RETIRED, INACTIVE ], [private, public, unemployment, invalidity, retirement, inactivity]))
+                - type_act: if(to_work, choice([PRIVATE, PUBLIC, UNEMPLOYED, INVALID, RETIRED, INACTIVE ], [private, public, unemployment, invalidity, retirement, inactivity]))
             
            # TODO: alignement
 
