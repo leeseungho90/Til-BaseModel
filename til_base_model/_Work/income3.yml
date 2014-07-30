@@ -87,11 +87,9 @@ entities:
             retraite: 
                 # Actualisation du nombre d'enfants par régime
                 - new_born: invl_mere.count(agem==0) + invl_pere.count(agem==0) 
-                - nb_enf_RG: if(WORK_PRIVE, nb_enf + new_born, nb_enf)
-                #- nb_enf_RG: if(ISPRIVATE, nb_enf + new_born, nb_enf)
+                - nb_enf_RG: if(ISPRIVATE, nb_enf + new_born, nb_enf)
                 - nb_enf_RSI: if(WORK_INDEP, nb_enf + new_born, nb_enf)
-                - nb_enf_FP: if(WORK_PUBLIC, nb_enf + new_born, nb_enf)
-                #- nb_enf_FP: if(ISPUBLIC, nb_enf + new_born, nb_enf)
+                - nb_enf_FP: if(ISPUBLIC, nb_enf + new_born, nb_enf)
                 
                 - nb_pac: invl_mere.count(age <= 18) + invl_pere.count(age <= 18)
                 
@@ -120,7 +118,7 @@ entities:
                 - seuil_xpr : max(6-xpr,0)
                 #- seuil_xpr : xpr
                 - seuil_anc : max(6-anc,0)
-                - mincer: if( WORK_PRIVE,
+                - mincer: if( ISPRIVATE, 
                             if(ISMALE, 
                                 -63.90
                                 +3.13*xpr-0.05*xpr*xpr-3.86*seuil_xpr
@@ -135,7 +133,7 @@ entities:
                                 +0.28*fer*xpr-0.01*fer*xpr*xpr-0.34*fer*seuil_xpr
                                 +0.20*fer*anc+0.00*fer*anc*anc+0.16*fer*seuil_anc),
                            mincer)
-                - mincer: if(  WORK_PUBLIC,
+                - mincer: if(  ISPUBLIC, 
                             if(ISMALE, 
                                 -43.44
                                 +1.64*xpr-0.02*xpr*xpr-2.04*seuil_xpr
