@@ -2,13 +2,16 @@ entities:
     person:          
         processes:
             income:
+                # 1. Fixed-effect Estimation
                 # Estimation is done separately on men and women
-                - fixedeffect: if(ISMALE,"Zgamma_m","Zgamma_f")
-                - wage: if(ISEMPLOYED,if(ISMALE,"Xbeta_m","Xbeta_f"),wage)
+                # TODO!!!!! Put a structure on the error term
+                - fixed_effect: if(ISMALE,"Zgamma_m","Zgamma_f")
+                - deterministic_wage: if(ISEMPLOYED,if(ISMALE,"Xbeta_m","Xbeta_f"),wage)
+                - wage: if(ISEMPLOYED, deterministic_wage + fixed_effect, 0)
+                # For the unemployed, their replacement income should be computed
         
-        
- 
- 
+                # 2. Arellano-Bond estimation
+                # The characteristic of Arellano-Bond estimation is to take the lagged variables as an instrument
  
         
         
