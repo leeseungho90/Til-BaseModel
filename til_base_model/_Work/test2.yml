@@ -99,11 +99,17 @@ entities:
                          
            # Probability of transition from the reference state
             inwork:
-                - denom: 1 + exp(private_age*age + private_age2*age*age + private_exper*xpr + private_exper2*xpr*xpr + private_chomage5*unempdur5 + private_inactif5*inacdur5 + private_invalide5*invaldur5)
-                         + exp(public_age*age + public_age2*age*age + public_exper*xpr + public_exper2*xpr*xpr + public_chomage5*unempdur5 + public_inactif5*inacdur5 + public_invalide5*invaldur5)
-                         + exp(retired_age*age + retired_age2*age*age + retired_exper*xpr + retired_exper2*xpr*xpr + retired_chomage5*unempdur5 + retired_inactif5*inacdur5 + retired_invalide5*invaldur5)
-                         + exp(unemployed_age*age + unemployed_age2*age*age + unemployed_exper*xpr + unemployed_exper2*xpr*xpr + unemployed_chomage5*unempdur5 + unemployed_inactif5*inacdur5 + unemployed_invalide5*invaldur5)
-                         + exp(inactive_age*age + inactive_age2*age*age + inactive_exper*xpr + inactive_exper2*xpr*xpr + inactive_chomage5*unempdur5 + inactive_inactif5*inacdur5 + inactive_invalide5*invaldur5)
+                - denom1: exp(private_age*age + private_age2*age*age + private_exper*xpr + private_exper2*xpr*xpr + private_chomage5*unempdur5 + private_inactif5*inacdur5 + private_invalide5*invaldur5)
+                - denom2: exp(public_age*age + public_age2*age*age + public_exper*xpr + public_exper2*xpr*xpr + public_chomage5*unempdur5 + public_inactif5*inacdur5 + public_invalide5*invaldur5)
+                - denom3: exp(retired_age*age + retired_age2*age*age + retired_exper*xpr + retired_exper2*xpr*xpr + retired_chomage5*unempdur5 + retired_inactif5*inacdur5 + retired_invalide5*invaldur5)
+                - denom4: exp(unemployed_age*age + unemployed_age2*age*age + unemployed_exper*xpr + unemployed_exper2*xpr*xpr + unemployed_chomage5*unempdur5 + unemployed_inactif5*inacdur5 + unemployed_invalide5*invaldur5)
+                - denom5: exp(inactive_age*age + inactive_age2*age*age + inactive_exper*xpr + inactive_exper2*xpr*xpr + inactive_chomage5*unempdur5 + inactive_inactif5*inacdur5 + inactive_invalide5*invaldur5)
+                #- denom: 1 + exp(private_age*age + private_age2*age*age + private_exper*xpr + private_exper2*xpr*xpr + private_chomage5*unempdur5 + private_inactif5*inacdur5 + private_invalide5*invaldur5)
+                #         + exp(public_age*age + public_age2*age*age + public_exper*xpr + public_exper2*xpr*xpr + public_chomage5*unempdur5 + public_inactif5*inacdur5 + public_invalide5*invaldur5)
+                #         + exp(retired_age*age + retired_age2*age*age + retired_exper*xpr + retired_exper2*xpr*xpr + retired_chomage5*unempdur5 + retired_inactif5*inacdur5 + retired_invalide5*invaldur5)
+                #         + exp(unemployed_age*age + unemployed_age2*age*age + unemployed_exper*xpr + unemployed_exper2*xpr*xpr + unemployed_chomage5*unempdur5 + unemployed_inactif5*inacdur5 + unemployed_invalide5*invaldur5)
+                #         + exp(inactive_age*age + inactive_age2*age*age + inactive_exper*xpr + inactive_exper2*xpr*xpr + inactive_chomage5*unempdur5 + inactive_inactif5*inacdur5 + inactive_invalide5*invaldur5)
+                - denom: 1 + denom1 + denom2 + denom3 + denom4 + denom5
                 # On distingue le cas "age>50" ou "age<50"
                 - invalidity_prob: 1/denom
                 - private_prob: exp(private_age*age + private_age2*age*age + private_exper*xpr + private_exper2*xpr*xpr + private_chomage5*unempdur5 + private_inactif5*inacdur5 + private_invalide5*invaldur5)/denom                                
@@ -121,7 +127,7 @@ entities:
            # INDIVIDUAL CHARACTERISTIC (updating)
                  # Nombre d'années d'expérience
                 - xpr: if(ISINWORK,xpr + 1, xpr)
-                - age: age + 1
+                #- age: age + 1
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
                 #- ISOTHERINACTIVE: (type_act == INACTIVE)
                 #- ISRETIRED: (type_act == RETIRED)

@@ -42,28 +42,28 @@ entities:
             - anc: int
             - dur_rest_ARE: {type: int, initialdata: false}
             #
-            - isunemployed5: {type: int, default: 0}
-            - isunemployed4: {type: int, default: 0}
-            - isunemployed3: {type: int, default: 0}
-            - isunemployed2: {type: int, default: 0}
-            - isunemployed1: {type: int, default: 0}
-            - unempdur5: {type: int, default: 0}
+            - isunemployed5: {type: int, default: 0, initialdata: false}
+            - isunemployed4: {type: int, default: 0, initialdata: false}
+            - isunemployed3: {type: int, default: 0, initialdata: false}
+            - isunemployed2: {type: int, default: 0, initialdata: false}
+            - isunemployed1: {type: int, default: 0, initialdata: false}
+            - unempdur5: {type: int, default: 0, initialdata: false}
             # INACTIVITY DURING THE LAST 5 YEARS
-            - isinactive5: {type: int, default: 0}
-            - isinactive4: {type: int, default: 0}
-            - isinactive3: {type: int, default: 0}
-            - isinactive2: {type: int, default: 0}
-            - isinactive1: {type: int, default: 0}
+            - isinactive5: {type: int, default: 0, initialdata: false}
+            - isinactive4: {type: int, default: 0, initialdata: false}
+            - isinactive3: {type: int, default: 0, initialdata: false}
+            - isinactive2: {type: int, default: 0, initialdata: false}
+            - isinactive1: {type: int, default: 0, initialdata: false}
                 # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-            - inacdur5: {type: int, default: 0}               
+            - inacdur5: {type: int, default: 0, initialdata: false}
                # INVALIDITY DURING THE LAST 5 YEARS
-            - isinvalid5: {type: int, default: 0}
-            - isinvalid4: {type: int, default: 0}
-            - isinvalid3: {type: int, default: 0}
-            - isinvalid2: {type: int, default: 0}
-            - isinvalid1: {type: int, default: 0}
+            - isinvalid5: {type: int, default: 0, initialdata: false}
+            - isinvalid4: {type: int, default: 0, initialdata: false}
+            - isinvalid3: {type: int, default: 0, initialdata: false}
+            - isinvalid2: {type: int, default: 0, initialdata: false}
+            - isinvalid1: {type: int, default: 0, initialdata: false}
                 # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-            - invaldur5: {type: int, default: 0}
+            - invaldur5: {type: int, default: 0, initialdata: false}
                 
         # patrimoine
             - patrimoine: {type: float, initialdata: false}

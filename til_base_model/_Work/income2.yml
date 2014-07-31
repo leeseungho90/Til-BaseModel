@@ -95,7 +95,8 @@ entities:
                 
                 - nb_pac: invl_mere.count(age <= 18) + invl_pere.count(age <= 18)
                 
-                - date_depart: date_retired(filter = (agem > 12*55)) 
+                - date_depart: date_retired(filter = (agem > 12*55))
+                #- date_depart: date_retired(filter = (age > 55)) 
                 - to_be_retired: date_depart <= period and date_depart != -1 and not ISRETIRED
                 
                 - start_retirement: if(to_be_retired, period, start_retirement)
@@ -117,8 +118,8 @@ entities:
                         + 3.961*generation + 0.0238*fet*generation
                         - 0.0296*generation*fet*fet
                         
-                - seuil_xpr : max(6-xpr,0)
-                #- seuil_xpr : xpr
+                #- seuil_xpr : max(6-xpr,0)
+                - seuil_xpr : xpr
                 - seuil_anc : max(6-anc,0)
                 - mincer: if( WORK_PRIVE,
                             if(ISMALE, 
