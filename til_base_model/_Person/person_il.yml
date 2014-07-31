@@ -41,28 +41,29 @@ entities:
             - xpr: int # name to avoid confusion with function exp
             - anc: int
             - dur_rest_ARE: {type: int, initialdata: false}
-            - isunemployed5: int
-            - isunemployed4: int
-            - isunemployed3: int
-            - isunemployed2: int
-            - isunemployed1: int
-            - unempdur5: int
+            #
+            - isunemployed5: {type: int, default: 0}
+            - isunemployed4: {type: int, default: 0}
+            - isunemployed3: {type: int, default: 0}
+            - isunemployed2: {type: int, default: 0}
+            - isunemployed1: {type: int, default: 0}
+            - unempdur5: {type: int, default: 0}
             # INACTIVITY DURING THE LAST 5 YEARS
-            - isinactive5: int
-            - isinactive4: int
-            - isinactive3: int
-            - isinactive2: int
-            - isinactive1: int
+            - isinactive5: {type: int, default: 0}
+            - isinactive4: {type: int, default: 0}
+            - isinactive3: {type: int, default: 0}
+            - isinactive2: {type: int, default: 0}
+            - isinactive1: {type: int, default: 0}
                 # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-            - inacdur5: int               
+            - inacdur5: {type: int, default: 0}               
                # INVALIDITY DURING THE LAST 5 YEARS
-            - isinvalid5: int
-            - isinvalid4: int
-            - isinvalid3: int
-            - isinvalid2: int
-            - isinvalid1: int
+            - isinvalid5: {type: int, default: 0}
+            - isinvalid4: {type: int, default: 0}
+            - isinvalid3: {type: int, default: 0}
+            - isinvalid2: {type: int, default: 0}
+            - isinvalid1: {type: int, default: 0}
                 # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
-            - invaldur5: int
+            - invaldur5: {type: int, default: 0}
                 
         # patrimoine
             - patrimoine: {type: float, initialdata: false}

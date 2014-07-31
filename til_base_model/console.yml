@@ -21,10 +21,10 @@ import:
     - _wealth/save.yml
     - _jobs/companies.yml
 
-globals:
-    periodic:
-        - WEMRA: int  
-        - LIMIT: float
+#globals:
+#    periodic:
+#        - WEMRA: int  
+#        - LIMIT: float
         
 simulation:
     init: 
