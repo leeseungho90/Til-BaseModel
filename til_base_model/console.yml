@@ -3,12 +3,14 @@
 
 
 import:
-    - _person/person_il.yml
+    #- _person/person_il.yml
+    - _person/person_til.yml
     - _person/register.yml
     - _house/menage.yml
     - _fiscal/declar.yml
     #- _work/work_pensIPP.yml  # work0, work_pensIPP
-    - _work/test2.yml  # test
+    #- _work/test2.yml  # test
+    - _work/work_til2.yml
     - _work/income3.yml
     - _demo/_birth//birth.yml
     - _demo/_migration/migration.yml
@@ -60,7 +62,7 @@ simulation:
         - menage: [men_composition]
         - declar: [cases,empty_declar]
         #- person: [ineducation, outwork, inwork, retirement, chomage, salaire , retraite
-        - person: [ineducation, outwork, inwork, retirement, chomage, salaire
+        - person: [ineducation, outwork, inwork, chomage, salaire
 #            dump_all            
         ]
         - menage: [init_value,consumption,saving]
