@@ -1,25 +1,30 @@
+
+
 entities:
     person:          
         processes:
-            income:
+            salaire:
                 # 1. Fixed-effect Estimation
                 # Estimation is done separately on men and women
                 # TODO!!!!! Put a structure on the error term
-                - fixed_effect: if(ISEMPLOYED, if(ISMALE,"Zgamma_m","Zgamma_f"), fixed_effect)
-                - deterministic_wage: if(ISEMPLOYED, if(ISMALE,"Xbeta_m","Xbeta_f"), deterministic_wage)
+                - fe_m: exp(  -.5251655 *dip_1 +  .3420241 *dip_2  -.0264539*dip_3 + .3713648*dip_4 + .2547323*dip_5 + .3079436*dip_6 + .5598593*dip_7 + .4370251*dip_8  -.0212385)
+                - fe_f: exp( -.4058653 *dip_1 + .5101655 *dip_2 + .2111971 *dip_3 + .686208*dip_4 +  .7412198*dip_5 + .8517917*dip_6 +  1.022839*dip_7 + 1.116964*dip_8 -.3739756)
+                - fixed_effect: if(ISEMPLOYED, if(ISMALE, fe_m, fe_f), 0)
+                #
+                - dw_m: exp(.3223144*age -.0027945 *age*age  -.0040619 *xpr -.0004055 *xpr*xpr -.1587358 *chomage5 -.5586974 *inactif5 -.2252279  *invalide5 +  1.943066)
+                - dw_f:  exp(.205171*age -.0015279 *age*age  + .0305335 *xpr  -.0010088 *xpr*xpr  -.1733858 *chomage5 -.5563171 *inactif5  -.163285  *invalide5 +  3.652019)
+                - deterministic_wage: if(ISEMPLOYED, if(ISMALE,dw_m,dw_f), 0)
                 
                 # AR process for the disturbance term
                 - disturbance: 
                 #Initialisation
                 - wage: 0 
                 - wage: if(ISEMPLOYED, deterministic_wage + fixed_effect, wage)
-                # For the unemployed, their replacement income should be computed
+                # For the unemployed, their replacement income should be computed separately
         
                 # 2. Arellano-Bond estimation
                 # The characteristic of Arellano-Bond estimation is to take the lagged variables as an instrument
- 
-        
-        
+
                 #TODO: modéliser la durée de chômage et les autres durées
                 #TODO: Il reste à faire l'estimation d'allocation chômage
         

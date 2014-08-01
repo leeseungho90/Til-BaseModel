@@ -17,16 +17,16 @@ globals:
             - private_exper_50m: float  
             - private_exper2_50m: float
             - private_chomage5_50m: float
-            - private_inactive5_50m: float
+            - private_inactif5_50m: float
             - private_invalide5_50m: float
-            - private_cons: float
+            - private_cons_50m: float
             # Question!! ainsi de suite, ça marche?
             - public_age_50m: float
             - public_age2_50m: float
             - public_exper_50m: float
             - public_exper2_50m: float
             - public_chomage5_50m: float
-            - public_inactive5_50m: float
+            - public_inactif5_50m: float
             - public_invalide5_50m: float
             - public_cons_50m: float
             #            
@@ -35,16 +35,25 @@ globals:
             - retired_exper_50m: float
             - retired_exper2_50m: float
             - retired_chomage5_50m: float
-            - retired_inactive5_50m: float
+            - retired_inactif5_50m: float
             - retired_invalide5_50m: float
             - retired_cons_50m: float
+            #          
+            - invalide_age_50m: float
+            - invalide_age2_50m: float
+            - invalide_exper_50m: float
+            - invalide_exper2_50m: float
+            - invalide_chomage5_50m: float
+            - invalide_inactif5_50m: float
+            - invalide_invalide5_50m: float
+            - invalide_cons_50m: float
             #
             - unemployed_age_50m: float
             - unemployed_age2_50m: float
             - unemployed_exper_50m: float
             - unemployed_exper2_50m: float
             - unemployed_chomage5_50m: float
-            - unemployed_inactive5_50m: float
+            - unemployed_inactif5_50m: float
             - unemployed_invalide5_50m: float
             - unemployed_cons_50m: float   
             #        
@@ -53,20 +62,19 @@ globals:
             - inactive_exper_50m: float
             - inactive_exper2_50m: float
             - inactive_chomage5_50m: float
-            - inactive_inactive5_50m: float
+            - inactive_inactif5_50m: float
             - inactive_invalide5_50m: float
             - inactive_cons_50m: float
             #
             # TODO les coefficients pour les HOMMES de plus de 50ANS
         path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest51_m.csv 
-        transposed: true
         fields:
             - private_age_51m: float
             - private_age2_51m: float
             - private_exper_51m: float  
             - private_exper2_51m: float
             - private_chomage5_51m: float
-            - private_inactive5_51m: float
+            - private_inactif5_51m: float
             - private_invalide5_51m: float
             - private_cons_51m: float
             #
@@ -75,7 +83,7 @@ globals:
             - public_exper_51m: float
             - public_exper2_51m: float
             - public_chomage5_51m: float
-            - public_inactive5_51m: float
+            - public_inactif5_51m: float
             - public_invalide5_51m: float
             - public_cons_51m: float
             #            
@@ -84,16 +92,25 @@ globals:
             - retired_exper_51m: float
             - retired_exper2_51m: float
             - retired_chomage5_51m: float
-            - retired_inactive5_51m: float
+            - retired_inactif5_51m: float
             - retired_invalide5_51m: float
             - retired_cons_51m: float
+            #        
+            - invalide_age_51m: float
+            - invalide_age2_51m: float
+            - invalide_exper_51m: float
+            - invalide_exper2_51m: float
+            - invalide_chomage5_51m: float
+            - invalide_inactif5_51m: float
+            - invalide_invalide5_51m: float
+            - invalide_cons_51m: float
             #
             - unemployed_age_51m: float
             - unemployed_age2_51m: float
             - unemployed_exper_51m: float
             - unemployed_exper2_51m: float
             - unemployed_chomage5_51m: float
-            - unemployed_inactive5_51m: float
+            - unemployed_inactif5_51m: float
             - unemployed_invalide5_51m: float
             - unemployed_cons_51m: float   
             #        
@@ -102,20 +119,19 @@ globals:
             - inactive_exper_51m: float
             - inactive_exper2_51m: float
             - inactive_chomage5_51m: float
-            - inactive_inactive5_51m: float
+            - inactive_inactif5_51m: float
             - inactive_invalide5_51m: float
             - inactive_cons_51m: float
             #
             # TODO les coefficients pour les FEMMES de moins de 50ANS
         path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest50_f.csv 
-        transposed: true
         fields:
             - private_age_50f: float
             - private_age2_50f: float
             - private_exper_50f: float  
             - private_exper2_50f: float
             - private_chomage5_50f: float
-            - private_inactive5_50f: float
+            - private_inactif5_50f: float
             - private_invalide5_50f: float
             - private_cons_50f: float
             #
@@ -124,7 +140,7 @@ globals:
             - public_exper_50f: float
             - public_exper2_50f: float
             - public_chomage5_50f: float
-            - public_inactive5_50f: float
+            - public_inactif5_50f: float
             - public_invalide5_50f: float
             - public_cons_50f: float
             #            
@@ -133,16 +149,25 @@ globals:
             - retired_exper_50f: float
             - retired_exper2_50f: float
             - retired_chomage5_50f: float
-            - retired_inactive5_50f: float
+            - retired_inactif5_50f: float
             - retired_invalide5_50f: float
             - retired_cons_50f: float
+            #        
+            - invalide_age_50f: float
+            - invalide_age2_50f: float
+            - invalide_exper_50f: float
+            - invalide_exper2_50f: float
+            - invalide_chomage5_50f: float
+            - invalide_inactif5_50f: float
+            - invalide_invalide5_50f: float
+            - invalide_cons_50f: float
             #
             - unemployed_age_50f: float
             - unemployed_age2_50f: float
             - unemployed_exper_50f: float
             - unemployed_exper2_50f: float
             - unemployed_chomage5_50f: float
-            - unemployed_inactive5_50f: float
+            - unemployed_inactif5_50f: float
             - unemployed_invalide5_50f: float
             - unemployed_cons_50f: float   
             #        
@@ -151,21 +176,20 @@ globals:
             - inactive_exper_50f: float
             - inactive_exper2_50f: float
             - inactive_chomage5_50f: float
-            - inactive_inactive5_50f: float
+            - inactive_inactif5_50f: float
             - inactive_invalide5_50f: float
             - inactive_cons_50f: float
             #
             # TODO les coefficients pour les FEMMES de plus de 50ANS
         path: C:\Users\s.lee\Dropbox\IPP\Code\result\nest51_f.csv 
-        transposed: true
         fields:
             - private_age_51f: float
             - private_age2_51f: float
             - private_exper_51f: float  
             - private_exper2_51f: float
             - private_chomage5_51f: float
-            - private_inactive5_51f: float
             - private_invalide5_51f: float
+            - private_inactif5_51f: float
             - private_cons_51f: float
             #
             - public_age_51f: float
@@ -173,8 +197,8 @@ globals:
             - public_exper_51f: float
             - public_exper2_51f: float
             - public_chomage5_51f: float
-            - public_inactive5_51f: float
             - public_invalide5_51f: float
+            - public_inactif5_51f: float
             - public_cons_51f: float
             #            
             - retired_age_51f: float
@@ -182,10 +206,18 @@ globals:
             - retired_exper_51f: float
             - retired_exper2_51f: float
             - retired_chomage5_51f: float
-            - retired_inactive5_51f: float
             - retired_invalide5_51f: float
+            - retired_inactif5_51f: float
             - retired_cons_51f: float
-            #
+            #        
+            - invalide_age_51f: float
+            - invalide_age2_51f: float
+            - invalide_exper_51f: float
+            - invalide_exper2_51f: float
+            - invalide_chomage5_51f: float
+            - invalide_invalide5_51f: float
+            - invalide_inactif5_51f: float
+            - invalide_cons_51f: float
             # INVALID is the reference state
             #
             - unemployed_age_51f: float
@@ -193,8 +225,8 @@ globals:
             - unemployed_exper_51f: float
             - unemployed_exper2_51f: float
             - unemployed_chomage5_51f: float
-            - unemployed_inactive5_51f: float
             - unemployed_invalide5_51f: float
+            - unemployed_inactif5_51f: float
             - unemployed_cons_51f: float   
             #       
             - inactive_age_51f: float
@@ -202,8 +234,8 @@ globals:
             - inactive_exper_51f: float
             - inactive_exper2_51f: float
             - inactive_chomage5_51f: float
-            - inactive_inactive5_51f: float
             - inactive_invalide5_51f: float
+            - inactive_inactif5_51f: float
             - inactive_cons_51f: float
     # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
     #periodic:
@@ -213,8 +245,7 @@ globals:
 entities:
     person:
         processes:
-           # Calculer les probabilités de changement
-           outwork:
+            outwork:
                 # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
                 # UNEMPLOYMENT DURING THE LAST 5 YEARS
                 # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
@@ -243,7 +274,7 @@ entities:
                 # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
                 - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
            # Probability of transition from the reference state
-           inwork:
+            inwork:
                 # Estimation is done separately for men and women
                 # denominator of the logit function
                 # README: Un exmeple de "Xbeta" avec private.
@@ -271,104 +302,80 @@ entities:
                  #- denom4_51f:
                  #- denom5_51f:
                  #  
-                 - denom:  if(age<=50,if(ISMALE,1 + exp(private_age_50m*age + private_age2_50m*age2 + private_exper_50m*xpr + private_exper2_50m*xpr2 + private_chomage5_50m*unempdur5 
-                                                  + private_inactif5_50m*inacdur5 + private_invalide5_50m*invaldur5 + private_cons_50m)
-                                      + exp(public_age_50m*age + public_age2_50m*age2 + public_exper_50m*xpr + public_exper2_50m*xpr2 + public_chomage5_50m*unempdur5 
+                 - denom_50m_1: exp(private_age_50m*age + private_age2_50m*age*age + private_exper_50m*xpr + private_exper2_50m*xpr*xpr + private_chomage5_50m*unempdur5 
+                                   + private_inactif5_50m*inacdur5 + private_invalide5_50m*invaldur5 + private_cons_50m)
+                 - denom_50m_2: exp(public_age_50m*age + public_age2_50m*age*age + public_exper_50m*xpr + public_exper2_50m*xpr*xpr + public_chomage5_50m*unempdur5 
                                                   + public_inactif5_50m*inacdur5 + public_invalide5_50m*invaldur5 + public_cons_50m)
-                                      + exp(retired_age_50m*age + retired_age2_50m*age2 + retired_exper_50m*xpr + retired_exper2_50m*xpr2 + retired_chomage5_50m*unempdur5 
+                 - denom_50m_3: exp(retired_age_50m*age + retired_age2_50m*age*age + retired_exper_50m*xpr + retired_exper2_50m*xpr*xpr + retired_chomage5_50m*unempdur5 
                                                   + retired_inactif5_50m*inacdur5 + retired_invalide5_50m*invaldur5 + retired_cons_50m)
-                                      + exp(unemployed_age_50m*age + unemployed_age2_50m*age2 + unemployed_exper_50m*xpr + unemployed_exper2_50m*xpr2 + unemployed_chomage5_50m*unempdur5 
+                 - denom_50m_4: exp(unemployed_age_50m*age + unemployed_age2_50m*age*age + unemployed_exper_50m*xpr + unemployed_exper2_50m*xpr*xpr + unemployed_chomage5_50m*unempdur5 
                                                   + unemployed_inactif5_50m*inacdur5 + unemployed_invalide5_50m*invaldur5 + unemployed_cons_50m)
-                                      + exp(inactive_age_50m*age + inactive_age2_50m*age2 + inactive_exper_50m*xpr + inactive_exper2_50m*xpr2 + inactive_chomage5_50m*unempdur5
-                                                  + inactive_inactif5_50m*inacdur5 + inactive_invalide5_50m*invaldur5 + inactive_cons_50m),
-                                    1 + exp(private_age_50f*age + private_age2_50f*age2 + private_exper_50f*xpr + private_exper2_50f*xpr2 + private_chomage5_50f*unempdur5 
+                 - denom_50m_5: exp(inactive_age_50m*age + inactive_age2_50m*age*age + inactive_exper_50m*xpr + inactive_exper2_50m*xpr*xpr + inactive_chomage5_50m*unempdur5
+                                                  + inactive_inactif5_50m*inacdur5 + inactive_invalide5_50m*invaldur5 + inactive_cons_50m)  
+                 - denom_50m: 1 + denom_50m_1 + denom_50m_2 + denom_50m_3 + denom_50m_4 + denom_50m_5
+                 #
+                 - denom_50f_1: exp(private_age_50f*age + private_age2_50f*age*age + private_exper_50f*xpr + private_exper2_50f*xpr*xpr + private_chomage5_50f*unempdur5 
                                                   + private_inactif5_50f*inacdur5 + private_invalide5_50f*invaldur5 + private_cons_50f)
-                                      + exp(public_age_50f*age + public_age2_50f*age2 + public_exper_50f*xpr + public_exper2_50f*xpr2 + public_chomage5_50f*unempdur5 
+                 - denom_50f_2: exp(public_age_50f*age + public_age2_50f*age*age + public_exper_50f*xpr + public_exper2_50f*xpr*xpr + public_chomage5_50f*unempdur5 
                                                   + public_inactif5_50f*inacdur5 + public_invalide5_50f*invaldur5 + public_cons_50f)
-                                      + exp(retired_age_50f*age + retired_age2_50f*age2 + retired_exper_50f*xpr + retired_exper2_50f*xpr2 + retired_chomage5_50f*unempdur5
+                 - denom_50f_3: exp(retired_age_50f*age + retired_age2_50f*age*age + retired_exper_50f*xpr + retired_exper2_50f*xpr*xpr + retired_chomage5_50f*unempdur5
                                                   + retired_inactif5_50f*inacdur5 + retired_invalide5_50f*invaldur5 + retired_cons_50f)
-                                      + exp(unemployed_age_50f*age + unemployed_age2_50f*age2 + unemployed_exper_50f*xpr + unemployed_exper2_50f*xpr2 + unemployed_chomage5_50f*unempdur5
-                                                  + unemployed_inactif5_50f*inacdur5 + unemployed_invalide5_50f*invaldur5 + invalide_cons_50f)
-                                      + exp(inactive_age_50f*age + inactive_age2_50f*age2 + inactive_exper_50f*xpr + inactive_exper2_50f*xpr2 + inactive_chomage5_50f*unempdur5
-                                                  + inactive_inactif5_50f*inacdur5 + inactive_invalide5_50f*invaldur5 + inactive_cons_50f)),
-                                    if(ISMALE,1 + exp(private_age_51m*age + private_age2_51m*age2 + private_exper_51m*xpr + private_exper2_51m*xpr2 + private_chomage5_51m*unempdur5
+                 - denom_50f_4: exp(unemployed_age_50f*age + unemployed_age2_50f*age*age + unemployed_exper_50f*xpr + unemployed_exper2_50f*xpr*xpr + unemployed_chomage5_50f*unempdur5
+                                                  + unemployed_inactif5_50f*inacdur5 + unemployed_invalide5_50f*invaldur5 + unemployed_cons_50f)
+                 - denom_50f_5: exp(inactive_age_50f*age + inactive_age2_50f*age*age + inactive_exper_50f*xpr + inactive_exper2_50f*xpr*xpr + inactive_chomage5_50f*unempdur5
+                                                  + inactive_inactif5_50f*inacdur5 + inactive_invalide5_50f*invaldur5 + inactive_cons_50f) 
+                 - denom_50f: 1 + denom_50f_1 + denom_50f_2 + denom_50f_3 + denom_50f_4 + denom_50f_5
+                 #
+                 - denom_51m_1: exp(private_age_51m*age + private_age2_51m*age*age + private_exper_51m*xpr + private_exper2_51m*xpr*xpr + private_chomage5_51m*unempdur5
                                                 + private_inactif5_51m*inacdur5 + private_invalide5_51m*invaldur5 + private_cons_51m) 
-                                      + exp(public_age_51m*age + public_age2_51m*age2 + public_exper_51m*xpr + public_exper2_51m*xpr2 + public_chomage5_51m*unempdur5
+                 - denom_51m_2: exp(public_age_51m*age + public_age2_51m*age*age + public_exper_51m*xpr + public_exper2_51m*xpr*xpr + public_chomage5_51m*unempdur5
                                                 + public_inactif5_51m*inacdur5 + public_invalide5_51m*invaldur5 + public_cons_51m) 
-                                      + exp(retired_age_51m*age + retired_age2_51m*age2 + retired_exper_51m*xpr + retired_exper2_51m*xpr2 + retired_chomage5_51m*unempdur5
+                 - denom_51m_3: exp(retired_age_51m*age + retired_age2_51m*age*age + retired_exper_51m*xpr + retired_exper2_51m*xpr*xpr + retired_chomage5_51m*unempdur5
                                                 + retired_inactif5_51m*inacdur5 + retired_invalide5_51m*invaldur5  + retired_cons_51m) 
-                                      + exp(unemployed_age_51m*age + unemployed_age2_51m*age2 + unemployed_exper_51m*xpr + unemployed_exper2_51m*xpr2 + unemployed_chomage5_51m*unempdur5 
-                                                + unemployed_inactif5_51m*inacdur5 + unemployed_invalide5_51m*invaldur5 + unemployed_cons_51m) 
-                                      + exp(inactive_age_51m*age + inactive_age2_51m*age2 + inactive_exper_51m*xpr + inactive_exper2_51m*xpr2 + inactive_chomage5_51m*unempdur5 
-                                                + inactive_inactif5_51m*inacdur5 + inactive_invalide5_51m*invaldur5 + inactive_cons_51m), 
-                                    1 + exp(private_age_51f*age + private_age2_51f*age2 + private_exper_51f*xpr + private_exper2_51f*xpr2 + private_chomage5_51f*unempdur5 
+                 - denom_51m_4: exp(unemployed_age_51m*age + unemployed_age2_51m*age*age + unemployed_exper_51m*xpr + unemployed_exper2_51m*xpr*xpr + unemployed_chomage5_51m*unempdur5 
+                                                + unemployed_inactif5_51m*inacdur5 + unemployed_invalide5_51m*invaldur5 + unemployed_cons_51m)  
+                 - denom_51m_5: exp(inactive_age_51m*age + inactive_age2_51m*age*age + inactive_exper_51m*xpr + inactive_exper2_51m*xpr*xpr + inactive_chomage5_51m*unempdur5 
+                                                + inactive_inactif5_51m*inacdur5 + inactive_invalide5_51m*invaldur5 + inactive_cons_51m)
+                 - denom_51m: 1 + denom_51m_1 + denom_51m_2 + denom_51m_3 + denom_51m_4 + denom_51m_5
+                 #
+                 - denom_51f_1: exp(private_age_51f*age + private_age2_51f*age*age + private_exper_51f*xpr + private_exper2_51f*xpr*xpr + private_chomage5_51f*unempdur5 
                                                 + private_inactif5_51m*inacdur5 + private_invalide5_51f*invaldur5 + private_cons_51f) 
-                                      + exp(public_age_51f*age + public_age2_51f*age2 + public_exper_51f*xpr + public_exper2_51f*xpr2 + public_chomage5_51f*unempdur5 
+                 - denom_51f_2: exp(public_age_51f*age + public_age2_51f*age*age + public_exper_51f*xpr + public_exper2_51f*xpr*xpr + public_chomage5_51f*unempdur5 
                                                 + public_inactif5_51f*inacdur5 + public_invalide5_51f*invaldur5 + public_cons_51f)
-                                      + exp(retired_age_51f*age + retired_age2_51f*age2 + retired_exper_51f*xpr + retired_exper2_51f*xpr2 + retired_chomage5_51f*unempdur5 
+                 - denom_51f_3: exp(retired_age_51f*age + retired_age2_51f*age*age + retired_exper_51f*xpr + retired_exper2_51f*xpr*xpr + retired_chomage5_51f*unempdur5 
                                                 + retired_inactif5_51f*inacdur5 + retired_invalide5_51f*invaldur5 + retired_cons_51f)
-                                      + exp(unemployed_age_51f*age + unemployed_age2_51f*age2 + unemployed_exper_51f*xpr + unemployed_exper2_51f*xpr2 + unemployed_chomage5_51f*unempdur5 
-                                                + unemployed_inactif5_51f*inacdur5 + unemployed_invalide5_51f*invaldur5 + unemployed_cons_51f)
-                                      + exp(inactive_age_51f*age + inactive_age2_51f*age2 + inactive_exper_51f*xpr + inactive_exper2_51f*xpr2 + inactive_chomage5_51f*unempdur5 
-                                                + inactive_inactif5_51f*inacdur5 + inactive_invalide5_51f*invaldur5 + inactive_cons_51f)))
-                                      
-                # On distingue le cas "age>50" ou "age<50"
-                - invalidity_prob: 1/denom
-                - private_prob: if(age<=50,if(ISMALE,exp(private_age_50m*age + private_age2_50m*age2 + private_exper_50m*xpr + private_exper2_50m*xpr2 + private_chomage5_50m*unempdur5
-                                                + private_inactif5_50m*inacdur5 + private_invalide5_50m*invaldur5 + private_cons_50m)/denom, 
-                                                exp(private_age_50f*age + private_age2_50f*age2 + private_exper_50f*xpr + private_exper2_50f*xpr2 + private_chomage5_50f*unempdur5
-                                                + private_inactif5_50f*inacdur5 + private_invalide5_50f*invaldur5 + private_cons_50f)/denom),
-                                      if(ISMALE,exp(private_age_51m*age + private_age2_51m*age2 + private_exper_51m*xpr + private_exper2_51m*xpr2 + private_chomage5_51m*unempdur5
-                                                + private_inactif5_51m*inacdur5 + private_invalide5_51m*invaldur5 + private_cons_51m)/denom,
-                                                exp(private_age_51f*age + private_age2_51f*age2 + private_exper_51f*xpr + private_exper2_51f*xpr2 + private_chomage5_51f*unempdur5
-                                                + private_inactif5_51f*inacdur5 + private_invalide5_51f*invaldur5 + private_cons_51f)/denom))
+                 - denom_51f_4: exp(unemployed_age_51f*age + unemployed_age2_51f*age*age + unemployed_exper_51f*xpr + unemployed_exper2_51f*xpr*xpr + unemployed_chomage5_51f*unempdur5 
+                                               + unemployed_inactif5_51f*inacdur5 + unemployed_invalide5_51f*invaldur5 + unemployed_cons_51f)
+                 - denom_51f_5: exp(inactive_age_51f*age + inactive_age2_51f*age*age + inactive_exper_51f*xpr + inactive_exper2_51f*xpr*xpr+ inactive_chomage5_51f*unempdur5 
+                                                + inactive_inactif5_51f*inacdur5 + inactive_invalide5_51f*invaldur5 + inactive_cons_51f)
+                 - denom_51f:  1 + denom_51f_1 + denom_51f_2 + denom_51f_3 + denom_51f_1 + denom_51f_5
+                 #
+                 - denom: if(age<=50, if(ISMALE, denom_50m, denom_50f), if(ISMALE, denom_51m, denom_51f))
+                 #                     
+                 # On distingue le cas "age>50" ou "age<50"
+                 - invalidity_prob: 1/denom
+                 - private_prob: if(age<=50,if(ISMALE,denom_50m_1/denom, denom_50f_1/denom), if(ISMALE,denom_51m_1/denom, denom_51f_1/denom))
                 #                                
-                - public_prob: if(age<=50, if(ISMALE,exp(public_age_50m*age + public_age2_50m*age2 + public_exper_50m*xpr + public_exper2_50m*xpr2 + public_chomage5_50m*unempdur5
-                                                + public_inactif5_50m*inacdur5 + public_invalide5_50m*invaldur5 + public_cons_50m)/denom,
-                                                exp(public_age_50f*age + public_age2_50f*age2 + public_exper_50f*xpr + public_exper2_50f*xpr2 + public_chomage5_50f*unempdur5
-                                                + public_inactif5_50f*inacdur5 + public_invalide5_50f*invaldur5 + public_cons_50f)/denom),
-                                      if(ISMALE,exp(public_age_51m*age + public_age2_51m*age2 + public_exper_51m*xpr + public_exper2_51m*xpr2 + public_chomage5_51m*unempdur5
-                                                + public_inactif5_51m*inacdur5 + public_invalide5_51m*invaldur5 + public_cons_51m)/denom,
-                                                exp(public_age_51f*age + public_age2_51f*age2 + public_exper_51f*xpr + public_exper2_51f*xpr2 + public_chomage5_51f*unempdur5
-                                                + public_inactif5_51f*inacdur5 + public_invalide5_51f*invaldur5 + public_cons_51f)/denom))
+                 - public_prob: if(age<=50, if(ISMALE,denom_50m_2/denom, denom_50f_2/denom), if(ISMALE,denom_51m_2/denom, denom_51f_2/denom))
                 #
-                - retirement_prob: if(age<=50, if(ISMALE,exp(retired_age_50m*age + retired_age2_50m*age2 + retired_exper_50m*xpr + retired_exper2_50m*xpr2 + retired_chomage5_50m*unempdur5
-                                                 + retired_inactif5_50m*inacdur5 + retired_invalide5_50m*invaldur5 + retired_cons_50m)/denom,
-                                                 exp(retired_age_50f*age + retired_age2_50f*age2 + retired_exper_50f*xpr + retired_exper2_50f*xpr2 + retired_chomage5_50f*unempdur5
-                                                 + retired_inactif5_50f*inacdur5 + retired_invalide5_50f*invaldur5 + retired_cons_50f)/denom), 
-                                       if(ISMALE,exp(retired_age_51m*age + retired_age2_51m*age2 + retired_exper_51m*xpr + retired_exper2_51m*xpr2 + retired_chomage5_51m*unempdur5
-                                                 + retired_inactif5_51m*inacdur5 + retired_invalide5_51m*invaldur5 + retired_cons_51m)/denom, 
-                                                 exp(retired_age_51f*age + retired_age2_51f*age2 + retired_exper_51f*xpr + retired_exper2_51f*xpr2 + retired_chomage5_51f*unempdur5 
-                                                 + retired_inactif5_51f*inacdur5 + retired_invalide5_51f*invaldur5 + retired_cons_51f)/denom))
+                 - retirement_prob: if(age<=50, if(ISMALE,denom_50m_3/denom, denom_50f_3/denom), if(ISMALE,denom_51m_3/denom, denom_51f_3/denom))
                 #                                      
-                - unemployment_prob: if(age<=50, if(ISMALE,exp(unemployed_age_50m*age + unemployed_age2_50m*age2 + unemployed_exper_50m*xpr + unemployed_exper2_50m*xpr2
-                                                      + unemployed_chomage5_50m*unempdur5 + unemployed_inactif5_50m*inacdur5 + unemployed_invalide5_50m*invaldur5 + unemployed_cons_50m)/denom, 
-                                                      exp(unemployed_age_50f*age + unemployed_age2_50f*age2 + unemployed_exper_50f*xpr + unemployed_exper2_50f*xpr2
-                                                      + unemployed_chomage5_50f*unempdur5 + unemployed_inactif5_50f*inacdur5 + unemployed_invalide5_50f*invaldur5 + unemployed_cons_50f)/denom),
-                                            if(ISMALE,exp(unemployed_age_51m*age + unemployed_age2_51m*age2 + unemployed_exper_51m*xpr + unemployed_exper2_51m*xpr2
-                                                      + unemployed_chomage5_51m*unempdur5 + unemployed_inactif5_51m*inacdur5 + unemployed_invalide5_51m*invaldur5 + unemployed_cons_51m)/denom,
-                                                      exp(unemployed_age_51f*age + unemployed_age2_51f*age2 + unemployed_exper_51f*xpr + unemployed_exper2_51f*xpr2
-                                                      + unemployed_chomage5_51f*unempdur5 + unemployed_inactif5_51f*inacdur5 + unemployed_invalide5_51f*invaldur5 + unemployed_cons_51f)/denom))
+                 - unemployment_prob: if(age<=50, if(ISMALE,denom_50m_4/denom, denom_50f_4/denom), if(ISMALE,denom_51m_4/denom, denom_51f_4/denom))
                 #                                                                                            
-                - inactivity_prob: if(age<=50, if(ISMALE,exp(inactive_age_50m*age + inactive_age2_50m*age2 + inactive_exper_50m*xpr + inactive_exper2_50m*xpr2 + inactive_chomage5_50m*unempdur5
-                                                    + inactive_inactif5_50m*inacdur5 + inactive_invalide5_50m*invaldur5 + inactive_cons_50m)/denom,
-                                                    exp(inactive_age_50f*age + inactive_age2_50f*age2 + inactive_exper_50f*xpr + inactive_exper2_50f*xpr2 + inactive_chomage5_50f*unempdur5
-                                                    + inactive_inactif5_50f*inacdur5 + inactive_invalide5_50f*invaldur5 + inactive_cons_50f)/denom),
-                                          if(ISMALE,exp(inactive_age_51m*age + inactive_age2_51m*age2 + inactive_exper_51m*xpr + inactive_exper2_51m*xpr2 + inactive_chomage5_51m*unempdur5
-                                                    + inactive_inactif5_51m*inacdur5 + inactive_invalide5_51m*invaldur5 + inactive_cons_51m)/denom,
-                                                    exp(inactive_age_51f*age + inactive_age2_51f*age2 + inactive_exper_51f*xpr + inactive_exper2_51f*xpr2 + inactive_chomage5_51f*unempdur5
-                                                    + inactive_inactif5_51f*inacdur5 + inactive_invalide5_51f*invaldur5 + inactive_cons_51f)/denom))
+                 - inactivity_prob: if(age<=50, if(ISMALE,denom_50m_5/denom, denom_50f_5/denom), if(ISMALE,denom_51m_5/denom, denom_51f_5/denom))
+
                 
            # DECISION
                 # TODO: reprendre les valeurs importées sur le taux de chômage
-                - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
+                 - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
                 #
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
-                - type_act: if(to_work, choice([PRIVATE, PUBLIC, UNEMPLOYED, INVALID, RETIRED, INACTIVE ], [private_prob, public_prob, unemployment_prob, invalidity_prob, retirement_prob, inactivity_prob]), 0)
+                 - type_act: if(to_work, choice([PRIVATE, PUBLIC, UNEMPLOYED, INVALID, RETIRED, INACTIVE ],
+                             [private_prob, public_prob, unemployment_prob, invalidity_prob, retirement_prob, inactivity_prob]), 0)
            # INDIVIDUAL CHARACTERISTIC (updating)
                  # Nombre d'années d'expérience
-                - xpr: if(ISEMPLOYED,xpr + 1,xpr)
+                 - xpr: if(ISINWORK,xpr + 1,xpr)
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
                 #- ISOTHERINACTIVE: (type_act == INACTIVE)
                 #- ISRETIRED: (type_act == RETIRED)
