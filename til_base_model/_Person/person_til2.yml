@@ -214,9 +214,6 @@ entities:
             - d_cadre_age2_m: {type: float, initialdata: false, default: 0.0}
             - d_cadre_xpr_m: {type: float, initialdata: false, default: 0.0}
             - d_cadre_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_inactif5_m: {type: float, initialdata: false, default: 0.0}
             - d_cadre_afe_m: {type: float, initialdata: false, default: 0.0}
             - d_cadre_cons_m: {type: float, initialdata: false, default: 0.0}
          # 
@@ -224,9 +221,6 @@ entities:
             - d_cadre_age2_f: {type: float, initialdata: false, default: 0.0}
             - d_cadre_xpr_f: {type: float, initialdata: false, default: 0.0}
             - d_cadre_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_inactif5_f: {type: float, initialdata: false, default: 0.0}
             - d_cadre_afe_f: {type: float, initialdata: false, default: 0.0}
             - d_cadre_enf_f: {type: float, initialdata: false, default: 0.0}
             - d_cadre_ageenf_f: {type: float, initialdata: false, default: 0.0}
@@ -236,9 +230,6 @@ entities:
             - d_actif_age2_m: {type: float, initialdata: false, default: 0.0}
             - d_actif_xpr_m: {type: float, initialdata: false, default: 0.0}
             - d_actif_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_inactif5_m: {type: float, initialdata: false, default: 0.0}
             - d_actif_afe_m: {type: float, initialdata: false, default: 0.0}
             - d_actif_cons_m: {type: float, initialdata: false, default: 0.0}
          # 
@@ -246,15 +237,10 @@ entities:
             - d_actif_age2_f: {type: float, initialdata: false, default: 0.0}
             - d_actif_xpr_f: {type: float, initialdata: false, default: 0.0}
             - d_actif_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_inactif5_f: {type: float, initialdata: false, default: 0.0}
             - d_actif_afe_f: {type: float, initialdata: false, default: 0.0}
             - d_actif_enf_f: {type: float, initialdata: false, default: 0.0}
             - d_actif_ageenf_f: {type: float, initialdata: false, default: 0.0}
             - d_actif_cons_f: {type: float, initialdata: false, default: 0.0}
-
-
         # patrimoine
             - patrimoine: {type: float, initialdata: false}
         # legislation
@@ -319,21 +305,18 @@ entities:
             
             INACTIVE:  1
             UNEMPLOYED: 2
-            PRIVATE: 40
             NON_CADRE: 3
             CADRE:     4
-            PUBLIC: 50
             FONCT_A:   5
             FONCT_S:   6
-            INDEP  :   7           
+            INDEP  :   7
             AVPF   :   8            
             PRE_RET:   9 
             RETIRED:   10 
             STUDENT:   11
             INVALID: 12
                     
-            #ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7)
-            ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7) or(workstate == 40) or (workstate == 50)  
+            ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7)
             WORK_PUBLIC:  (workstate == 5)  or (workstate == 6)
             WORK_PRIVE:   (workstate == 3) or (workstate == 4)
             WORK_INDEP:   (workstate == 7)
@@ -343,8 +326,6 @@ entities:
             ISRETIRED:    (workstate == 10) or (workstate == 9) 
             ISOTHERINACTIVE: (workstate == 1)
             ISINVALID: (workstate == 12)
-            ISPRIVATE: (workstate == 40)
-            ISPUBLIC: (workstate == 50)
 
             
             BEGINER: xpr == 1
@@ -431,6 +412,4 @@ entities:
                             quifoy)
                 - quifoy: if(quifoy==8,  
                                 if( id == l_foy.get(on_declar.min(id, quifoy==8)),8,9),
-                            quifoy)             
-                            
-  
+                            quifoy)
