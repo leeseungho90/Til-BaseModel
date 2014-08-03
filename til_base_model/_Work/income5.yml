@@ -3,38 +3,7 @@
 entities:
     person:          
         processes:
-            salaire:
-                # 1. Fixed-effect Estimation
-                # Estimation is done separately on men and women
-                # TODO!!!!! Put a structure on the error term
-                - fe_m: exp(  -.5251655 *dip_1 +  .3420241 *dip_2  -.0264539*dip_3 + .3713648*dip_4 + .2547323*dip_5 + .3079436*dip_6 + .5598593*dip_7 + .4370251*dip_8  -.0212385)
-                - fe_f: exp( -.4058653 *dip_1 + .5101655 *dip_2 + .2111971 *dip_3 + .686208*dip_4 +  .7412198*dip_5 + .8517917*dip_6 +  1.022839*dip_7 + 1.116964*dip_8 -.3739756)
-                - fixed_effect: if(ISEMPLOYED, if(ISMALE, fe_m, fe_f), 0)
-                #
-                - dw_m: exp(.3223144*age -.0027945 *age*age  -.0040619 *xpr -.0004055 *xpr*xpr -.1587358 *chomage5 -.5586974 *inactif5 -.2252279  *invalide5 +  1.943066)
-                - dw_f:  exp(.205171*age -.0015279 *age*age  + .0305335 *xpr  -.0010088 *xpr*xpr  -.1733858 *chomage5 -.5563171 *inactif5  -.163285  *invalide5 +  3.652019)
-                - deterministic_wage: if(ISEMPLOYED, if(ISMALE,dw_m,dw_f), 0)
-                
-                # AR process for the disturbance term
-                - disturbance: 
-                #Initialisation
-                - wage: 0 
-                - wage: if(ISEMPLOYED, deterministic_wage + fixed_effect, wage)
-                # For the unemployed, their replacement income should be computed separately
-        
-                # 2. Arellano-Bond estimation
-                # The characteristic of Arellano-Bond estimation is to take the lagged variables as an instrument
-
-                #TODO: modéliser la durée de chômage et les autres durées
-                #TODO: Il reste à faire l'estimation d'allocation chômage
-        
-        
-        
-        
-        
-        
-        
-        
+           
             init_productivity:       
                 - dur_rest_ARE: 2*(choi>0)
                 - productivity: 0
@@ -137,63 +106,33 @@ entities:
                 - test: count(rsti>0)
                                          
             salaire:
-                - mincer: 0
-                # destinie (1991)
-                #demander les vrai coeff ci-dessous pour faire du non statique
-     
-                - anais: trunc(period/100) - age
-                - generation : 1-max(0,min(1,(anais-1935)/35))
-                - fet: max(0,min(26-14,findet-14))
-                - fer: -5 +0.641*fet + (1-0.641)/12*fet*fet 
-                        + 3.961*generation + 0.0238*fet*generation
-                        - 0.0296*generation*fet*fet
-                        
-                - seuil_xpr : max(6-xpr,0)
-                - seuil_anc : max(6-anc,0)
-                - mincer: if( WORK_PRIVE, 
-                            if(ISMALE, 
-                                -63.90
-                                +3.13*xpr-0.05*xpr*xpr-3.86*seuil_xpr
-                                +1.95*anc-0.03*anc*anc-4.02*seuil_anc-58.98*(anc==1)
-                                +6.24*fer
-                                +0.34*fer*xpr-0.01*fer*xpr*xpr+0.53*fer*seuil_xpr
-                                +0.43*fer*anc-0.01*fer*anc*anc-0.48*fer*seuil_anc,
-                                -66.42
-                                +1.10*xpr-0.02*xpr*xpr-2.48*seuil_xpr
-                                +3.09*anc-0.04*anc*anc-4.70*seuil_anc-66.68*(anc==1)
-                                +6.08*fer
-                                +0.28*fer*xpr-0.01*fer*xpr*xpr-0.34*fer*seuil_xpr
-                                +0.20*fer*anc+0.00*fer*anc*anc+0.16*fer*seuil_anc),
-                           mincer)
-                - mincer: if(  WORK_PUBLIC, 
-                            if(ISMALE, 
-                                -43.44
-                                +1.64*xpr-0.02*xpr*xpr-2.04*seuil_xpr
-                                +1.21*anc-0.01*anc*anc-0.75*seuil_anc-17.31*(anc==1)
-                                +5.14*fer
-                                +0.38*fer*xpr+0.00*fer*xpr*xpr+0.90*fer*seuil_xpr
-                                -0.25*fer*anc+0.00*fer*anc*anc+0.00*fer*seuil_anc,
-                                -26.92
-                                +0.44*xpr+0.00*xpr*xpr+1.21*seuil_xpr
-                                +1.34*anc-0.01*anc*anc-0.84*seuil_anc-19.35*(anc==1)
-                                +4.08*fer
-                                +0.26*fer*xpr+0.00*fer*xpr*xpr+0.42*fer*seuil_xpr
-                                -0.18*fer*anc+0.00*fer*anc*anc-0.55*fer*seuil_anc),
-                           mincer)
-                - mincer: if(  WORK_INDEP, 
-                            if(ISMALE, 
-                                -54.88,
-                                -63.8),
-                           mincer)    
-                #- csv(dump(),  fname='check_simul//mincer_{period}.csv') 
-                # SMPT
-                - mincer: (7555+7593+7648+7706)*exp(mincer/100)
-                # corr i,t
-                - miner: if(ISMALE, mincer*1.08, mincer*0.9)
-                #le 0.5 pour passer au brut. Oui c'est moche
-                #15000=smic
-                - sali:  if( ISINWORK, 
-                               max(mincer*0.5 - productivity, 15000),0)
+                # 1. Fixed-effect Estimation
+                # Estimation is done separately on men and women
+                # TODO!!!!! Put a structure on the error term
+                #- fe_m: exp(  -.5251655 *dip_1 +  .3420241 *dip_2  -.0264539*dip_3 + .3713648*dip_4 + .2547323*dip_5 + .3079436*dip_6 + .5598593*dip_7 + .4370251*dip_8  -.0212385)
+                #- fe_f: exp( -.4058653 *dip_1 + .5101655 *dip_2 + .2111971 *dip_3 + .686208*dip_4 +  .7412198*dip_5 + .8517917*dip_6 +  1.022839*dip_7 + 1.116964*dip_8 -.3739756)
+                - fe_m: exp(.1252581*findet   -.0022037*findet*findet - 1.863511)
+                - fe_f: exp(.2231182*findet - .0038237*findet*findet - 3.084796 )
+                - fixed_effect: if(ISEMPLOYED, if(ISMALE, fe_m, fe_f), 0)
+                #
+                - dw_m: exp( .2613726*age  -.0022704 *age*age   .0114215 *xpr -.0002497 *xpr*xpr  .0242198  *chomage5 -.3655377 *inactif5 .0396221  *invalide5 
+                    + 1.222458*(WORK_PRIVATE) + 1.027292*(WORK_INDEP) + 1.835584*(WORK_PUBLIC) + 1.886519)
+                - dw_f:  exp(.205171*age -.0015279 *age*age  + .0305335 *xpr  -.0010088 *xpr*xpr  -.1733858 *chomage5 -.5563171 *inactif5  -.163285  *invalide5
+                    +  1.087883*(WORK_PRIVATE) +  1.06635*(WORK_INDEP) + 1.929373*(WORK_PUBLIC) + 3.652019)
+                - deterministic_wage: if(ISEMPLOYED, if(ISMALE,dw_m,dw_f), 0)
+                
+                # AR process for the disturbance term
+                - disturbance: 
+                #Initialisation
+                - wage: 0 
+                - wage: if(ISEMPLOYED, deterministic_wage + fixed_effect, wage)
+                # For the unemployed, their replacement income should be computed separately
+        
+                # 2. Arellano-Bond estimation
+                # The characteristic of Arellano-Bond estimation is to take the lagged variables as an instrument
+
+                #TODO: modéliser la durée de chômage et les autres durées
+                #TODO: Il reste à faire l'estimation d'allocation chômage
                 
             rev_cap:
                 - capital_inc: l_men.wealth*0.1 * (quimen==1)
