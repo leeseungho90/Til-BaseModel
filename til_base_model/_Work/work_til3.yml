@@ -248,7 +248,6 @@ entities:
             inwork:
                  # Estimation is done separately for men and women
                  # denominator of the logit function
- 
                  ################## Stage 1
                  - inwork_prob_m: logistic(inwork_age_m*age + inwork_age2_m*age*age + inwork_xpr_m*xpr + inwork_xpr2_m*xpr*xpr + inwork_chomage5_m*unempdur5
                            + inwork_invalide5_m*invaldur5 + inwork_inactif5_m*inacdur5 + inwork_afe_m*findet + inwork_cons_m)
@@ -295,13 +294,15 @@ entities:
                  - inactive_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_2/denom2, (1 - inwork_prob)*denom2_m_2/denom2)
                  ################## Stage 3
                  - cadre_prob_m: logistic(d_cadre_age_m*age + d_cadre_age2_m*age*age + d_cadre_xpr_m*xpr + d_cadre_xpr2_m*xpr*xpr + d_cadre_afe_m*findet + d_cadre_cons_m)
-                 - cadre_prob_f: logistic(d_cadre_age_f*age + d_cadre_age2_f*age*age + d_cadre_xpr_f*xpr + d_cadre_xpr2_f*xpr*xpr + d_cadre_afe_f*findet + d_cadre_enf_f*nb_enf + d_cadre_ageenf_f*age*nb_enf + d_cadre_cons_f)
+                 - cadre_prob_f: logistic(d_cadre_age_f*age + d_cadre_age2_f*age*age + d_cadre_xpr_f*xpr + d_cadre_xpr2_f*xpr*xpr + d_cadre_afe_f*findet 
+                                 + d_cadre_enf_f*nb_enf + d_cadre_ageenf_f*age*nb_enf + d_cadre_cons_f)
                  - cadre_prob: if(ISMALE,  inwork_prob*private_prob*cadre_prob_m,  inwork_prob*private_prob*cadre_prob_f)
                  # 
                  - non_cadre_prob: if(ISMALE,  inwork_prob*(1-private_prob*cadre_prob_m),  inwork_prob*private_prob*(1-cadre_prob_f))
                  #
                  - actif_prob_m: logistic(d_actif_age_m*age + d_actif_age2_m*age*age + d_actif_xpr_m*xpr + d_actif_xpr2_m*xpr*xpr + d_actif_afe_m*findet + d_actif_cons_m) 
-                 - actif_prob_f: logistic(d_actif_age_f*age + d_actif_age2_f*age*age + d_actif_xpr_f*xpr + d_actif_xpr2_f*xpr*xpr + d_actif_afe_f*findet + d_actif_enf_f*nb_enf + d_actif_ageenf_f*age*nb_enf + d_actif_cons_f)
+                 - actif_prob_f: logistic(d_actif_age_f*age + d_actif_age2_f*age*age + d_actif_xpr_f*xpr + d_actif_xpr2_f*xpr*xpr + d_actif_afe_f*findet
+                                 + d_actif_enf_f*nb_enf + d_actif_ageenf_f*age*nb_enf + d_actif_cons_f)
                  #
                  - actif_prob:  if(ISMALE,  inwork_prob*public_prob*actif_prob_m,  inwork_prob*public_prob*actif_prob_f)
                  - seden_prob: if(ISMALE,  inwork_prob*(1-public_prob*actif_prob_m),  inwork_prob*public_prob*(1-actif_prob_f))

@@ -264,7 +264,10 @@ entities:
             - nb_enf_RG: {type: int, initialdata: false, default: 0}   
             - nb_enf_RSI: {type: int, initialdata: false, default: 0}   
             - nb_enf_FP: {type: int, initialdata: false, default: 0} 
-         
+         #
+            - ispublic: {type: int, initialdata: false, default: 0}   
+            - isprivate: {type: int, initialdata: false, default: 0}   
+            - isindep: {type: int, initialdata: false, default: 0}   
         links:
             l_men:      {type: many2one, target: menage, field: men}
             l_foy:      {type: many2one, target: declar, field: foy}

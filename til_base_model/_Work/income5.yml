@@ -3,7 +3,6 @@
 entities:
     person:          
         processes:
-           
             init_productivity:       
                 - dur_rest_ARE: 2*(choi>0)
                 - productivity: 0
@@ -106,26 +105,41 @@ entities:
                 - test: count(rsti>0)
                                          
             salaire:
+                - mincer: 0
+                # destinie (1991)
+                #demander les vrai coeff ci-dessous pour faire du non statique
+                - anais: trunc(period/100) - age
+                - generation : 1-max(0,min(1,(anais-1935)/35))
+                - fet: max(0,min(26-14,findet-14))
+                - fer: -5 +0.641*fet + (1-0.641)/12*fet*fet 
+                        + 3.961*generation + 0.0238*fet*generation
+                        - 0.0296*generation*fet*fet        
+                #- seuil_xpr : max(6-xpr,0)
+                - seuil_xpr : xpr
+                - seuil_anc : max(6-anc,0)
                 # 1. Fixed-effect Estimation
                 # Estimation is done separately on men and women
                 # TODO!!!!! Put a structure on the error term
                 #- fe_m: exp(  -.5251655 *dip_1 +  .3420241 *dip_2  -.0264539*dip_3 + .3713648*dip_4 + .2547323*dip_5 + .3079436*dip_6 + .5598593*dip_7 + .4370251*dip_8  -.0212385)
                 #- fe_f: exp( -.4058653 *dip_1 + .5101655 *dip_2 + .2111971 *dip_3 + .686208*dip_4 +  .7412198*dip_5 + .8517917*dip_6 +  1.022839*dip_7 + 1.116964*dip_8 -.3739756)
-                - fe_m: exp(.1252581*findet   -.0022037*findet*findet - 1.863511)
-                - fe_f: exp(.2231182*findet - .0038237*findet*findet - 3.084796 )
-                - fixed_effect: if(ISEMPLOYED, if(ISMALE, fe_m, fe_f), 0)
+                - fe_m: exp(0.1252581*findet - 0.0022037*findet*findet - 1.863511)
+                - fe_f: exp(0.2231182*findet - 0.0038237*findet*findet - 3.084796)
+                - fixed_effect: if(ISINWORK, if(ISMALE, fe_m, fe_f), 0)
                 #
-                - dw_m: exp( .2613726*age  -.0022704 *age*age   .0114215 *xpr -.0002497 *xpr*xpr  .0242198  *chomage5 -.3655377 *inactif5 .0396221  *invalide5 
-                    + 1.222458*(WORK_PRIVATE) + 1.027292*(WORK_INDEP) + 1.835584*(WORK_PUBLIC) + 1.886519)
-                - dw_f:  exp(.205171*age -.0015279 *age*age  + .0305335 *xpr  -.0010088 *xpr*xpr  -.1733858 *chomage5 -.5563171 *inactif5  -.163285  *invalide5
-                    +  1.087883*(WORK_PRIVATE) +  1.06635*(WORK_INDEP) + 1.929373*(WORK_PUBLIC) + 3.652019)
-                - deterministic_wage: if(ISEMPLOYED, if(ISMALE,dw_m,dw_f), 0)
+                - isprivate: if(WORK_PRIVE,1,0)
+                - ispublic: if(WORK_PUBLIC,1,0)
+                - isindep: if(WORK_INDEP,1,0)
+                #
+                - dw_m: exp( 0.2613726*age - 0.0022704*age*age + .0114215*xpr - 0.0002497*xpr*xpr + 0.0242198*unempdur5 - 0.3655377 *inacdur5 + 0.0396221*invaldur5 
+                    + 1.222458*isprivate + 1.027292*isindep + 1.835584*ispublic + 1.886519)
+                - dw_f: exp(0.205171*age - 0.0015279 *age*age  + .0305335 *xpr - 0.0010088 *xpr*xpr - 0.1733858 *unempdur5 - 0.5563171 *inacdur5 - 0.163285 *invaldur5
+                    + 1.087883*isprivate + 1.06635*isindep + 1.929373*ispublic + 3.652019)
+                - deterministic_wage: if(ISINWORK, if(ISMALE,dw_m,dw_f), 0)
                 
                 # AR process for the disturbance term
                 - disturbance: 
                 #Initialisation
-                - wage: 0 
-                - wage: if(ISEMPLOYED, deterministic_wage + fixed_effect, wage)
+                - sali:  if( ISINWORK, deterministic_wage + fixed_effect, 0.0)
                 # For the unemployed, their replacement income should be computed separately
         
                 # 2. Arellano-Bond estimation
