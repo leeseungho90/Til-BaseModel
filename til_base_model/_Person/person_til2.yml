@@ -1,6 +1,5 @@
 #
 #
-output: destinie.h5
 #
 globals:
     coefficient1m:
