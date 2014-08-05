@@ -1,3 +1,509 @@
+#Modifications du 5 août
+globals:
+    periodic:
+        # TODO: il faudrait créer une variable indiquant le chemin
+        # Il faut 4 fois ce nombre de coefficients car on a 2 cas (age <= ou > 50)* 2 cas (homme ou femme)
+        
+        # Ici, les coefficients pour les HOMMES de moins de 50ANS
+        ################## Stage 1
+        path: param/basemodel/nest1_m.csv
+        fields:
+            - inwork_age_m: float
+            - inwork_age2_m: float
+            - inwork_xpr_m: float
+            - inwork_xpr2_m: float
+            - inwork_chomage5_m: float
+            - inwork_invalide5_m: float
+            - inwork_inactif5_m: float
+            - inwork_afe_m: float
+            - inwork_cons_m: float
+         # 
+        path: param/basemodel/nest1_f.csv
+        fields:
+            - inwork_age_f: float
+            - inwork_age2_f: float
+            - inwork_xpr_f: float
+            - inwork_xpr2_f: float
+            - inwork_chomage5_f: float
+            - inwork_invalide5_f: float
+            - inwork_inactif5_f: float
+            - inwork_afe_f: float
+            - inwork_enf_f: float
+            - inwork_ageenf_f: float
+            - inwork_cons_f: float
+         #    
+
+        ################## Stage 2
+        path: param/basemodel/nest21_m.csv
+        fields:
+            - private_age_m: float
+            - private_age2_m: float
+            - private_xpr_m: float
+            - private_xpr2_m: float
+            - private_chomage5_m: float
+            - private_invalide5_m: float
+            - private_inactif5_m: float
+            - private_cons_m: float
+         #
+            - independent_age_m: float
+            - independent_age2_m: float
+            - independent_xpr_m: float
+            - independent_xpr2_m: float
+            - independent_chomage5_m: float
+            - independent_invalide5_m: float
+            - independent_inactif5_m: float
+            - independent_cons_m: float
+         #
+            - public_age_m: float
+            - public_age2_m: float
+            - public_xpr_m: float
+            - public_xpr2_m: float
+            - public_chomage5_m: float
+            - public_invalide5_m: float
+            - public_inactif5_m: float
+            - public_cons_m: float
+         #
+        path: param/basemodel/nest21_f.csv
+        fields:
+            - private_age_f: float
+            - private_age2_f: float
+            - private_xpr_f: float
+            - private_xpr2_f: float
+            - private_chomage5_f: float
+            - private_invalide5_f: float
+            - private_inactif5_f: float
+            - private_enf_f: float
+            - private_ageenf_f: float
+            - private_cons_f: float
+         #    
+            - independent_age_f: float
+            - independent_age2_f: float
+            - independent_xpr_f: float
+            - independent_xpr2_f: float
+            - independent_chomage5_f: float
+            - independent_invalide5_f: float
+            - independent_inactif5_f: float
+            - independent_enf_f: float
+            - independent_ageenf_f: float
+            - independent_cons_f: float
+         #    
+            - public_age_f: float
+            - public_age2_f: float
+            - public_xpr_f: float
+            - public_xpr2_f: float
+            - public_chomage5_f: float
+            - public_invalide5_f: float
+            - public_inactif5_f: float
+            - public_enf_f: float
+            - public_ageenf_f: float
+            - public_cons_f: float
+         #    
+        path: param/basemodel/nest22_m.csv
+        fields:
+            - invalid_age_m: float
+            - invalid_age2_m: float
+            - invalid_xpr_m: float
+            - invalid_xpr2_m: float
+            - invalid_chomage5_m: float
+            - invalid_invalide5_m: float
+            - invalid_inactif5_m: float
+            - invalid_cons_m: float
+         #
+            - unemployed_age_m: float
+            - unemployed_age2_m: float
+            - unemployed_xpr_m: float
+            - unemployed_xpr2_m: float
+            - unemployed_chomage5_m: float
+            - unemployed_invalide5_m: float
+            - unemployed_inactif5_m: float
+            - unemployed_cons_m: float
+         #
+            - inactive_age_m: float
+            - inactive_age2_m: float
+            - inactive_xpr_m: float
+            - inactive_xpr2_m: float
+            - inactive_chomage5_m: float
+            - inactive_invalide5_m: float
+            - inactive_inactif5_m: float
+            - inactive_cons_m: float
+         #
+        path: param/basemodel/nest22_f.csv
+        fields:
+            - invalide_age_f: float
+            - invalide_age2_f: float
+            - invalide_xpr_f: float
+            - invalide_xpr2_f: float
+            - invalide_chomage5_f: float
+            - invalide_invalide5_f: float
+            - invalide_inactif5_f: float
+            - invalide_enf_f: float
+            - invalide_ageenf_f: float
+            - invalide_cons_f: float
+         #    
+            - unemployed_age_f: float
+            - unemployed_age2_f: float
+            - unemployed_xpr_f: float
+            - unemployed_xpr2_f: float
+            - unemployed_chomage5_f: float
+            - unemployed_invalide5_f: float
+            - unemployed_inactif5_f: float
+            - unemployed_enf_f: float
+            - unemployed_ageenf_f: float
+            - unemployed_cons_f: float
+         #    
+            - inactive_age_f: float
+            - inactive_age2_f: float
+            - inactive_xpr_f: float
+            - inactive_xpr2_f: float
+            - inactive_chomage5_f: float
+            - inactive_invalide5_f: float
+            - inactive_inactif5_f: float
+            - inactive_enf_f: float
+            - inactive_ageenf_f: float
+            - inactive_cons_f: float
+         #  
+         ################## Stage 3
+        path: param/basemodel/nest31_m.csv
+        fields:
+            - d_cadre_age_m: float
+            - d_cadre_age2_m: float
+            - d_cadre_xpr_m: float
+            - d_cadre_xpr2_m: float
+            - d_cadre_afe_m: float
+            - d_cadre_cons_m: float
+         # 
+        path: param/basemodel/nest31_f.csv
+        fields:
+            - d_cadre_age_f: float
+            - d_cadre_age2_f: float
+            - d_cadre_xpr_f: float
+            - d_cadre_xpr2_f: float
+            - d_cadre_afe_f: float
+            - d_cadre_enf_f: float
+            - d_cadre_ageenf_f: float
+            - d_cadre_cons_f: float
+         #    
+        path: param/basemodel/nest32_m.csv
+        fields:
+            - d_actif_age_m: float
+            - d_actif_age2_m: float
+            - d_actif_xpr_m: float
+            - d_actif_xpr2_m: float
+            - d_actif_afe_m: float
+            - d_actif_cons_m: float
+         # 
+        path: param/basemodel/nest32_f.csv
+        fields:
+            - d_actif_age_f: float
+            - d_actif_age2_f: float
+            - d_actif_xpr_f: float
+            - d_actif_xpr2_f: float
+            - d_actif_afe_f: float
+            - d_actif_enf_f: float
+            - d_actif_ageenf_f: float
+            - d_actif_cons_f: float
+         #
+    # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
+    #periodic:
+        #path: input/macro.csv
+        # PERIOD is an implicit column of the periodic table (You need to put the name "PERIOD" in your table)
+        #- unemp_rate: float
+entities:
+    person:
+        processes:
+            outwork:
+                # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
+                # UNEMPLOYMENT DURING THE LAST 5 YEARS
+                # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
+                # Comme on avance dans le temps, isunemployed$ prend la valeur de isunemployed"$-1" et isunemployed1 prend l'état actuel
+                - isunemployed5: if(isunemployed4>0,isunemployed4,0)
+                - isunemployed4: if(isunemployed3>0,isunemployed3,0)  
+                - isunemployed3: if(isunemployed2>0,isunemployed2,0)
+                - isunemployed2: if(isunemployed1>0,isunemployed1,0)
+                - isunemployed1: if(ISUNEMPLOYED,1,0)
+                # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - unempdur5: isunemployed5 + isunemployed4 + isunemployed3 + isunemployed2 + isunemployed1
+                # INACTIVITY DURING THE LAST 5 YEARS
+                - isinactive5: if(isinactive4>0,isinactive4,0)
+                - isinactive4: if(isinactive3>0,isinactive3,0)
+                - isinactive3: if(isinactive2>0,isinactive2,0)
+                - isinactive2: if(isinactive1>0,isinactive1,0)
+                - isinactive1: if(ISOTHERINACTIVE,1,0)
+                # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - inacdur5: isinactive5 + isinactive4 + isinactive3 + isinactive2 + isinactive1
+                # INVALIDITY DURING THE LAST 5 YEARS
+                - isinvalid5: if(isinvalid4>0,isinvalid4,0)
+                - isinvalid4: if(isinvalid3>0,isinvalid3,0)
+                - isinvalid3: if(isinvalid2>0,isinvalid2,0)
+                - isinvalid2: if(isinvalid1>0,isinvalid1,0)
+                - isinvalid1: if(ISINVALID,1,0)
+                # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
+           # Probability of transition from the reference state
+            inwork:
+                 # Estimation is done separately for men and women
+                 # denominator of the logit function
+                 ################## Stage 1
+                 - inwork_prob_m: logistic(inwork_age_m*age + inwork_age2_m*age*age + inwork_xpr_m*xpr + inwork_xpr2_m*xpr*xpr + inwork_chomage5_m*unempdur5
+                           + inwork_invalide5_m*invaldur5 + inwork_inactif5_m*inacdur5 + inwork_afe_m*findet + inwork_cons_m)
+                 - inwork_prob_f: logistic(inwork_age_f*age + inwork_age2_f*age*age + inwork_xpr_f*xpr + inwork_xpr2_f*xpr*xpr + inwork_chomage5_f*unempdur5
+                           + inwork_invalide5_f*invaldur5 + inwork_inactif5_f*inacdur5 + inwork_afe_f*findet  + private_enf_f*nb_enf + private_ageenf_f*age*nb_enf + inwork_cons_f)
+                 - inwork_prob: if(ISMALE, inwork_prob_m, inwork_prob_f )
+
+                 ################## Stage 2
+                 - denom_m_1: exp(private_age_m*age + private_age2_m*age*age + private_xpr_m*xpr + private_xpr2_m*xpr*xpr + private_chomage5_m*unempdur5
+                           + private_invalide5_m*invaldur5 + private_inactif5_m*inacdur5 + private_cons_m)
+                 - denom_m_2: exp(public_age_m*age + public_age2_m*age*age + public_xpr_m*xpr + public_xpr2_m*xpr*xpr + public_chomage5_m*unempdur5
+                           + public_invalide5_m*invaldur5 + public_inactif5_m*inacdur5 + public_cons_m)
+                 - denom_m: 1 + denom_m_1 + denom_m_2
+                 #                    
+                 - denom_f_1: exp(public_age_f*age + public_age2_f*age*age + public_xpr_f*xpr + public_xpr2_f*xpr*xpr + public_chomage5_f*unempdur5
+                           + public_invalide5_f*invaldur5 + public_inactif5_f*inacdur5 + public_enf_f*nb_enf + public_ageenf_f*age*nb_enf+ public_cons_f)
+                 - denom_f_2: exp(private_age_f*age + private_age2_f*age*age + private_xpr_f*xpr + private_xpr2_f*xpr*xpr + private_chomage5_f*unempdur5
+                           + private_invalide5_f*invaldur5 + private_inactif5_f*inacdur5 + private_enf_f*nb_enf + private_ageenf_f*age*nb_enf+ private_cons_f)
+                 - denom_f: 1 + denom_f_1 + denom_f_2
+                 # 
+                 - denom: if(ISMALE, denom_m, denom_f)
+                 #
+                 - private_prob: if(ISMALE, inwork_prob*denom_m_1/denom, inwork_prob*denom_f_1/denom)
+                 - independent_prob: inwork_prob*1/denom
+                 - public_prob: if(ISMALE, inwork_prob*denom_m_2/denom, inwork_prob*denom_f_2/denom)
+                 #
+                 #
+                 - denom2_m_1: exp(unemployed_age_m*age + unemployed_age2_m*age*age + unemployed_xpr_m*xpr + unemployed_xpr2_m*xpr*xpr + unemployed_chomage5_m*unempdur5
+                           + unemployed_invalide5_m*invaldur5 + unemployed_inactif5_m*inacdur5 + unemployed_cons_m)
+                 - denom2_m_2: exp(inactive_age_m*age + inactive_age2_m*age*age + inactive_xpr_m*xpr + inactive_xpr2_m*xpr*xpr + inactive_chomage5_m*unempdur5
+                           + inactive_invalide5_m*invaldur5 + inactive_inactif5_m*inacdur5 + inactive_cons_m)
+                 - denom2_m: 1 + denom_m_1 + denom_m_2
+                 #
+                 - denom2_f_1: exp(inactive_age_f*age + inactive_age2_f*age*age + inactive_xpr_f*xpr + inactive_xpr2_f*xpr*xpr + inactive_chomage5_f*unempdur5
+                           + inactive_invalide5_f*invaldur5 + inactive_inactif5_f*inacdur5 + inactive_enf_f*nb_enf + inactive_ageenf_f*age*nb_enf+ inactive_cons_f)
+                 - denom2_f_2: exp(unemployed_age_f*age + unemployed_age2_f*age*age + unemployed_xpr_f*xpr + unemployed_xpr2_f*xpr*xpr + unemployed_chomage5_f*unempdur5
+                           + unemployed_invalide5_f*invaldur5 + unemployed_inactif5_f*inacdur5 + unemployed_enf_f*nb_enf + unemployed_ageenf_f*age*nb_enf+ unemployed_cons_f)
+                 - denom2_f: 1 + denom_f_1 + denom_f_2
+                 - denom2: if(ISMALE, denom2_m, denom2_f)
+                 #
+                 #
+                 - invalid_prob: (1-inwork_prob)*1/denom2
+                 - unemployed_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_1/denom2, (1 - inwork_prob)*denom2_m_1/denom2)
+                 - inactive_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_2/denom2, (1 - inwork_prob)*denom2_m_2/denom2)
+                 ################## Stage 3
+                 - cadre_prob_m: logistic(d_cadre_age_m*age + d_cadre_age2_m*age*age + d_cadre_xpr_m*xpr + d_cadre_xpr2_m*xpr*xpr + d_cadre_afe_m*findet + d_cadre_cons_m)
+                 - cadre_prob_f: logistic(d_cadre_age_f*age + d_cadre_age2_f*age*age + d_cadre_xpr_f*xpr + d_cadre_xpr2_f*xpr*xpr + d_cadre_afe_f*findet 
+                                 + d_cadre_enf_f*nb_enf + d_cadre_ageenf_f*age*nb_enf + d_cadre_cons_f)
+                 - cadre_prob: if(ISMALE,  inwork_prob*private_prob*cadre_prob_m,  inwork_prob*private_prob*cadre_prob_f)
+                 # 
+                 - non_cadre_prob: if(ISMALE,  inwork_prob*(1-private_prob*cadre_prob_m),  inwork_prob*private_prob*(1-cadre_prob_f))
+                 #
+                 - actif_prob_m: logistic(d_actif_age_m*age + d_actif_age2_m*age*age + d_actif_xpr_m*xpr + d_actif_xpr2_m*xpr*xpr + d_actif_afe_m*findet + d_actif_cons_m) 
+                 - actif_prob_f: logistic(d_actif_age_f*age + d_actif_age2_f*age*age + d_actif_xpr_f*xpr + d_actif_xpr2_f*xpr*xpr + d_actif_afe_f*findet
+                                 + d_actif_enf_f*nb_enf + d_actif_ageenf_f*age*nb_enf + d_actif_cons_f)
+                 #
+                 - actif_prob:  if(ISMALE,  inwork_prob*public_prob*actif_prob_m,  inwork_prob*public_prob*actif_prob_f)
+                 - seden_prob: if(ISMALE,  inwork_prob*(1-public_prob*actif_prob_m),  inwork_prob*public_prob*(1-actif_prob_f))
+              
+           # DECISION
+                # TODO: reprendre les valeurs importées sur le taux de chômage
+                 - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
+                #
+                # The assignment is done based on the threshold probability computed above
+                # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
+                 - type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
+                             [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
+           # INDIVIDUAL CHARACTERISTIC (updating)
+                 # Nombre d'années d'expérience
+                 - xpr: if(ISINWORK,xpr + 1,xpr)
+                #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
+                #- ISOTHERINACTIVE: (type_act == INACTIVE)
+                #- ISRETIRED: (type_act == RETIRED)
+*
+            ################## Stage 1
+            - inwork_age_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_age2_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_afe_m: {type: float, initialdata: false, default: 0.0}
+            - inwork_cons_m: {type: float, initialdata: false, default: 0.0}
+         # 
+            - inwork_age_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_age2_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_afe_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_enf_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - inwork_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+        ################## Stage 2
+            - private_age_m: {type: float, initialdata: false, default: 0.0}
+            - private_age2_m: {type: float, initialdata: false, default: 0.0}
+            - private_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - private_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - private_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - private_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - private_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - private_cons_m: {type: float, initialdata: false, default: 0.0}
+         #
+            - independent_age_m: {type: float, initialdata: false, default: 0.0}
+            - independent_age2_m: {type: float, initialdata: false, default: 0.0}
+            - independent_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - independent_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - independent_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - independent_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - independent_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - independent_cons_m: {type: float, initialdata: false, default: 0.0}
+         #
+            - public_age_m: {type: float, initialdata: false, default: 0.0}
+            - public_age2_m: {type: float, initialdata: false, default: 0.0}
+            - public_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - public_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - public_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - public_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - public_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - public_cons_m: {type: float, initialdata: false, default: 0.0}
+         #
+            - private_age_f: {type: float, initialdata: false, default: 0.0}
+            - private_age2_f: {type: float, initialdata: false, default: 0.0}
+            - private_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - private_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - private_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - private_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - private_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - private_enf_f: {type: float, initialdata: false, default: 0.0}
+            - private_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - private_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+            - independent_age_f: {type: float, initialdata: false, default: 0.0}
+            - independent_age2_f: {type: float, initialdata: false, default: 0.0}
+            - independent_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - independent_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - independent_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - independent_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - independent_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - independent_enf_f: {type: float, initialdata: false, default: 0.0}
+            - independent_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - independent_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+            - public_age_f: {type: float, initialdata: false, default: 0.0}
+            - public_age2_f: {type: float, initialdata: false, default: 0.0}
+            - public_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - public_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - public_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - public_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - public_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - public_enf_f: {type: float, initialdata: false, default: 0.0}
+            - public_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - public_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+            - invalid_age_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_age2_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - invalid_cons_m: {type: float, initialdata: false, default: 0.0}
+         #
+            - unemployed_age_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_age2_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - unemployed_cons_m: {type: float, initialdata: false, default: 0.0}
+         #
+            - inactive_age_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_age2_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_chomage5_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_invalide5_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_inactif5_m: {type: float, initialdata: false, default: 0.0}
+            - inactive_cons_m: {type: float, initialdata: false, default: 0.0}
+         #
+            - invalide_age_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_age2_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_enf_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - invalide_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+            - unemployed_age_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_age2_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_enf_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - unemployed_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+            - inactive_age_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_age2_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_chomage5_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_invalide5_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_inactif5_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_enf_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - inactive_cons_f: {type: float, initialdata: false, default: 0.0}
+         #  
+         ################## Stage 3
+            - d_cadre_age_m: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_age2_m: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_afe_m: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_cons_m: {type: float, initialdata: false, default: 0.0}
+         # 
+            - d_cadre_age_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_age2_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_afe_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_enf_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - d_cadre_cons_f: {type: float, initialdata: false, default: 0.0}
+         #    
+            - d_actif_age_m: {type: float, initialdata: false, default: 0.0}
+            - d_actif_age2_m: {type: float, initialdata: false, default: 0.0}
+            - d_actif_xpr_m: {type: float, initialdata: false, default: 0.0}
+            - d_actif_xpr2_m: {type: float, initialdata: false, default: 0.0}
+            - d_actif_afe_m: {type: float, initialdata: false, default: 0.0}
+            - d_actif_cons_m: {type: float, initialdata: false, default: 0.0}
+         # 
+            - d_actif_age_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_age2_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_xpr_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_xpr2_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_afe_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_enf_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_ageenf_f: {type: float, initialdata: false, default: 0.0}
+            - d_actif_cons_f: {type: float, initialdata: false, default: 0.0}
+
+
+
+
+
+
+
+
+
+
+
 globals:
     periodic:
         # TODO: il faudrait créer une variable indiquant le chemin

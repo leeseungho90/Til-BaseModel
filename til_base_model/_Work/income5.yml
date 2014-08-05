@@ -137,7 +137,7 @@ entities:
                 - deterministic_wage: if(ISINWORK, if(ISMALE,dw_m,dw_f), 0)
                 
                 # AR process for the disturbance term
-                - disturbance: 
+                 #- disturbance: 
                 #Initialisation
                 - sali:  if( ISINWORK, deterministic_wage + fixed_effect, 0.0)
                 # For the unemployed, their replacement income should be computed separately

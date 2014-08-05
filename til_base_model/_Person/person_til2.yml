@@ -1,3 +1,37 @@
+globals:
+    coefficient:
+        # TODO: il faudrait créer une variable indiquant le chemin
+        # Il faut 4 fois ce nombre de coefficients car on a 2 cas (age <= ou > 50)* 2 cas (homme ou femme)
+        # Ici, les coefficients pour les HOMMES de moins de 50ANS
+        ################## Stage 1
+        path: param/basemodel/nest1_m.csv
+        type: float
+         # 
+        path: param/basemodel/nest1_f.csv
+        type: float
+         #   
+        ################## Stage 2
+        path: param/basemodel/nest21_m.csv
+        type: float
+         #
+        path: param/basemodel/nest21_f.csv
+        type: float
+        path: param/basemodel/nest22_m.csv
+        type: float
+        path: param/basemodel/nest22_f.csv
+        type: float
+         ################## Stage 3
+        path: param/basemodel/nest31_m.csv
+        type: float
+        path: param/basemodel/nest31_f.csv
+        type: float
+         #    
+        path: param/basemodel/nest32_m.csv
+        type: float
+         # 
+        path: param/basemodel/nest32_f.csv
+        type: float
+         #
 entities:
     person:
         fields:
@@ -29,7 +63,6 @@ entities:
             - findet: int 
             # 1: in work, 2: unemployed including old-age unemployed,
             # 3: in education, 4: retired, 5: other inactive
-            
         # work
             - workstate: int
             - sali:  {type: float, default: 0.0}
@@ -65,182 +98,6 @@ entities:
                 # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
             - invaldur5: {type: int, initialdata: false, default: 0}
             #
-            ################## Stage 1
-            - inwork_age_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_age2_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_afe_m: {type: float, initialdata: false, default: 0.0}
-            - inwork_cons_m: {type: float, initialdata: false, default: 0.0}
-         # 
-            - inwork_age_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_age2_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_afe_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_enf_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - inwork_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-        ################## Stage 2
-            - private_age_m: {type: float, initialdata: false, default: 0.0}
-            - private_age2_m: {type: float, initialdata: false, default: 0.0}
-            - private_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - private_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - private_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - private_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - private_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - private_cons_m: {type: float, initialdata: false, default: 0.0}
-         #
-            - independent_age_m: {type: float, initialdata: false, default: 0.0}
-            - independent_age2_m: {type: float, initialdata: false, default: 0.0}
-            - independent_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - independent_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - independent_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - independent_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - independent_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - independent_cons_m: {type: float, initialdata: false, default: 0.0}
-         #
-            - public_age_m: {type: float, initialdata: false, default: 0.0}
-            - public_age2_m: {type: float, initialdata: false, default: 0.0}
-            - public_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - public_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - public_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - public_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - public_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - public_cons_m: {type: float, initialdata: false, default: 0.0}
-         #
-            - private_age_f: {type: float, initialdata: false, default: 0.0}
-            - private_age2_f: {type: float, initialdata: false, default: 0.0}
-            - private_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - private_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - private_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - private_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - private_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - private_enf_f: {type: float, initialdata: false, default: 0.0}
-            - private_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - private_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-            - independent_age_f: {type: float, initialdata: false, default: 0.0}
-            - independent_age2_f: {type: float, initialdata: false, default: 0.0}
-            - independent_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - independent_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - independent_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - independent_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - independent_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - independent_enf_f: {type: float, initialdata: false, default: 0.0}
-            - independent_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - independent_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-            - public_age_f: {type: float, initialdata: false, default: 0.0}
-            - public_age2_f: {type: float, initialdata: false, default: 0.0}
-            - public_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - public_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - public_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - public_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - public_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - public_enf_f: {type: float, initialdata: false, default: 0.0}
-            - public_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - public_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-            - invalid_age_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_age2_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - invalid_cons_m: {type: float, initialdata: false, default: 0.0}
-         #
-            - unemployed_age_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_age2_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - unemployed_cons_m: {type: float, initialdata: false, default: 0.0}
-         #
-            - inactive_age_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_age2_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_chomage5_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_invalide5_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_inactif5_m: {type: float, initialdata: false, default: 0.0}
-            - inactive_cons_m: {type: float, initialdata: false, default: 0.0}
-         #
-            - invalide_age_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_age2_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_enf_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - invalide_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-            - unemployed_age_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_age2_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_enf_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - unemployed_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-            - inactive_age_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_age2_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_chomage5_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_invalide5_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_inactif5_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_enf_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - inactive_cons_f: {type: float, initialdata: false, default: 0.0}
-         #  
-         ################## Stage 3
-            - d_cadre_age_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_age2_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_afe_m: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_cons_m: {type: float, initialdata: false, default: 0.0}
-         # 
-            - d_cadre_age_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_age2_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_afe_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_enf_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - d_cadre_cons_f: {type: float, initialdata: false, default: 0.0}
-         #    
-            - d_actif_age_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_age2_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_xpr_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_xpr2_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_afe_m: {type: float, initialdata: false, default: 0.0}
-            - d_actif_cons_m: {type: float, initialdata: false, default: 0.0}
-         # 
-            - d_actif_age_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_age2_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_xpr_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_xpr2_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_afe_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_enf_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_ageenf_f: {type: float, initialdata: false, default: 0.0}
-            - d_actif_cons_f: {type: float, initialdata: false, default: 0.0}
         # patrimoine
             - patrimoine: {type: float, initialdata: false}
         # legislation
