@@ -1,0 +1,129 @@
+
+         #
+         ## LIAM2 information: globals are variables that do not relate to any particular entity defined in the model (they can be used in any entity)
+# thus, it can be used to import parameter coefficients 
+
+    # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
+    #periodic:
+        #    periodic:         
+        #path: input/macro.csv
+        # PERIOD is an implicit column of the periodic table (You need to put the name "PERIOD" in your table)
+        #- unemp_rate: float
+entities:
+    person:
+        processes:
+            outwork:
+                # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
+                # UNEMPLOYMENT DURING THE LAST 5 YEARS
+                # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
+                # Comme on avance dans le temps, isunemployed$ prend la valeur de isunemployed"$-1" et isunemployed1 prend l'état actuel
+                - isunemployed5: if(isunemployed4>0,isunemployed4,0)
+                - isunemployed4: if(isunemployed3>0,isunemployed3,0)  
+                - isunemployed3: if(isunemployed2>0,isunemployed2,0)
+                - isunemployed2: if(isunemployed1>0,isunemployed1,0)
+                - isunemployed1: if(ISUNEMPLOYED,1,0)
+                # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - unempdur5: isunemployed5 + isunemployed4 + isunemployed3 + isunemployed2 + isunemployed1
+                # INACTIVITY DURING THE LAST 5 YEARS
+                - isinactive5: if(isinactive4>0,isinactive4,0)
+                - isinactive4: if(isinactive3>0,isinactive3,0)
+                - isinactive3: if(isinactive2>0,isinactive2,0)
+                - isinactive2: if(isinactive1>0,isinactive1,0)
+                - isinactive1: if(ISOTHERINACTIVE,1,0)
+                # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - inacdur5: isinactive5 + isinactive4 + isinactive3 + isinactive2 + isinactive1
+                # INVALIDITY DURING THE LAST 5 YEARS
+                - isinvalid5: if(isinvalid4>0,isinvalid4,0)
+                - isinvalid4: if(isinvalid3>0,isinvalid3,0)
+                - isinvalid3: if(isinvalid2>0,isinvalid2,0)
+                - isinvalid2: if(isinvalid1>0,isinvalid1,0)
+                - isinvalid1: if(ISINVALID,1,0)
+                # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
+           # Probability of transition from the reference state
+            inwork:
+                 # Estimation is done separately for men and women
+                 # denominator of the logit function
+                 ################## Stage 1
+                 - inwork_prob_m: logistic(coefficient1m.inwork_age_m*age + coefficient1m.inwork_age2_m*age*age + coefficient1m.inwork_xpr_m*xpr + coefficient1m.inwork_xpr2_m*xpr*xpr 
+                                                  + coefficient1m.inwork_chomage5_m*unempdur5 + coefficient1m.inwork_invalide5_m*invaldur5 + coefficient1m.inwork_inactif5_m*inacdur5 
+                                                  + coefficient1m.inwork_afe_m*findet + coefficient1m.inwork_cons_m)
+#
+                 - inwork_prob_f: logistic(coefficient1f.inwork_age_f*age + coefficient1f.inwork_age2_f*age*age + coefficient1f.inwork_xpr_f*xpr + coefficient1f.inwork_xpr2_f*xpr*xpr 
+                                  + coefficient1f.inwork_chomage5_f*unempdur5 + coefficient1f.inwork_invalide5_f*invaldur5 + coefficient1f.inwork_inactif5_f*inacdur5
+                                  + coefficient1f.inwork_afe_f*findet + coefficient1f.inwork_enf_f*nb_enf + coefficient1f.inwork_ageenf_f*age*nb_enf + coefficient1f.inwork_cons_f)
+                 - inwork_prob: if(ISMALE, inwork_prob_m, inwork_prob_f )
+                 - show("inwork","inwork")
+                 ################## Stage 2
+                 - denom_m_1: exp(coefficient21m.private_age_m*age + coefficient21m.private_age2_m*age*age + coefficient21m.private_xpr_m*xpr + coefficient21m.private_xpr2_m*xpr*xpr 
+                            + coefficient21m.private_chomage5_m*unempdur5 
+                            + coefficient21m.private_invalide5_m*invaldur5 + coefficient21m.private_inactif5_m*inacdur5 + coefficient21m.private_cons_m)
+                 - denom_m_2: exp(coefficient21m.public_age_m*age + coefficient21m.public_age2_m*age*age + coefficient21m.public_xpr_m*xpr + coefficient21m.public_xpr2_m*xpr*xpr
+                           + coefficient21m.public_chomage5_m*unempdur5 + coefficient21m.public_invalide5_m*invaldur5 + coefficient21m.public_inactif5_m*inacdur5 + coefficient21m.public_cons_m)
+                 - denom_m: 1 + denom_m_1 + denom_m_2
+                 #                    
+                 - denom_f_1: exp(coefficient21f.public_age_f*age + coefficient21f.public_age2_f*age*age + coefficient21f.public_xpr_f*xpr + coefficient21f.public_xpr2_f*xpr*xpr
+                            + coefficient21f.public_chomage5_f*unempdur5 + coefficient21f.public_invalide5_f*invaldur5 + coefficient21f.public_inactif5_f*inacdur5 + coefficient21f.public_enf_f*nb_enf 
+                            + coefficient21f.public_ageenf_f*age*nb_enf+ coefficient21f.public_cons_f)
+                 - denom_f_2: exp(coefficient21f.private_age_f*age + coefficient21f.private_age2_f*age*age + coefficient21f.private_xpr_f*xpr + coefficient21f.private_xpr2_f*xpr*xpr
+                           + coefficient21f.private_chomage5_f*unempdur5 + coefficient21f.private_invalide5_f*invaldur5 + coefficient21f.private_inactif5_f*inacdur5
+                           + coefficient21f.private_enf_f*nb_enf + coefficient21f.private_ageenf_f*age*nb_enf+ coefficient21f.private_cons_f)
+                 - denom_f: 1 + denom_f_1 + denom_f_2
+                 # 
+                 - denom: if(ISMALE, denom_m, denom_f)
+                 #
+                 - private_prob: if(ISMALE, inwork_prob*denom_m_1/denom, inwork_prob*denom_f_1/denom)
+                 - independent_prob: inwork_prob*1/denom
+                 - public_prob: if(ISMALE, inwork_prob*denom_m_2/denom, inwork_prob*denom_f_2/denom)
+                 #
+                 #
+                 - denom2_m_1: exp(coefficient22m.unemployed_age_m*age + coefficient22m.unemployed_age2_m*age*age + coefficient22m.unemployed_xpr_m*xpr + coefficient22m.unemployed_xpr2_m*xpr*xpr
+                             + coefficient22m.unemployed_chomage5_m*unempdur5 + coefficient22m.unemployed_invalide5_m*invaldur5 + coefficient22m.unemployed_inactif5_m*inacdur5 + coefficient22m.unemployed_cons_m)
+                 - denom2_m_2: exp(coefficient22m.inactive_age_m*age + coefficient22m.inactive_age2_m*age*age + coefficient22m.inactive_xpr_m*xpr + coefficient22m.inactive_xpr2_m*xpr*xpr
+                            + coefficient22m.inactive_chomage5_m*unempdur5 + coefficient22m.inactive_invalide5_m*invaldur5 + coefficient22m.inactive_inactif5_m*inacdur5 + coefficient22m.inactive_cons_m)
+                 - denom2_m: 1 + denom_m_1 + denom_m_2
+                 #
+                 - denom2_f_1: exp(coefficient22f.inactive_age_f*age + coefficient22f.inactive_age2_f*age*age + coefficient22f.inactive_xpr_f*xpr + coefficient22f.inactive_xpr2_f*xpr*xpr 
+                           + coefficient22f.inactive_chomage5_f*unempdur5 + coefficient22f.inactive_invalide5_f*invaldur5 + coefficient22f.inactive_inactif5_f*inacdur5
+                           + coefficient22f.inactive_enf_f*nb_enf + coefficient22f.inactive_ageenf_f*age*nb_enf+ coefficient22f.inactive_cons_f)
+                 - denom2_f_2: exp(coefficient22f.unemployed_age_f*age + coefficient22f.unemployed_age2_f*age*age + coefficient22f.unemployed_xpr_f*xpr + coefficient22f.unemployed_xpr2_f*xpr*xpr 
+                           + coefficient22f.unemployed_chomage5_f*unempdur5 + coefficient22f.unemployed_invalide5_f*invaldur5 + coefficient22f.unemployed_inactif5_f*inacdur5
+                           + coefficient22f.unemployed_enf_f*nb_enf + coefficient22f.unemployed_ageenf_f*age*nb_enf+ coefficient22f.unemployed_cons_f)
+                 - denom2_f: 1 + denom_f_1 + denom_f_2
+                 - denom2: if(ISMALE, denom2_m, denom2_f)
+                 #
+                 #
+                 - invalid_prob: (1-inwork_prob)*1/denom2
+                 - unemployed_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_1/denom2, (1 - inwork_prob)*denom2_m_1/denom2)
+                 - inactive_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_2/denom2, (1 - inwork_prob)*denom2_m_2/denom2)
+                 ################## Stage 3
+                 - cadre_prob_m: logistic(coefficient31m.d_cadre_age_m*age + coefficient31m.d_cadre_age2_m*age*age + coefficient31m.d_cadre_xpr_m*xpr + coefficient31m.d_cadre_xpr2_m*xpr*xpr 
+                                 + coefficient31m.d_cadre_afe_m*findet + coefficient31m.d_cadre_cons_m)
+                 - cadre_prob_f: logistic(coefficient31f.d_cadre_age_f*age + coefficient31f.d_cadre_age2_f*age*age + coefficient31f.d_cadre_xpr_f*xpr + coefficient31f.d_cadre_xpr2_f*xpr*xpr 
+                                 + coefficient31f.d_cadre_afe_f*findet + coefficient31f.d_cadre_enf_f*nb_enf + coefficient31f.d_cadre_ageenf_f*age*nb_enf + coefficient31f.d_cadre_cons_f)
+                 - cadre_prob: if(ISMALE,  inwork_prob*private_prob*cadre_prob_m,  inwork_prob*private_prob*cadre_prob_f)
+                 # 
+                 - non_cadre_prob: if(ISMALE,  inwork_prob*(1-private_prob*cadre_prob_m),  inwork_prob*private_prob*(1-cadre_prob_f))
+                 #
+                 - actif_prob_m: logistic( coefficient32m.d_actif_age_m*age + coefficient32m.d_actif_age2_m*age*age + coefficient32m.d_actif_xpr_m*xpr + coefficient32m.d_actif_xpr2_m*xpr*xpr 
+                                 + coefficient32m.d_actif_afe_m*findet + coefficient32m.d_actif_cons_m)
+                 - actif_prob_f: logistic(coefficient32f.d_actif_age_f*age + coefficient32f.d_actif_age2_f*age*age + coefficient32f.d_actif_xpr_f*xpr + coefficient32f.d_actif_xpr2_f*xpr*xpr
+                               + coefficient32f.d_actif_afe_f*findet + coefficient32f.d_actif_enf_f*nb_enf + coefficient32f.d_actif_ageenf_f*age*nb_enf + coefficient32f.d_actif_cons_f)
+                 #
+                 - actif_prob:  if(ISMALE,  inwork_prob*public_prob*actif_prob_m,  inwork_prob*public_prob*actif_prob_f)
+                 - seden_prob: if(ISMALE,  inwork_prob*(1-public_prob*actif_prob_m),  inwork_prob*public_prob*(1-actif_prob_f))
+              
+           # DECISION
+                # TODO: reprendre les valeurs importées sur le taux de chômage
+                 - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
+                #
+                # The assignment is done based on the threshold probability computed above
+                # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
+                 - type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
+                             [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
+           # INDIVIDUAL CHARACTERISTIC (updating)
+                 # Nombre d'années d'expérience
+                 - xpr: if(ISINWORK,xpr + 1,xpr)
+                #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
+                #- ISOTHERINACTIVE: (type_act == INACTIVE)
+                #- ISRETIRED: (type_act == RETIRED)

@@ -1,6 +1,209 @@
 # LIAM2 information: globals are variables that do not relate to any particular entity defined in the model (they can be used in any entity)
 # thus, it can be used to import parameter coefficients 
+globals:
+    periodic:
+        # TODO: il faudrait créer une variable indiquant le chemin
+        # Il faut 4 fois ce nombre de coefficients car on a 2 cas (age <= ou > 50)* 2 cas (homme ou femme)
+        
+        # Ici, les coefficients pour les HOMMES de moins de 50ANS
+        ################## Stage 1
+        path: param/basemodel/nest1_m.csv
+        fields:
+            - inwork_age_m: float
+            - inwork_age2_m: float
+            - inwork_xpr_m: float
+            - inwork_xpr2_m: float
+            - inwork_chomage5_m: float
+            - inwork_invalide5_m: float
+            - inwork_inactif5_m: float
+            - inwork_afe_m: float
+            - inwork_cons_m: float
+         # 
+        path: param/basemodel/nest1_f.csv
+        fields:
+            - inwork_age_f: float
+            - inwork_age2_f: float
+            - inwork_xpr_f: float
+            - inwork_xpr2_f: float
+            - inwork_chomage5_f: float
+            - inwork_invalide5_f: float
+            - inwork_inactif5_f: float
+            - inwork_afe_f: float
+            - inwork_enf_f: float
+            - inwork_ageenf_f: float
+            - inwork_cons_f: float
+         #    
 
+        ################## Stage 2
+        path: param/basemodel/nest21_m.csv
+        fields:
+            - private_age_m: float
+            - private_age2_m: float
+            - private_xpr_m: float
+            - private_xpr2_m: float
+            - private_chomage5_m: float
+            - private_invalide5_m: float
+            - private_inactif5_m: float
+            - private_cons_m: float
+         #
+            - independent_age_m: float
+            - independent_age2_m: float
+            - independent_xpr_m: float
+            - independent_xpr2_m: float
+            - independent_chomage5_m: float
+            - independent_invalide5_m: float
+            - independent_inactif5_m: float
+            - independent_cons_m: float
+         #
+            - public_age_m: float
+            - public_age2_m: float
+            - public_xpr_m: float
+            - public_xpr2_m: float
+            - public_chomage5_m: float
+            - public_invalide5_m: float
+            - public_inactif5_m: float
+            - public_cons_m: float
+         #
+        path: param/basemodel/nest21_f.csv
+        fields:
+            - private_age_f: float
+            - private_age2_f: float
+            - private_xpr_f: float
+            - private_xpr2_f: float
+            - private_chomage5_f: float
+            - private_invalide5_f: float
+            - private_inactif5_f: float
+            - private_enf_f: float
+            - private_ageenf_f: float
+            - private_cons_f: float
+         #    
+            - independent_age_f: float
+            - independent_age2_f: float
+            - independent_xpr_f: float
+            - independent_xpr2_f: float
+            - independent_chomage5_f: float
+            - independent_invalide5_f: float
+            - independent_inactif5_f: float
+            - independent_enf_f: float
+            - independent_ageenf_f: float
+            - independent_cons_f: float
+         #    
+            - public_age_f: float
+            - public_age2_f: float
+            - public_xpr_f: float
+            - public_xpr2_f: float
+            - public_chomage5_f: float
+            - public_invalide5_f: float
+            - public_inactif5_f: float
+            - public_enf_f: float
+            - public_ageenf_f: float
+            - public_cons_f: float
+         #    
+        path: param/basemodel/nest22_m.csv
+        fields:
+            - invalid_age_m: float
+            - invalid_age2_m: float
+            - invalid_xpr_m: float
+            - invalid_xpr2_m: float
+            - invalid_chomage5_m: float
+            - invalid_invalide5_m: float
+            - invalid_inactif5_m: float
+            - invalid_cons_m: float
+         #
+            - unemployed_age_m: float
+            - unemployed_age2_m: float
+            - unemployed_xpr_m: float
+            - unemployed_xpr2_m: float
+            - unemployed_chomage5_m: float
+            - unemployed_invalide5_m: float
+            - unemployed_inactif5_m: float
+            - unemployed_cons_m: float
+         #
+            - inactive_age_m: float
+            - inactive_age2_m: float
+            - inactive_xpr_m: float
+            - inactive_xpr2_m: float
+            - inactive_chomage5_m: float
+            - inactive_invalide5_m: float
+            - inactive_inactif5_m: float
+            - inactive_cons_m: float
+         #
+        path: param/basemodel/nest22_f.csv
+        fields:
+            - invalide_age_f: float
+            - invalide_age2_f: float
+            - invalide_xpr_f: float
+            - invalide_xpr2_f: float
+            - invalide_chomage5_f: float
+            - invalide_invalide5_f: float
+            - invalide_inactif5_f: float
+            - invalide_enf_f: float
+            - invalide_ageenf_f: float
+            - invalide_cons_f: float
+         #    
+            - unemployed_age_f: float
+            - unemployed_age2_f: float
+            - unemployed_xpr_f: float
+            - unemployed_xpr2_f: float
+            - unemployed_chomage5_f: float
+            - unemployed_invalide5_f: float
+            - unemployed_inactif5_f: float
+            - unemployed_enf_f: float
+            - unemployed_ageenf_f: float
+            - unemployed_cons_f: float
+         #    
+            - inactive_age_f: float
+            - inactive_age2_f: float
+            - inactive_xpr_f: float
+            - inactive_xpr2_f: float
+            - inactive_chomage5_f: float
+            - inactive_invalide5_f: float
+            - inactive_inactif5_f: float
+            - inactive_enf_f: float
+            - inactive_ageenf_f: float
+            - inactive_cons_f: float
+         #  
+         ################## Stage 3
+        path: param/basemodel/nest31_m.csv
+        fields:
+            - d_cadre_age_m: float
+            - d_cadre_age2_m: float
+            - d_cadre_xpr_m: float
+            - d_cadre_xpr2_m: float
+            - d_cadre_afe_m: float
+            - d_cadre_cons_m: float
+         # 
+        path: param/basemodel/nest31_f.csv
+        fields:
+            - d_cadre_age_f: float
+            - d_cadre_age2_f: float
+            - d_cadre_xpr_f: float
+            - d_cadre_xpr2_f: float
+            - d_cadre_afe_f: float
+            - d_cadre_enf_f: float
+            - d_cadre_ageenf_f: float
+            - d_cadre_cons_f: float
+         #    
+        path: param/basemodel/nest32_m.csv
+        fields:
+            - d_actif_age_m: float
+            - d_actif_age2_m: float
+            - d_actif_xpr_m: float
+            - d_actif_xpr2_m: float
+            - d_actif_afe_m: float
+            - d_actif_cons_m: float
+         # 
+        path: param/basemodel/nest32_f.csv
+        fields:
+            - d_actif_age_f: float
+            - d_actif_age2_f: float
+            - d_actif_xpr_f: float
+            - d_actif_xpr2_f: float
+            - d_actif_afe_f: float
+            - d_actif_enf_f: float
+            - d_actif_ageenf_f: float
+            - d_actif_cons_f: float
+         #
     # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
     #periodic:
         #path: input/macro.csv
