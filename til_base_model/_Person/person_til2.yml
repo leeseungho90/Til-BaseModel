@@ -1,49 +1,6 @@
 #
 #
 #
-globals:
-    coefficient1m:
-        # TODO: il faudrait créer une variable indiquant le chemin
-        # Il faut 4 fois ce nombre de coefficients car on a 2 cas (age <= ou > 50)* 2 cas (homme ou femme)
-        # Ici, les coefficients pour les HOMMES de moins de 50ANS
-        ################## Stage 1
-        path: param\basemodel\nest1_m.csv
-        type: float
-#
-    coefficient1f:         # 
-        path: param\basemodel\nest1_f.csv
-        type: float
-         #   
-        ################## Stage 2
-    coefficient21m:
-        path: param\basemodel\nest21_m.csv
-        type: float
-         #
-    coefficient21f:
-        path: param\basemodel\nest21_f.csv
-        type: float
-    coefficient22m:
-        path: param\basemodel\nest22_m.csv
-        type: float
-    coefficient22f:
-        path: param\basemodel\nest22_f.csv
-        type: float
-         ################## Stage 3
-    coefficient31m:
-        path: param\basemodel\nest31_m.csv
-        type: float
-    coefficient31f:
-        path: param\basemodel\nest31_f.csv
-        type: float
-         #    
-    coefficient32m:
-        path: param\basemodel\nest32_m.csv
-        type: float
-         # 
-    coefficient32f:         
-        path: param\basemodel\nest32_f.csv
-        type: float
-#
 entities:
     person:
         fields:

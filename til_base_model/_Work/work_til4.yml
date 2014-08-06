@@ -1,8 +1,16 @@
-
-         #
-         ## LIAM2 information: globals are variables that do not relate to any particular entity defined in the model (they can be used in any entity)
-# thus, it can be used to import parameter coefficients 
-
+globals:
+    ################## Stage 1
+    coefficient1:         # 
+        path: param\basemodel\nmlogit1.csv
+        type: float
+    ################## Stage 2
+    coefficient2:
+        path: param\basemodel\nmlogit2.csv
+        type: float
+    ################## Stage 3
+    coefficient3:
+        path: param\basemodel\nmlogit4.csv
+        type: float
     # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
     #periodic:
         #    periodic:         
@@ -45,29 +53,30 @@ entities:
                  # Estimation is done separately for men and women
                  # denominator of the logit function
                  ################## Stage 1
-                 - inwork_prob_m: logistic(coefficient1m.inwork_age_m*age + coefficient1m.inwork_age2_m*age*age + coefficient1m.inwork_xpr_m*xpr + coefficient1m.inwork_xpr2_m*xpr*xpr 
-                                                  + coefficient1m.inwork_chomage5_m*unempdur5 + coefficient1m.inwork_invalide5_m*invaldur5 + coefficient1m.inwork_inactif5_m*inacdur5 
-                                                  + coefficient1m.inwork_afe_m*findet + coefficient1m.inwork_cons_m)
-#
-                 - inwork_prob_f: logistic(coefficient1f.inwork_age_f*age + coefficient1f.inwork_age2_f*age*age + coefficient1f.inwork_xpr_f*xpr + coefficient1f.inwork_xpr2_f*xpr*xpr 
-                                  + coefficient1f.inwork_chomage5_f*unempdur5 + coefficient1f.inwork_invalide5_f*invaldur5 + coefficient1f.inwork_inactif5_f*inacdur5
-                                  + coefficient1f.inwork_afe_f*findet + coefficient1f.inwork_enf_f*nb_enf + coefficient1f.inwork_ageenf_f*age*nb_enf + coefficient1f.inwork_cons_f)
+                 #- inwork_prob_m: logistic(coefficient1m.inwork_age_m*age + coefficient1m.inwork_age2_m*age*age + coefficient1m.inwork_xpr_m*xpr + coefficient1m.inwork_xpr2_m*xpr*xpr 
+                 #                                 + coefficient1m.inwork_chomage5_m*unempdur5 + coefficient1m.inwork_invalide5_m*invaldur5 + coefficient1m.inwork_inactif5_m*inacdur5 
+                 #                                 + coefficient1m.inwork_afe_m*findet + coefficient1m.inwork_cons_m)
+                 - inwork_prob_m: logistic(coefficient1[0,1]*age + coefficient1[0,2]*age*age + coefficient1[0,3]*xpr + coefficient1[0,4]*xpr*xpr
+                                  + coefficient1[0,5]*unempdur5 + coefficient1[0,6]*invaldur5 + coefficient1[0,7]*inacdur5 + coefficient1[0,8]*findet + coefficient1[0,9])
+                 - inwork_prob_f: logistic(coefficient1[1,1]*age + coefficient1[1,2]*age*age + coefficient1[1,3]*xpr + coefficient1[1,4]*xpr*xpr 
+                                  + coefficient1[1,5]*unempdur5 + coefficient1[1,6]*invaldur5 + coefficient1[1,7]*inacdur5
+                                  + coefficient1[1,8]*findet + coefficient1[1,9]*nb_enf + coefficient1[1,10]*age*nb_enf + coefficient1[1,11])
                  - inwork_prob: if(ISMALE, inwork_prob_m, inwork_prob_f )
                  - show("inwork","inwork")
                  ################## Stage 2
-                 - denom_m_1: exp(coefficient21m.private_age_m*age + coefficient21m.private_age2_m*age*age + coefficient21m.private_xpr_m*xpr + coefficient21m.private_xpr2_m*xpr*xpr 
-                            + coefficient21m.private_chomage5_m*unempdur5 
-                            + coefficient21m.private_invalide5_m*invaldur5 + coefficient21m.private_inactif5_m*inacdur5 + coefficient21m.private_cons_m)
-                 - denom_m_2: exp(coefficient21m.public_age_m*age + coefficient21m.public_age2_m*age*age + coefficient21m.public_xpr_m*xpr + coefficient21m.public_xpr2_m*xpr*xpr
-                           + coefficient21m.public_chomage5_m*unempdur5 + coefficient21m.public_invalide5_m*invaldur5 + coefficient21m.public_inactif5_m*inacdur5 + coefficient21m.public_cons_m)
+                 - denom_m_1: exp(coefficient2[0,1]*age + coefficient2[0,2]*age*age + coefficient2[0,3]*xpr + coefficient2[0,4]*xpr*xpr 
+                            + coefficient2[0,5]*unempdur5 
+                            + coefficient2[0,6]*invaldur5 + coefficient2[0,7]*inacdur5 + coefficient2[0,8])
+                 - denom_m_2: exp(coefficient2[0,17]*age + coefficient2[0,18]*age*age + coefficient2[0,19]*xpr + coefficient2[0,20]*xpr*xpr
+                           + coefficient2[0,21]*unempdur5 + coefficient2[0,22]*invaldur5 + coefficient2[0,22]*inacdur5 + coefficient2[0,23])
                  - denom_m: 1 + denom_m_1 + denom_m_2
                  #                    
-                 - denom_f_1: exp(coefficient21f.public_age_f*age + coefficient21f.public_age2_f*age*age + coefficient21f.public_xpr_f*xpr + coefficient21f.public_xpr2_f*xpr*xpr
-                            + coefficient21f.public_chomage5_f*unempdur5 + coefficient21f.public_invalide5_f*invaldur5 + coefficient21f.public_inactif5_f*inacdur5 + coefficient21f.public_enf_f*nb_enf 
-                            + coefficient21f.public_ageenf_f*age*nb_enf+ coefficient21f.public_cons_f)
-                 - denom_f_2: exp(coefficient21f.private_age_f*age + coefficient21f.private_age2_f*age*age + coefficient21f.private_xpr_f*xpr + coefficient21f.private_xpr2_f*xpr*xpr
-                           + coefficient21f.private_chomage5_f*unempdur5 + coefficient21f.private_invalide5_f*invaldur5 + coefficient21f.private_inactif5_f*inacdur5
-                           + coefficient21f.private_enf_f*nb_enf + coefficient21f.private_ageenf_f*age*nb_enf+ coefficient21f.private_cons_f)
+                 - denom_f_1: exp(coefficient2[1,1]*age + coefficient2[1,2]*age*age + coefficient2[1,3]*xpr + coefficient2[1,4]*xpr*xpr
+                            + coefficient2[1,5]*unempdur5 + coefficient2[1,6]*invaldur5 + coefficient2[1,7]*inacdur5 + coefficient2[1,8]*nb_enf 
+                            + coefficient2[1,9]*age*nb_enf+ coefficient2[1,10])
+                 - denom_f_2: exp(coefficient2[1,21]*age + coefficient2[1,22]*age*age + coefficient2[1,23]*xpr + coefficient2[1,24]*xpr*xpr
+                           + coefficient2[1,25]*unempdur5 + coefficient2[1,26]*invaldur5 + coefficient2[1,27]*inacdur5
+                           + coefficient2[1,28]*nb_enf + coefficient2[1,29]*age*nb_enf+ coefficient2[1,30])
                  - denom_f: 1 + denom_f_1 + denom_f_2
                  # 
                  - denom: if(ISMALE, denom_m, denom_f)
@@ -77,39 +86,40 @@ entities:
                  - public_prob: if(ISMALE, inwork_prob*denom_m_2/denom, inwork_prob*denom_f_2/denom)
                  #
                  #
-                 - denom2_m_1: exp(coefficient22m.unemployed_age_m*age + coefficient22m.unemployed_age2_m*age*age + coefficient22m.unemployed_xpr_m*xpr + coefficient22m.unemployed_xpr2_m*xpr*xpr
-                             + coefficient22m.unemployed_chomage5_m*unempdur5 + coefficient22m.unemployed_invalide5_m*invaldur5 + coefficient22m.unemployed_inactif5_m*inacdur5 + coefficient22m.unemployed_cons_m)
-                 - denom2_m_2: exp(coefficient22m.inactive_age_m*age + coefficient22m.inactive_age2_m*age*age + coefficient22m.inactive_xpr_m*xpr + coefficient22m.inactive_xpr2_m*xpr*xpr
-                            + coefficient22m.inactive_chomage5_m*unempdur5 + coefficient22m.inactive_invalide5_m*invaldur5 + coefficient22m.inactive_inactif5_m*inacdur5 + coefficient22m.inactive_cons_m)
+                 - denom2_m_1: exp(coefficient2[2,9]*age + coefficient2[2,10]*age*age + coefficient2[2,11]*xpr + coefficient2[2,12]*xpr*xpr
+                             + coefficient2[2,13]*unempdur5 +coefficient2[2,14]*invaldur5 + coefficient2[2,15]*inacdur5 +coefficient2[2,16])
+                 - denom2_m_2: exp(coefficient2[2,17]*age + coefficient2[2,18]*age*age + coefficient2[2,19]*xpr + coefficient2[2,20]*xpr*xpr
+                            + coefficient2[2,21]*unempdur5 + coefficient2[2,22]*invaldur5 + coefficient2[2,23]*inacdur5 + coefficient2[2,24])
                  - denom2_m: 1 + denom_m_1 + denom_m_2
-                 #
-                 - denom2_f_1: exp(coefficient22f.inactive_age_f*age + coefficient22f.inactive_age2_f*age*age + coefficient22f.inactive_xpr_f*xpr + coefficient22f.inactive_xpr2_f*xpr*xpr 
-                           + coefficient22f.inactive_chomage5_f*unempdur5 + coefficient22f.inactive_invalide5_f*invaldur5 + coefficient22f.inactive_inactif5_f*inacdur5
-                           + coefficient22f.inactive_enf_f*nb_enf + coefficient22f.inactive_ageenf_f*age*nb_enf+ coefficient22f.inactive_cons_f)
-                 - denom2_f_2: exp(coefficient22f.unemployed_age_f*age + coefficient22f.unemployed_age2_f*age*age + coefficient22f.unemployed_xpr_f*xpr + coefficient22f.unemployed_xpr2_f*xpr*xpr 
-                           + coefficient22f.unemployed_chomage5_f*unempdur5 + coefficient22f.unemployed_invalide5_f*invaldur5 + coefficient22f.unemployed_inactif5_f*inacdur5
-                           + coefficient22f.unemployed_enf_f*nb_enf + coefficient22f.unemployed_ageenf_f*age*nb_enf+ coefficient22f.unemployed_cons_f)
+                 - denom2_f_1: exp(coefficient2[3,11]*age + coefficient2[3,12]*age*age + coefficient2[3,13]*xpr + coefficient2[3,14]*xpr*xpr 
+                           + coefficient2[3,15]*unempdur5 + coefficient2[3,16]*invaldur5 + coefficient2[3,17]*inacdur5
+                           + coefficient2[3,18]*nb_enf + coefficient2[3,19]*age*nb_enf+ coefficient2[3,20])
+                 - denom2_f_2: exp(coefficient2[3,21]*age + coefficient2[3,22]*age*age + coefficient2[3,23]*xpr + coefficient2[3,24]*xpr*xpr 
+                           + coefficient2[3,25]*unempdur5 + coefficient2[3,26]*invaldur5 + coefficient2[3,27]*inacdur5
+                           + coefficient2[3,28]*nb_enf + coefficient2[3,29]*age*nb_enf+ coefficient2[3,30])
                  - denom2_f: 1 + denom_f_1 + denom_f_2
                  - denom2: if(ISMALE, denom2_m, denom2_f)
-                 #
                  #
                  - invalid_prob: (1-inwork_prob)*1/denom2
                  - unemployed_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_1/denom2, (1 - inwork_prob)*denom2_m_1/denom2)
                  - inactive_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_2/denom2, (1 - inwork_prob)*denom2_m_2/denom2)
                  ################## Stage 3
-                 - cadre_prob_m: logistic(coefficient31m.d_cadre_age_m*age + coefficient31m.d_cadre_age2_m*age*age + coefficient31m.d_cadre_xpr_m*xpr + coefficient31m.d_cadre_xpr2_m*xpr*xpr 
-                                 + coefficient31m.d_cadre_afe_m*findet + coefficient31m.d_cadre_cons_m)
-                 - cadre_prob_f: logistic(coefficient31f.d_cadre_age_f*age + coefficient31f.d_cadre_age2_f*age*age + coefficient31f.d_cadre_xpr_f*xpr + coefficient31f.d_cadre_xpr2_f*xpr*xpr 
-                                 + coefficient31f.d_cadre_afe_f*findet + coefficient31f.d_cadre_enf_f*nb_enf + coefficient31f.d_cadre_ageenf_f*age*nb_enf + coefficient31f.d_cadre_cons_f)
+                 - cadre_prob_m: logistic(coefficient3[0,1]*age + coefficient3[0,2]*age*age + coefficient3[0,3]*xpr + coefficient3[0,4]*xpr*xpr 
+                                 + coefficient3[0,5]*findet + coefficient3[0,6])
+                 - cadre_prob_f: logistic(coefficient3[1,1]*age + coefficient3[1,2]*age*age + coefficient3[1,3]*xpr + coefficient3[1,4]*xpr*xpr 
+                                 + coefficient3[1,5]*findet + coefficient3[1,6]*nb_enf + coefficient3[1,7]*age*nb_enf + coefficient3[1,8])
+                 - cadre_prob_m: 0.5
+                 - cadre_prob_f: 0.5
                  - cadre_prob: if(ISMALE,  inwork_prob*private_prob*cadre_prob_m,  inwork_prob*private_prob*cadre_prob_f)
                  # 
                  - non_cadre_prob: if(ISMALE,  inwork_prob*(1-private_prob*cadre_prob_m),  inwork_prob*private_prob*(1-cadre_prob_f))
                  #
-                 - actif_prob_m: logistic( coefficient32m.d_actif_age_m*age + coefficient32m.d_actif_age2_m*age*age + coefficient32m.d_actif_xpr_m*xpr + coefficient32m.d_actif_xpr2_m*xpr*xpr 
-                                 + coefficient32m.d_actif_afe_m*findet + coefficient32m.d_actif_cons_m)
-                 - actif_prob_f: logistic(coefficient32f.d_actif_age_f*age + coefficient32f.d_actif_age2_f*age*age + coefficient32f.d_actif_xpr_f*xpr + coefficient32f.d_actif_xpr2_f*xpr*xpr
-                               + coefficient32f.d_actif_afe_f*findet + coefficient32f.d_actif_enf_f*nb_enf + coefficient32f.d_actif_ageenf_f*age*nb_enf + coefficient32f.d_actif_cons_f)
-                 #
+                 - actif_prob_m: logistic( coefficient3[2,1]*age + coefficient3[2,2]*age*age + coefficient3[2,3]*xpr + coefficient3[2,4]*xpr*xpr 
+                                 + coefficient3[2,5]*findet + coefficient3[2,6])
+                 - actif_prob_f: logistic(coefficient3[3,1]*age + coefficient3[3,2]*age*age + coefficient3[3,3]*xpr + coefficient3[3,4]*xpr*xpr
+                               + coefficient3[3,5]*findet + coefficient3[3,6]*nb_enf + coefficient3[3,7]*age*nb_enf + coefficient3[3,8])
+                 - actif_prob_m: 0.4
+                 - actif_prob_f: 0.1
                  - actif_prob:  if(ISMALE,  inwork_prob*public_prob*actif_prob_m,  inwork_prob*public_prob*actif_prob_f)
                  - seden_prob: if(ISMALE,  inwork_prob*(1-public_prob*actif_prob_m),  inwork_prob*public_prob*(1-actif_prob_f))
               
