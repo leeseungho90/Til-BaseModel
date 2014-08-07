@@ -1,5 +1,6 @@
 gender,period,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029
+#vrai nom,invalide_age,invalide_age2,invalide_xpr,invalide_xpr2,invalide_chomage5,invalide_invalide5,invalide_inactif5,invalide_enf,invalide_ageenf,invalide_cons,unemployed_age,unemployed_age2,unemployed_xpr,unemployed_xpr2,unemployed_chomage5,unemployed_invalide5,unemployed_inactif5,unemployed_enf,unemployed_ageenf,unemployed_cons,inactive_age,inactive_age2,inactive_xpr,inactive_xpr2,inactive_chomage5,inactive_invalide5,inactive_inactif5,inactive_enf,inactive_ageenf,inactive_cons
 1,-.2397703,.0026626,-.1172042,.0021607,-.1810229,.8733546,-.9094191,9.046267,0,0,0,0,0,0,0,0,-.1151868,.0024602,-.0734107,-.000658,-.7506834,-2.124747,-.2416692,2.917471,0,0,0,0,0,0
 2,-.2419461,.002439,-.0707455,.0021046,-.1566083,1.033604,-.3872256,.2326808,-.0366843,9.758934,0,0,0,0,0,0,0,0,0,0,-.042146,.0003239,-.0235159,.0008607,-.793014,-1.379075,-.1068695,1.113191,-.0185996,3.062492
 3,0,0,0,0,0,0,0,0,-.0220764,.0003883,-.114523,.002211,1.515355,-2.426158,.3540119,2.322264,-.2359097,.0041042,-.1289808,.0009493,-.4918027,-3.642126,2.936019,4.532702,0,0,0,0,0,0
