@@ -132,6 +132,11 @@ entities:
             LEGAL_CELIB: civilstate == 2 or civilstate == 3 or civilstate == 4
             INCOUPLE: conj > -1
             
+            IN_WORK: 0
+            OUT_WORK: -1
+            PRIVATE: 30
+            PUBLIC: 50
+            
             INACTIVE:  1
             UNEMPLOYED: 2
             NON_CADRE: 3

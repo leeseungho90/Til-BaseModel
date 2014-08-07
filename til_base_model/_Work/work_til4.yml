@@ -62,6 +62,8 @@ entities:
                                   + coefficient1[1,4]*unempdur5 + coefficient1[1,5]*invaldur5 + coefficient1[1,6]*inacdur5
                                   + coefficient1[1,7]*findet + coefficient1[1,8]*nb_enf + coefficient1[1,9]*age*nb_enf + coefficient1[1,10])
                  - inwork_prob: if(ISMALE, inwork_prob_m, inwork_prob_f )
+                 - outwork_prob: 1 - inwork_prob
+                 #
                  #- show("inwork","inwork")
                  ################## Stage 2
                  - denom_m_1: exp(coefficient2[0,0]*age + coefficient2[0,1]*age*age + coefficient2[0,2]*xpr + coefficient2[0,3]*xpr*xpr 
@@ -81,25 +83,25 @@ entities:
                  # 
                  - denom: if(ISMALE, denom_m, denom_f)
                  #
-                 - private_prob: if(ISMALE, inwork_prob*denom_m_1/denom, inwork_prob*denom_f_1/denom)
-                 - independent_prob: inwork_prob*1/denom
-                 - public_prob: if(ISMALE, inwork_prob*denom_m_2/denom, inwork_prob*denom_f_2/denom)
+                 - private_prob: if(ISMALE, denom_m_1/denom, denom_f_1/denom)
+                 - independent_prob: 1/denom
+                 - public_prob: if(ISMALE, denom_m_2/denom, denom_f_2/denom)
+                 #
                  ################## Stage 3
                  - cadre_prob_m: logistic(coefficient3[0,0]*age + coefficient3[0,1]*age*age + coefficient3[0,2]*xpr + coefficient3[0,3]*xpr*xpr 
                                  + coefficient3[0,4]*findet + coefficient3[0,5])
                  - cadre_prob_f: logistic(coefficient3[1,0]*age + coefficient3[1,1]*age*age + coefficient3[1,2]*xpr + coefficient3[1,3]*xpr*xpr 
                                  + coefficient3[1,4]*findet + coefficient3[1,5]*nb_enf + coefficient3[1,6]*age*nb_enf + coefficient3[1,7])
-                 - cadre_prob: if(ISMALE,  inwork_prob*private_prob*cadre_prob_m,  inwork_prob*private_prob*cadre_prob_f)
+                 - cadre_prob: if(ISMALE,  cadre_prob_m,  cadre_prob_f)
                  # 
-                 - non_cadre_prob: if(ISMALE, inwork_prob*private_prob*(1-cadre_prob_m), inwork_prob*private_prob*(1-cadre_prob_f))
+                 - non_cadre_prob: 1 - cadre_prob
                  #
                  - actif_prob_m: logistic( coefficient3[2,0]*age + coefficient3[2,1]*age*age + coefficient3[2,2]*xpr + coefficient3[2,3]*xpr*xpr 
                                  + coefficient3[2,4]*findet + coefficient3[2,5])
                  - actif_prob_f: logistic(coefficient3[3,0]*age + coefficient3[3,1]*age*age + coefficient3[3,2]*xpr + coefficient3[3,3]*xpr*xpr
                                + coefficient3[3,4]*findet + coefficient3[3,5]*nb_enf + coefficient3[3,6]*age*nb_enf + coefficient3[3,7])
-                 - actif_prob: if(ISMALE,  inwork_prob*public_prob*actif_prob_m,  inwork_prob*public_prob*actif_prob_f)
-                 - seden_prob: if(ISMALE,  inwork_prob*public_prob*(1-actif_prob_m),  inwork_prob*public_prob*(1-actif_prob_f))
-                 #
+                 - actif_prob: if(ISMALE,  actif_prob_m,  actif_prob_f)
+                 - seden_prob: 1 - actif_prob
                  #
                  #
                  #
@@ -117,19 +119,26 @@ entities:
                  - denom2_f: 1 + denom_f_1 + denom_f_2
                  - denom2: if(ISMALE, denom2_m, denom2_f)
                  #
-                 - invalid_prob: (1 - inwork_prob)*1/denom2
-                 - unemployed_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_1/denom2, (1 - inwork_prob)*denom2_f_1/denom2)
-                 - inactive_prob: if(ISMALE, (1 - inwork_prob)*denom2_m_2/denom2, (1 - inwork_prob)*denom2_f_2/denom2)
+                 - invalid_prob: 1/denom2
+                 - unemployed_prob: if(ISMALE, denom2_m_1/denom2, denom2_f_1/denom2)
+                 - inactive_prob: if(ISMALE, denom2_m_2/denom2, denom2_f_2/denom2)
             
 #            show_prob: show(inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob)
            # DECISION
                 # TODO: reprendre les valeurs importées sur le taux de chômage
-                 - to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
+                 #- to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
                  #- invalid_prob: 1 - inactive_prob - unemployed_prob - non_cadre_prob - cadre_prob - actif_prob - seden_prob - independent_prob
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
+                ################# Stage 1
+                 - type_act: choice([IN_WORK, OUT_WORK],[inwork_prob, outwork_prob])
+                ################# Stage 2
+                 - type_act: if(ISINWORK, choice([PRIVATE, PUBLIC, INDEP],[private_prob, public_prob, independent_prob]), choice([INACTIVE, UNEMPLOYED, INVALID],[inactive_prob, unemployed_prob, invalid_prob]))
+                ################# Stage 3
+                 - type_act: if(WORK_PRIVE, choice([NON_CADRE, CADRE],[non_cadre_prob, cadre_prob]), workstate)
+                 - type-act: if(WORK_PUBLIC, choice([FONCT_A, FONCT_S],[actif_prob, seden_prob]), workstate)
                  #- type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
-                  #           [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
+                 #           [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
            # INDIVIDUAL CHARACTERISTIC (updating)
                  # Nombre d'années d'expérience
                  - xpr: if(ISINWORK,xpr + 1,xpr)
