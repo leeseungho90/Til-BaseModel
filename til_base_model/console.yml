@@ -62,7 +62,7 @@ simulation:
         - menage: [men_composition]
         - declar: [cases,empty_declar]
         #- person: [ineducation, outwork, inwork, retirement, chomage, salaire , retraite
-        - person: [ineducation, dump_info, outwork, inwork, chomage, salaire
+        - person: [ineducation, outwork, inwork, chomage, salaire
 #            dump_all            
         ]
         - menage: [init_value,consumption,saving]
@@ -80,7 +80,7 @@ simulation:
     output:
         file: simul.h5
         
-    skip_shows: True
+    skip_shows: False
     timings: False
     time_scale: 'year' 
     # retro: True

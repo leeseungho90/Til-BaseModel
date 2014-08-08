@@ -20,7 +20,7 @@ globals:
 entities:
     person:
         processes:
-            dump_info: csv(dump(coefficient1[0,0], coefficient1[1,0]),C:\Users\s.lee\Dropbox\IPP\Code\parametre.csv)
+            #dump_info: csv(dump(coefficient1[0,0], coefficient1[1,0]),C:\Users\s.lee\Dropbox\IPP\Code\parametre.csv)
             outwork:
                 # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
                 # UNEMPLOYMENT DURING THE LAST 5 YEARS
@@ -110,24 +110,54 @@ entities:
                              + coefficient2[2,12]*unempdur5 +coefficient2[2,13]*invaldur5 + coefficient2[2,14]*inacdur5 +coefficient2[2,15])
                  - denom2_m_2: exp(coefficient2[2,16]*age + coefficient2[2,17]*age*age + coefficient2[2,18]*xpr + coefficient2[2,19]*xpr*xpr
                             + coefficient2[2,20]*unempdur5 + coefficient2[2,21]*invaldur5 + coefficient2[2,22]*inacdur5 + coefficient2[2,23])
-                 - denom2_m: 1 + denom_m_1 + denom_m_2
+                 - denom2_m: 1 + denom2_m_1 + denom2_m_2
+                 #
                  - denom2_f_1: exp(coefficient2[3,10]*age + coefficient2[3,11]*age*age + coefficient2[3,12]*xpr + coefficient2[3,13]*xpr*xpr 
                            + coefficient2[3,14]*unempdur5 + coefficient2[3,15]*invaldur5 + coefficient2[3,16]*inacdur5
                            + coefficient2[3,17]*nb_enf + coefficient2[3,18]*age*nb_enf+ coefficient2[3,19])
                  - denom2_f_2: exp(coefficient2[3,20]*age + coefficient2[3,21]*age*age + coefficient2[3,22]*xpr + coefficient2[3,23]*xpr*xpr 
                            + coefficient2[3,24]*unempdur5 + coefficient2[3,25]*invaldur5 + coefficient2[3,26]*inacdur5
                            + coefficient2[3,27]*nb_enf + coefficient2[3,28]*age*nb_enf+ coefficient2[3,29])
-                 - denom2_f: 1 + denom_f_1 + denom_f_2
+                 - denom2_f: 1 + denom2_f_1 + denom2_f_2
                  - denom2: if(ISMALE, denom2_m, denom2_f)
                  #
                  - invalid_prob: 1/denom2
                  - unemployed_prob: if(ISMALE, denom2_m_1/denom2, denom2_f_1/denom2)
                  - inactive_prob: if(ISMALE, denom2_m_2/denom2, denom2_f_2/denom2)
-                 - test: coefficient1
-                 - test2: coefficient2[1,0]
-                 - test3: coefficient3[2,0]
-                 - show( max(test), min(test))
-                 - show( max(test2), min(test2))
+                 #
+                 #- test: coefficient1
+                 #- test2: coefficient2[2,7]
+                 #- test3: coefficient2[2,8]
+                 #- test4: coefficient2[2,14]
+                 #- test5: coefficient2[2,15]
+                 #- test6: coefficient2[2,16]
+                 #- show
+                 #- show("7", test2,"8", test3,"14", test4, test5, test6)
+                 #- test7: private_prob + public_prob + independent_prob
+                 #- test8: inactive_prob + unemployed_prob + invalid_prob
+                 #- show("sum in work", test7)
+                 #- show("sum out work", test8 )
+                 #- show("outwork2", denom2_m, denom2_m_1, denom2_m_2)
+                 #
+                 - show( "type", inwork_prob, outwork_prob)
+                 - show( "cadre", non_cadre_prob, cadre_prob)
+                 - show( "actif", actif_prob, seden_prob)
+                 - show("inwork", private_prob, public_prob, independent_prob)
+                 - show("outwork", inactive_prob, unemployed_prob, invalid_prob)
+                 - test: inwork_prob + outwork_prob
+                 - show("sum_type", test)
+                 - test: actif_prob + seden_prob
+                 - show("sum_actif", test)
+                 - test: cadre_prob + non_cadre_prob
+                 - show("sum_cadre", test)
+                 - test7: private_prob + public_prob + independent_prob
+                 - test8: inactive_prob + unemployed_prob + invalid_prob
+                 - show("sum in work", test7)
+                 - show("sum out work", test8 )
+                 - show("uniform", uniform())
+                 - test: uniform()
+                 - show("test", test)
+                 - show(uniform()[1])
 #            show_prob: show(inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob)
            # DECISION
                 # TODO: reprendre les valeurs importées sur le taux de chômage
@@ -136,12 +166,17 @@ entities:
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
                 ################# Stage 1
-                 - type_act: choice([IN_WORK, OUT_WORK],[inwork_prob, outwork_prob])
+                 #- workstate: choice([IN_WORK, OUT_WORK],[inwork_prob, outwork_prob])
+                 - workstate: if(uniform()[1]<=inwork_prob,IN_WORK, OUT_WORK)
                 ################# Stage 2
-                 - type_act: if(ISINWORK, choice([PRIVATE, PUBLIC, INDEP],[private_prob, public_prob, independent_prob]), choice([INACTIVE, UNEMPLOYED, INVALID],[inactive_prob, unemployed_prob, invalid_prob]))
+                 #- workstate: if(ISINWORK, choice([PRIVATE, PUBLIC, INDEP],[private_prob, public_prob, independent_prob]), choice([INACTIVE, UNEMPLOYED, INVALID],[inactive_prob, unemployed_prob, invalid_prob]))
+                 - workstate: if(ISINWORK, if(uniform()[1]<=private_prob, PRIVATE, if(uniform()[1]<=public_prob, PUBLIC, INDEP)), if(uniform()[1]<=inactive_prob, INACTIVE, if(uniform()[1]<=unemployed_prob, UNEMPLOYED, INVALID)))
                 ################# Stage 3
-                 - type_act: if(WORK_PRIVE, choice([NON_CADRE, CADRE],[non_cadre_prob, cadre_prob]), workstate)
-                 - type-act: if(WORK_PUBLIC, choice([FONCT_A, FONCT_S],[actif_prob, seden_prob]), workstate)
+                 #- workstate: if(WORK_PRIVE, choice([NON_CADRE, CADRE],[non_cadre_prob, cadre_prob]), workstate)
+                 - workstate: if(WORK_PRIVE, if(uniform()[1]<= cadre_prob, CADRE, NON_CADRE), workstate)
+                 #- workstate: if(WORK_PUBLIC, choice([FONCT_A, FONCT_S],[actif_prob, seden_prob]), workstate)
+                 - workstate: if(WORK_PUBLIC, if(uniform()[1]<= actif_prob, FONCT_A, FONCT_S), workstate)
+                 #- workstate: if(to_work, type_act, workstate)- workstate: if(to_work, type_act, workstate)
                  #- type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
                  #           [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
            # INDIVIDUAL CHARACTERISTIC (updating)
