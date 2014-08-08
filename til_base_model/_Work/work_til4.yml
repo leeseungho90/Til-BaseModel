@@ -20,6 +20,7 @@ globals:
 entities:
     person:
         processes:
+            dump_info: csv(dump(coefficient1[0,0], coefficient1[1,0]),C:\Users\s.lee\Dropbox\IPP\Code\parametre.csv)
             outwork:
                 # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
                 # UNEMPLOYMENT DURING THE LAST 5 YEARS
@@ -122,7 +123,11 @@ entities:
                  - invalid_prob: 1/denom2
                  - unemployed_prob: if(ISMALE, denom2_m_1/denom2, denom2_f_1/denom2)
                  - inactive_prob: if(ISMALE, denom2_m_2/denom2, denom2_f_2/denom2)
-            
+                 - test: coefficient1
+                 - test2: coefficient2[1,0]
+                 - test3: coefficient3[2,0]
+                 - show( max(test), min(test))
+                 - show( max(test2), min(test2))
 #            show_prob: show(inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob)
            # DECISION
                 # TODO: reprendre les valeurs importées sur le taux de chômage
