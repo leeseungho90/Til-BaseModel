@@ -123,6 +123,7 @@ entities:
                  #
                  - invalid_prob: 1/denom2
                  - unemployed_prob: if(ISMALE, denom2_m_1/denom2, denom2_f_1/denom2)
+                 - unemployed_score: unemployed_prob*(1 - inwork_prob)
                  - inactive_prob: if(ISMALE, denom2_m_2/denom2, denom2_f_2/denom2)
                  #
                  #- test: coefficient1
@@ -139,29 +140,9 @@ entities:
                  #- show("sum out work", test8 )
                  #- show("outwork2", denom2_m, denom2_m_1, denom2_m_2)
                  #
-                 - show( "type", inwork_prob, outwork_prob)
-                 - show( "cadre", non_cadre_prob, cadre_prob)
-                 - show( "actif", actif_prob, seden_prob)
-                 - show("inwork", private_prob, public_prob, independent_prob)
-                 - show("outwork", inactive_prob, unemployed_prob, invalid_prob)
-                 - test: inwork_prob + outwork_prob
-                 - show("sum_type", test)
-                 - test: actif_prob + seden_prob
-                 - show("sum_actif", test)
-                 - test: cadre_prob + non_cadre_prob
-                 - show("sum_cadre", test)
-                 - test7: private_prob + public_prob + independent_prob
-                 - test8: inactive_prob + unemployed_prob + invalid_prob
-                 - show("sum in work", test7)
-                 - show("sum out work", test8 )
-                 - show("uniform", uniform())
-                 - test: uniform()
-                 - show("test", test)
-                 - show(uniform()[1])
 #            show_prob: show(inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob)
            # DECISION
                 # TODO: reprendre les valeurs importées sur le taux de chômage
-                 #- to_work: align(0.0, filter = ISUNEMPLOYED, proportions=0.05) # unemp_rate est issu de la projection INSEE
                  #- invalid_prob: 1 - inactive_prob - unemployed_prob - non_cadre_prob - cadre_prob - actif_prob - seden_prob - independent_prob
                 # The assignment is done based on the threshold probability computed above
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
@@ -180,6 +161,7 @@ entities:
                  #- type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
                  #           [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
            # INDIVIDUAL CHARACTERISTIC (updating)
+                 - workstate: align(unemployed_score, 'param\chomageCOR.csv', filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
                  # Nombre d'années d'expérience
                  - xpr: if(ISINWORK,xpr + 1,xpr)
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
