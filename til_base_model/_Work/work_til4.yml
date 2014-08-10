@@ -11,7 +11,7 @@ globals:
     coefficient3:
         path: param\basemodel\nmlogit4.csv
         type: float
-    chomage:
+    chomageCOR:
         path: param\chomageCOR.csv
         type: float
     # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
@@ -164,8 +164,9 @@ entities:
                  #- type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
                  #           [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
            # INDIVIDUAL CHARACTERISTIC (updating)
+                 - temp: trunc((period - 200901)/100)
                  #- workstate: align(unemployed_score, 'param\chomageCOR.csv', filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
-                 - workstate: align(unemployed_score, chomage[0,period-2009], filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
+                 - workstate: align(unemployed_score, chomageCOR[0,temp], filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
                  # Nombre d'années d'expérience
                  - xpr: if(ISINWORK,xpr + 1,xpr)
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
