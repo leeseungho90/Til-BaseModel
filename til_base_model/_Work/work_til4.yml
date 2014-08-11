@@ -23,7 +23,6 @@ globals:
 entities:
     person:
         processes:
-            #dump_info: csv(dump(coefficient1[0,0], coefficient1[1,0]),C:\Users\s.lee\Dropbox\IPP\Code\parametre.csv)
             outwork:
                 # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
                 # UNEMPLOYMENT DURING THE LAST 5 YEARS
@@ -167,6 +166,7 @@ entities:
                  - temp: trunc((period - 200901)/100)
                  #- workstate: align(unemployed_score, 'param\chomageCOR.csv', filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
                  - workstate: align(unemployed_score, chomageCOR[0,temp], filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
+                 - show("labor market status ", workstate)
                  # Nombre d'années d'expérience
                  - xpr: if(ISINWORK,xpr + 1,xpr)
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
