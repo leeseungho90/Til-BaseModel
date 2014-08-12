@@ -71,7 +71,7 @@ entities:
             - patrimoine: {type: float, initialdata: false}
         # legislation
             - salsuperbrut: {type: int, initialdata: false, default: 0} 
-            - cotsoc_noncontrib: {type: int, initialdata: false} 
+            - cotsoc_noncontrib: {type: int, initialdata: false}   
             - cotsal_noncontrib: {type: int, initialdata: false} 
             - cotsoc_bar: {type: int, initialdata: false} 
             - cotsoc_lib: {type: int, initialdata: false} 
@@ -91,9 +91,9 @@ entities:
             - nb_enf_RSI: {type: int, initialdata: false, default: 0}   
             - nb_enf_FP: {type: int, initialdata: false, default: 0} 
          #
-            - ispublic: {type: int, initialdata: false, default: 0}   
-            - isprivate: {type: int, initialdata: false, default: 0}   
-            - isindep: {type: int, initialdata: false, default: 0}
+          #  - ispublic: {type: int, initialdata: false, default: 0}   
+          #  - isprivate: {type: int, initialdata: false, default: 0}   
+          #  - isindep: {type: int, initialdata: false, default: 0}
         links:
             l_men:      {type: many2one, target: menage, field: men}
             l_foy:      {type: many2one, target: declar, field: foy}

@@ -13,23 +13,24 @@ from pandas import *
 from utils import til_name_to_of
 
 temps = time.clock()    
-simul = "C:\Simulation\Til\\til\output\simul.h5"
+simul = "C:\Simulation\Destinie.h5"
 #simul = "C:\Simulation\Til-BaseModel\\til_base_model\Destinie.h5"
 # output = HDFStore(calc)
 simul = HDFStore(simul)
 
 nom = 'register'
-base = 'entities/'+nom
+base = 'entities/'+nom  
 register = simul[str(base)]
 indiv = register['id'].unique()
 reg_ind = register.groupby('id')
 
+'''
 naiss = reg_ind.max()['naiss']
 deces = reg_ind.max()['deces']
 duree_vie = (deces>0) * (deces - naiss)
 duree_vie_freq = duree_vie.value_counts()
 print duree_vie_freq
-
+'''
 ####################pdb.set_trace()
     
 table = {}
@@ -59,9 +60,9 @@ res_size = len(ids)
 #    x = table[ent][table[ent]['noi']==ind][['sali','rsti','choi']].sum().values
 #    sum_values[ind,1:] = x
 #    sum_values[ind,0] = ind
-list2drop = ['wprm_init','age','idmen','idfoy','quifoy', 'pere','mere','conj','dur_in_couple','dur_out_couple',
-             'education_level','productivity']
-list2keep = ['period','age', 'sexe','noi','findet','civilstate','workstate','sali','rsti','choi','xpr','anc','unempdur5','inacdur5','invaldur5']
+#list2drop = ['wprm_init','age','idmen','idfoy','quifoy', 'pere','mere','conj','dur_in_couple','dur_out_couple',
+#            'education_level','productivity']
+list2keep = ['period', 'sexe','noi','findet','civilstate','workstate','sali','rsti','choi','xpr','anc','naiss', 'nb_enf', 'nb_foy','agem']
 #tab = table[ent].drop(list2drop, axis=1)
 tab = table['ind'][list2keep]
 indiv = tab.groupby(['noi'],sort=False)
@@ -87,7 +88,7 @@ decile = tabm.groupby(['noi','decile'],sort=False).size()
 df = DataFrame(tab, columns=list(list2keep))
 #####pdb.set_trace()
 
-df.to_csv("C:\Simulation\simul.csv")
+df.to_csv("C:\Simulation\destinie.csv")
 #df.to_stata("C:\Simulation\simul.dta")
 '''
 df.to_csv("C:\Simulation\destinie.csv")

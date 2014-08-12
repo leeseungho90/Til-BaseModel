@@ -54,6 +54,7 @@ entities:
                 - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
                 - invaldur5: if(invaldur5 > 0, invaldur5 , 0)                
            # Probability of transition from the reference state
+                - show("unempdur5", unempdur5, "invaldur5",invaldur5, "inacdur5", inacdur5)
             inwork:
                  # Estimation is done separately for men and women
                  # denominator of the logit function
@@ -152,24 +153,27 @@ entities:
                 # Choice function draws randomly a value from the uniform distribution [0,1] and assigns the agent to the proper state
                 ################# Stage 1
                  #- workstate: choice([IN_WORK, OUT_WORK],[inwork_prob, outwork_prob])
-                 - workstate: if(uniform()[1]<=inwork_prob,IN_WORK, OUT_WORK)
+                 - workstate: if(uniform()<=inwork_prob,IN_WORK, OUT_WORK)
                 ################# Stage 2
                  #- workstate: if(ISINWORK, choice([PRIVATE, PUBLIC, INDEP],[private_prob, public_prob, independent_prob]), choice([INACTIVE, UNEMPLOYED, INVALID],[inactive_prob, unemployed_prob, invalid_prob]))
-                 - workstate: if(ISINWORK, if(uniform()[1]<=private_prob, PRIVATE, if(uniform()[1]<=public_prob, PUBLIC, INDEP)), if(uniform()[1]<=inactive_prob, INACTIVE, if(uniform()[1]<=unemployed_prob, UNEMPLOYED, INVALID)))
+                 - workstate: if(ISINWORK, if(uniform()<=private_prob, PRIVATE, if(uniform()<=public_prob, PUBLIC, INDEP)), if(uniform()<=inactive_prob, INACTIVE, if(uniform()<=unemployed_prob, UNEMPLOYED, INVALID)))
+                 - show("LABOR MARKET STATUS - LEVEL2", workstate, min(workstate), max(workstate))
                 ################# Stage 3
                  #- workstate: if(WORK_PRIVE, choice([NON_CADRE, CADRE],[non_cadre_prob, cadre_prob]), workstate)
-                 - workstate: if(WORK_PRIVE, if(uniform()[1]<= cadre_prob, CADRE, NON_CADRE), workstate)
+                 - workstate: if(WORK_PRIVE, if(uniform()<= cadre_prob, CADRE, NON_CADRE), workstate)
                  #- workstate: if(WORK_PUBLIC, choice([FONCT_A, FONCT_S],[actif_prob, seden_prob]), workstate)
-                 - workstate: if(WORK_PUBLIC, if(uniform()[1]<= actif_prob, FONCT_A, FONCT_S), workstate)
+                 - workstate: if(WORK_PUBLIC, if(uniform()<= actif_prob, FONCT_A, FONCT_S), workstate)
+                 - show("LABOR MARKET STATUS - LEVEL3", workstate, min(workstate), max(workstate))
                  #- workstate: if(to_work, type_act, workstate)- workstate: if(to_work, type_act, workstate)
                  #- type_act: if(to_work, choice([INACTIVE, UNEMPLOYED, NON_CADRE, CADRE, FONCT_A, FONCT_S, INDEP, INVALID ],
                  #           [inactive_prob, unemployed_prob, non_cadre_prob, cadre_prob, actif_prob, seden_prob, independent_prob, invalid_prob]), 0)
            # INDIVIDUAL CHARACTERISTIC (updating)
                  - temp: trunc((period - 200901)/100)
                  #- workstate: align(unemployed_score, 'param\chomageCOR.csv', filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
-                 - workstate: align(unemployed_score, chomageCOR[0,temp], filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
-                 - show("labor market status ", workstate)
+                 - workstate: align(unemployed_score, chomageCOR[0,temp], take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
+                 - show("LABOR MARKET STATUS AFTER ALIGNMENT", workstate, max(workstate), min(workstate))
                  # Nombre d'années d'expérience
+                 - xpr: if(xpr<0,0,xpr)
                  - xpr: if(ISINWORK,xpr + 1,xpr)
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
                 #- ISOTHERINACTIVE: (type_act == INACTIVE)
