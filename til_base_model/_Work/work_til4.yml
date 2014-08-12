@@ -24,7 +24,6 @@ entities:
     person:
         processes:
             outwork:
-                # TODO!!!!: il faudrait définir tous ces termes dans _person.yml!!!!!
                 # UNEMPLOYMENT DURING THE LAST 5 YEARS
                 # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
                 # Comme on avance dans le temps, isunemployed$ prend la valeur de isunemployed"$-1" et isunemployed1 prend l'état actuel
@@ -35,6 +34,7 @@ entities:
                 - isunemployed1: if(ISUNEMPLOYED,1,0)
                 # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
                 - unempdur5: isunemployed5 + isunemployed4 + isunemployed3 + isunemployed2 + isunemployed1
+                - unempdur5: if(unempdur5 > 0, unempdur5, 0)
                 # INACTIVITY DURING THE LAST 5 YEARS
                 - isinactive5: if(isinactive4>0,isinactive4,0)
                 - isinactive4: if(isinactive3>0,isinactive3,0)
@@ -43,6 +43,7 @@ entities:
                 - isinactive1: if(ISOTHERINACTIVE,1,0)
                 # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
                 - inacdur5: isinactive5 + isinactive4 + isinactive3 + isinactive2 + isinactive1
+                - inacdur5: if(inacdur5 > 0, inacdur5 , 0)                
                 # INVALIDITY DURING THE LAST 5 YEARS
                 - isinvalid5: if(isinvalid4>0,isinvalid4,0)
                 - isinvalid4: if(isinvalid3>0,isinvalid3,0)
@@ -51,6 +52,7 @@ entities:
                 - isinvalid1: if(ISINVALID,1,0)
                 # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
                 - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
+                - invaldur5: if(invaldur5 > 0, invaldur5 , 0)                
            # Probability of transition from the reference state
             inwork:
                  # Estimation is done separately for men and women
