@@ -170,11 +170,13 @@ entities:
            # INDIVIDUAL CHARACTERISTIC (updating)
                  - temp: trunc((period - 200901)/100)
                  #- workstate: align(unemployed_score, 'param\chomageCOR.csv', filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
-                 - workstate: align(unemployed_score, chomageCOR[0,temp], take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
-                 - show("LABOR MARKET STATUS AFTER ALIGNMENT", workstate, max(workstate), min(workstate))
+                 #- workstate: align(unemployed_score, chomageCOR[0,temp], take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
+                 #- show("LABOR MARKET STATUS AFTER ALIGNMENT", workstate, max(workstate), min(workstate))
+                 # - unemp_rate: count(ISUNEMPLOYED)/
                  # Nombre d'années d'expérience
                  - xpr: if(xpr<0,0,xpr)
                  - xpr: if(ISINWORK,xpr + 1,xpr)
+                 - show("EXPERIENCES ", xpr)
                 #- ISUNEMPLOYED: (type_act == UNEMPLOYED)
                 #- ISOTHERINACTIVE: (type_act == INACTIVE)
                 #- ISRETIRED: (type_act == RETIRED)
