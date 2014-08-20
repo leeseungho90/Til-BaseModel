@@ -87,7 +87,7 @@ decile = tabm.groupby(['noi','decile'],sort=False).size()
 df = DataFrame(tab, columns=list(list2keep))
 #####pdb.set_trace()
 
-df.to_csv("C:\Simulation\simul5.csv")
+df.to_csv("C:\Simulation\simul2.csv")
 #df.to_stata("C:\Simulation\simul.dta")
 '''
 df.to_csv("C:\Simulation\destinie.csv")

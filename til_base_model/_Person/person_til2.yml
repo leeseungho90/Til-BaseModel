@@ -188,6 +188,8 @@ entities:
                 - age: trunc(agem/12)
                 # - wprm_init: permet de faire des tests
                 - wprm_init: lag(agem,2)
+                - xpr: if(xpr<0,0,xpr)
+                - xpr: if(ISINWORK,xpr + 1,xpr)
                 
             stat_period_ini:
                 - csv('period', 'population', 'naissance', 'sali', 'rsti', 'choi','age moyen',fname='stat.csv')
