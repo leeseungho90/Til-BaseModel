@@ -150,7 +150,7 @@ entities:
             STUDENT:   11
             INVALID: 12
                     
-            ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7)
+            ISINWORK:     (workstate == 3) or (workstate == 4) or (workstate == 5)  or (workstate == 6) or (workstate == 7) or (workstate == 30) or (workstate == 50)
             WORK_PUBLIC:  (workstate == 5)  or (workstate == 6)
             WORK_PRIVE:   (workstate == 3) or (workstate == 4)
             WORK_INDEP:   (workstate == 7)
@@ -188,8 +188,6 @@ entities:
                 - age: trunc(agem/12)
                 # - wprm_init: permet de faire des tests
                 - wprm_init: lag(agem,2)
-                - xpr: if(xpr<0,0,xpr)
-                - xpr: if(ISINWORK,xpr + 1,xpr)
                 
             stat_period_ini:
                 - csv('period', 'population', 'naissance', 'sali', 'rsti', 'choi','age moyen',fname='stat.csv')
