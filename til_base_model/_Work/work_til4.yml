@@ -9,7 +9,7 @@ globals:
         type: float
     ################## Stage 3
     coefficient3:
-        path: param\basemodel\nmlogit4.csv
+        path: param\basemodel\nmlogit3.csv
         type: float
     chomageCOR:
         path: param\chomageCOR.csv
