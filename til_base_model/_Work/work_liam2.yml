@@ -1,0 +1,239 @@
+globals:
+    ################## Stage 1
+    coefficient1:         # 
+        path: param\basemodel\liam.csv
+        type: float
+    chomageCOR:
+        path: param\chomageCOR.csv
+        type: float
+    # periodic permet d'importer les valeurs des taux de chômage qui évoluent d'une année à l'autre (comme par exemple, le taux de chomage)            
+    #periodic:
+        #    periodic:         
+        #path: input/macro.csv
+        # PERIOD is an implicit column of the periodic table (You need to put the name "PERIOD" in your table)
+        #- unemp_rate: float
+entities:
+    person:
+        processes:
+            outwork:
+                # UNEMPLOYMENT DURING THE LAST 5 YEARS
+                # isunemployed$ signifie l'indicatrice du chômage il y a "$" années
+                # Comme on avance dans le temps, isunemployed$ prend la valeur de isunemployed"$-1" et isunemployed1 prend l'état actuel
+                - isunemployed5: if(isunemployed4>0,isunemployed4,0)
+                - isunemployed4: if(isunemployed3>0,isunemployed3,0)  
+                - isunemployed3: if(isunemployed2>0,isunemployed2,0)
+                - isunemployed2: if(isunemployed1>0,isunemployed1,0)
+                - isunemployed1: if(ISUNEMPLOYED,1,0)
+                # durée de chômage pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - unempdur5: isunemployed5 + isunemployed4 + isunemployed3 + isunemployed2 + isunemployed1
+                - unempdur5: if(unempdur5 > 0, unempdur5, 0)
+                # INACTIVITY DURING THE LAST 5 YEARS
+                - isinactive5: if(isinactive4>0,isinactive4,0)
+                - isinactive4: if(isinactive3>0,isinactive3,0)
+                - isinactive3: if(isinactive2>0,isinactive2,0)
+                - isinactive2: if(isinactive1>0,isinactive1,0)
+                - isinactive1: if(ISOTHERINACTIVE,1,0)
+                # durée d'inactivité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - inacdur5: isinactive5 + isinactive4 + isinactive3 + isinactive2 + isinactive1
+                - inacdur5: if(inacdur5 > 0, inacdur5 , 0)                
+                # INVALIDITY DURING THE LAST 5 YEARS
+                - isinvalid5: if(isinvalid4>0,isinvalid4,0)
+                - isinvalid4: if(isinvalid3>0,isinvalid3,0)
+                - isinvalid3: if(isinvalid2>0,isinvalid2,0)
+                - isinvalid2: if(isinvalid1>0,isinvalid1,0)
+                - isinvalid1: if(ISINVALID,1,0)
+                # durée d'invalidité pendant les 5 dernières années (i.e. somme des 5 indicatrices précédentes)
+                - invaldur5: isinvalid5 + isinvalid4 + isinvalid3 + isinvalid2 + isinvalid1
+                - invaldur5: if(invaldur5 > 0, invaldur5 , 0)                
+           # Probability of transition from the reference state
+                - show("unempdur5", unempdur5, "invaldur5",invaldur5, "inacdur5", inacdur5)
+            inwork:
+                 # Estimation is done separately for men and women
+                 # denominator of the logit function
+                 ################## Stage 1
+                 - work_prob_f: logit_score(coefficient[0,0]*age + coefficient[0,1]*age*age + coefficient[0,2]*xpr + coefficient[0,3]*xpr*xpr 
+                                  + coefficient[0,4]*unempdur5 + coefficient[0,5]*invaldur5 + coefficient[0,6]*inacdur5
+                                  + coefficient[0,7]*findet + coefficient[0,8]*nb_enf + coefficient[0,9]*age*nb_enf + coefficient[0,10])
+                 - work_prob_m: logit_score(coefficient[1,0]*age + coefficient[1,1]*age*age + coefficient[1,2]*xpr + coefficient[1,3]*xpr*xpr
+                                  + coefficient[1,4]*unempdur5 + coefficient[1,5]*invaldur5 + coefficient[1,6]*inacdur5 + coefficient[1,7]*findet + coefficient[1,8])
+                 - work_prob: if(ISMALE, inwork_prob_m, inwork_prob_f )
+                 - inactive_prob: 1 - inwork_prob
+                 ################## Stage 2
+                 - inwork_prob_f: logit_score(coefficient[2,0]*age + coefficient[2,1]*age*age + coefficient[2,2]*xpr + coefficient[2,3]*xpr*xpr 
+                                  + coefficient[2,4]*unempdur5 + coefficient[2,5]*invaldur5 + coefficient[2,6]*inacdur5
+                                  + coefficient[2,7]*findet + coefficient[2,8]*nb_enf + coefficient[2,9]*age*nb_enf + coefficient[2,10])
+                 - inwork_prob_m: logit_score(coefficient[3,0]*age + coefficient[3,1]*age*age + coefficient[3,2]*xpr + coefficient[3,3]*xpr*xpr
+                                  + coefficient[3,4]*unempdur5 + coefficient[3,5]*invaldur5 + coefficient[3,6]*inacdur5 + coefficient[3,7]*findet + coefficient[3,8])
+                 - inwork_prob: if(ISMALE, inwork_prob_m, inwork_prob_f )
+                 - outwork_prob: 1 - inwork_prob                 
+                 
+                 ################## Stage 3
+                 # INVALIDE OU UNEMP
+                 - unemp_prob_f: logit_score(coefficient[4,0]*age + coefficient[4,1]*age*age + coefficient[4,2]*xpr + coefficient[4,3]*xpr*xpr 
+                                  + coefficient[4,4]*unempdur5 + coefficient[4,5]*invaldur5 + coefficient[4,6]*inacdur5
+                                  + coefficient[4,7]*findet + coefficient[4,8]*nb_enf + coefficient[4,9]*age*nb_enf + coefficient[4,10])
+                 - unemp_prob_m: logit_score(coefficient[5,0]*age + coefficient[5,1]*age*age + coefficient[5,2]*xpr + coefficient[5,3]*xpr*xpr
+                                  + coefficient[5,4]*unempdur5 + coefficient[5,5]*invaldur5 + coefficient[5,6]*inacdur5 + coefficient[5,7]*findet + coefficient[5,8])
+                 - unemp_prob: if(ISMALE, unemp_prob_m, unemp_prob_f )
+                 - invalid_prob: 1 - unemp_prob      
+                 # INDEP OU SALARIE
+                 - salarie_prob_f: logit_score(coefficient[6,0]*age + coefficient[6,1]*age*age + coefficient[6,2]*xpr + coefficient[6,3]*xpr*xpr 
+                                  + coefficient[6,4]*unempdur5 + coefficient[6,5]*invaldur5 + coefficient[6,6]*inacdur5
+                                  + coefficient[6,7]*findet + coefficient[6,8]*nb_enf + coefficient[6,9]*age*nb_enf + coefficient[6,10])
+                 - salarie_prob_m: logit_score(coefficient[7,0]*age + coefficient[7,1]*age*age + coefficient[7,2]*xpr + coefficient[7,3]*xpr*xpr
+                                  + coefficient[7,4]*unempdur5 + coefficient[7,5]*invaldur5 + coefficient[7,6]*inacdur5 + coefficient[7,7]*findet + coefficient[7,8])
+                 - salarie_prob: if(ISMALE, salarie_prob_m, salarie_prob_f )
+                 - indep_prob: 1 - salarie_prob      
+
+                 ################## Stage 4
+                 - public_prob_f: logit_score(coefficient[8,0]*age + coefficient[8,1]*age*age + coefficient[8,2]*xpr + coefficient[8,3]*xpr*xpr 
+                                  + coefficient[8,4]*unempdur5 + coefficient[8,5]*invaldur5 + coefficient[8,6]*inacdur5
+                                  + coefficient[8,7]*findet + coefficient[8,8]*nb_enf + coefficient[8,9]*age*nb_enf + coefficient[8,10])
+                 - public_prob_m: logit_score(coefficient[9,0]*age + coefficient[9,1]*age*age + coefficient[9,2]*xpr + coefficient[9,3]*xpr*xpr
+                                  + coefficient[9,4]*unempdur5 + coefficient[9,5]*invaldur5 + coefficient[9,6]*inacdur5 + coefficient[9,7]*findet + coefficient[9,8])
+                 - public_prob: if(ISMALE, public_prob_m, public_prob_f )
+                 - private_prob: 1 - public_prob 
+
+                 ################## Stage 5
+                 # CADRE OU NON_CADRE
+                 - cadre_prob_f: logit_score(coefficient[10,0]*age + coefficient[10,1]*age*age + coefficient[10,2]*xpr + coefficient[10,3]*xpr*xpr 
+                                  + coefficient[10,4]*unempdur5 + coefficient[10,5]*invaldur5 + coefficient[10,6]*inacdur5
+                                  + coefficient[10,7]*findet + coefficient[10,8]*nb_enf + coefficient[10,9]*age*nb_enf + coefficient[10,10])
+                 - cadre_prob_m: logit_score(coefficient[11,0]*age + coefficient[11,1]*age*age + coefficient[11,2]*xpr + coefficient[11,3]*xpr*xpr
+                                  + coefficient[11,4]*unempdur5 + coefficient[11,5]*invaldur5 + coefficient[11,6]*inacdur5 + coefficient[11,7]*findet + coefficient[11,8])
+                 - cadre_prob: if(ISMALE, cadre_prob_m, cadre_prob_f )
+                 - non_cadre_prob: 1 - cadre_prob      
+                 # ACTIF OU SEDENTAIRE
+                 - actif_prob_f: logit_score(coefficient[12,0]*age + coefficient[12,1]*age*age + coefficient[12,2]*xpr + coefficient[12,3]*xpr*xpr 
+                                  + coefficient[12,4]*unempdur5 + coefficient[12,5]*invaldur5 + coefficient[12,6]*inacdur5
+                                  + coefficient[12,7]*findet + coefficient[12,8]*nb_enf + coefficient[12,9]*age*nb_enf + coefficient[12,10])
+                 - actif_prob_m: logit_score(coefficient[13,0]*age + coefficient[13,1]*age*age + coefficient[13,2]*xpr + coefficient[13,3]*xpr*xpr
+                                  + coefficient[13,4]*unempdur5 + coefficient[13,5]*invaldur5 + coefficient[13,6]*inacdur5 + coefficient[13,7]*findet + coefficient[13,8])
+                 - actif_prob: if(ISMALE, actif_prob_m, actif_prob_f )
+                 - seden_prob: 1 - actif_prob      
+
+
+                 ################## Choice
+                 
+
+entities:
+    person:          
+        processes:          
+            init_workstate:
+                - workstate: choice([ 1, 2, 3, 4, 5], [0.3, 0.1, 0.1, 0.2, 0.3])
+                
+            inwork:
+                # retire
+                - workstate: if(ISMALE,
+                                if((age >= 65), RETIRED, workstate),
+                                if((age >= WEMRA), RETIRED, workstate))
+                - work_score: -1
+                # men
+                - work_score: if(ISMALE and (age > 15) and (age < 65) and ISINWORK,
+                                 logit_score(-0.196599 * age + 0.0086552 * age **2 - 0.000988 * age **3
+                                             + 0.1892796 * ISMARRIED + 3.554612),
+                                 work_score)
+                - work_score: if(ISMALE and (age > 15) and (age < 65) and (ISUNEMPLOYED or ISOTHERINACTIVE),
+                                 logit_score(0.9780908 * age - 0.0261765 * age **2 + 0.000199 * age **3
+                                             - 12.39108),
+                                 work_score)
+                # women
+                - work_score: if(ISFEMALE and (age > 15) and (age < WEMRA) and ISINWORK,
+                                 logit_score(-0.2740483 * age + 0.0109883 * age **2 - 0.0001159 * age **3
+                                             - 0.0906834 * ISMARRIED + 3.648706),
+                                 work_score)
+                - work_score: if(ISFEMALE and (age > 15) and (age < WEMRA) and (ISUNEMPLOYED or ISOTHERINACTIVE),
+                                 logit_score(0.8217638 * age - 0.0219761 * age **2 + 0.000166 * age **3
+                                             - 0.5590975 * ISMARRIED - 10.48043),
+                                 work_score)
+
+                # this is equivalent, though less readable
+#                - work_score: if(age > 15,
+#                                 if((age < 65) and ISINWORK,
+#                                    if(ISMALE,
+#                                       logit_score(-0.196599 * age + 0.0086552 * age **2 - 0.000988 * age **3
+#                                                   + 0.1892796 * ISMARRIED + 3.554612),
+#                                       logit_score(-0.2740483 * age + 0.0109883 * age **2 - 0.0001159 * age **3
+#                                                   - 0.0906834 * ISMARRIED + 3.648706)),
+#                                    if((age < 50) and ISUNEMPLOYED,
+#                                       if(ISMALE,
+#                                          logit_score(0.9780908 * age - 0.0261765 * age **2 + 0.000199 * age **3
+#                                                      - 12.39108),
+#                                          logit_score(0.8217638 * age - 0.0219761 * age **2 + 0.000166 * age **3
+#                                                      - 0.5590975 * ISMARRIED - 10.48043)),
+#                                       -1)),
+#                                 -1)
+                
+                - agegroup_work: if(age < 70, 5 * trunc(age / 5), 70)
+                - work: if((age > 15) and (age < 65),
+                           if(ISMALE,
+                              align(work_score,
+                                    leave=ISSTUDENT or ISRETIRED,
+                                    fname='data\\al_p_inwork_m.csv'),
+                              align(work_score,
+                                    leave=ISSTUDENT or ISRETIRED,
+                                    fname='data\\al_p_inwork_f.csv')),
+                           False)
+                - workstate: if(work, NON_CADRE, workstate)
+                # if not selected to work and last period in work set workstate temporary to -1
+                - workstate: if(not work and lag(ISINWORK), -1, workstate)
+                - dur_rest_ARE: if(ISINWORK, 0, dur_rest_ARE)
+
+                - show(groupby(workstate, lag(workstate)))
+                - show('have job', sum(work), 
+                       '(kept:', sum(work and lag(ISINWORK)),
+                       '/ new:', sum(work and not lag(ISINWORK)), ')')
+
+
+            outwork:
+               - unemp_score: -1
+               # Male
+               - unemp_condition_m: ISMALE and (age > 15) and (age < 65) and not ISINWORK
+               # Probability of being unemployed from being unemployed previously
+               - unemp_score: if(unemp_condition_m and lag(ISUNEMPLOYED),
+                                  logit_score(- 0.1988979 * age + 0.0026222 * age **2
+                                              - 0.4595076 * ISMARRIED
+                                              + 5.096262),
+                                  unemp_score)
+               # Probability of being unemployed from being inwork previously
+               - unemp_score: if(unemp_condition_m and lag(ISINWORK),
+                                  logit_score(0.1396404 * age - 0.0024024 * age **2
+                                              - 0.3957583 * ISMARRIED
+                                              - 3.069904),
+                                  unemp_score)
+               # Female
+               - unemp_condition_f: ISFEMALE and (age > 15) and (age < 65) and not ISINWORK
+               # Probability of being unemployed from being unemployed previously
+               - unemp_score: if(unemp_condition_f and lag(ISUNEMPLOYED),
+                                  logit_score(- 0.1988979 * age + 0.0026222 * age **2
+                                              - 0.4595076 * ISMARRIED
+                                              + 5.096262),
+                                  unemp_score)
+               # Probability of being unemployed from being inwork previously
+               - unemp_score: if(unemp_condition_f and lag(ISINWORK),
+                                  logit_score(0.1122972 * age - 0.001672 * age **2
+                                              - 0.4429804 * ISMARRIED
+                                              - 2.585393),
+                                  unemp_score)
+               # Alignment of unemployment based on those not selected by inwork
+               # Alignment files are constructed as follows:
+               # [Number of unemployed / (Population - Number of Workers)] by age class 
+               # The here below condition must correspond to the here above denumerator
+               - agegroup_work: if(age < 70, 5 * trunc(age / 5), 70)
+               - unemp: if((age > 15) and (age < 65) and not ISINWORK,
+                            if(ISMALE,
+                               align(unemp_score,
+                                     take= ISUNEMPLOYED,
+                                     leave=ISSTUDENT or ISRETIRED,
+                                     fname='data\\al_p_unemployed_m.csv'),
+                               align(unemp_score,
+                                     take= ISUNEMPLOYED,
+                                     leave=ISSTUDENT or ISRETIRED,
+                                     fname='data\\al_p_unemployed_f.csv')),
+                            False)
+               - workstate: if(unemp, UNEMPLOYED, workstate)  
+               - workstate: if((workstate == -1) and not unemp, OTHERINACTIVE, workstate)   
+            dump_all: csv(dump())
+            
+            retire: 
+                - workstate: if(age>65, RETIRED, workstate)            

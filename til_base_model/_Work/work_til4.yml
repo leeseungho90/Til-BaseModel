@@ -172,7 +172,6 @@ entities:
                  #- workstate: align(unemployed_score, 'param\chomageCOR.csv', filter=not ISINWORK, take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
                  #- workstate: align(unemployed_score, chomageCOR[0,temp], take=ISUNEMPLOYED) # unemp_rate est issu de la projection INSEE
                  #- show("LABOR MARKET STATUS AFTER ALIGNMENT", workstate, max(workstate), min(workstate))
-                 # - unemp_rate: count(ISUNEMPLOYED)/
                  # Nombre d'années d'expérience
                  - xpr: if(xpr<0,0,xpr)
                  - xpr: if(ISINWORK,xpr + 1,xpr)
