@@ -128,8 +128,10 @@ entities:
                 ##### version 2
                 #- fe_m: exp(.0897853*findet -.001725*findet*findet - 1.394766)
                 #- fe_f: exp(.2185737*findet  -.0039924*findet*findet  -2.967687)                
-                - fe_m: exp(.0450162*findet -.00172*findet*findet  -.7457381)
-                - fe_f: exp( .2201813*findet -.0038566*findet*findet   -2.975361)                
+                #- fe_m: exp(.0450162*findet -.00172*findet*findet  -.7457381)
+                #- fe_f: exp( .2201813*findet -.0038566*findet*findet   -2.975361)
+                - fe_m: exp(.1088202*findet  -.0019142*findet*findet  -1.619404)
+                - fe_f: exp( .2990695*findet  -.0048652*findet*findet    -4.043716)                   
                 - fixed_effect: if(ISINWORK, if(ISMALE, fe_m, fe_f), 0)
                 #
                 - isnonexec: if(workstate == 3,1,0)
@@ -147,13 +149,18 @@ entities:
                 #    + 1.063704*isnonexec + 1.501364 *isexec + 1.839715*isactivecivil+  1.487578 *issedencivil +  1.797206)
                 #- dw_f: exp( .1710474*age -.0010962 *age*age + .0164871*xpr  -.0006075 *xpr*xpr + .0449036 *unempdur5  -.3433293 *inacdur5 -.0547399 *invaldur5
                 #    +1.282955*isnonexec +  1.736307*isexec +  2.368608*isactivecivil +1.855951*issedencivil +3.004227)
-                - dw_m: exp(.3071771*age -.0025488*age*age-.0097251*xpr -.0003451 *xpr*xpr  -.1229941*unempdur5 -.5341499*inacdur5 -.1010037*invaldur5
-                            + 1.076009 *isexec + .5745622*issedencivil + 1.984572 )
-                - dw_f: exp(.1873672*age -.0012813*age*age + .0308098*xpr  -.001029*xpr*xpr  -.1480843*unempdur5 -.5440111*inacdur5 -.0948989*invaldur5
-                            + 1.206206 *isexec +  .6239715* issedencivil +3.757701)
+                #- dw_m: exp(.3071771*age -.0025488*age*age-.0097251*xpr -.0003451 *xpr*xpr  -.1229941*unempdur5 -.5341499*inacdur5 -.1010037*invaldur5
+                #            + 1.076009 *isexec + .5745622*issedencivil + 1.984572 )
+                #- dw_f: exp(.1873672*age -.0012813*age*age + .0308098*xpr  -.001029*xpr*xpr  -.1480843*unempdur5 -.5440111*inacdur5 -.0948989*invaldur5
+                #            + 1.206206 *isexec +  .6239715* issedencivil +3.757701)
+                - dw_m: exp(.2872245 *age  -.0024001*age*age+ .0010061*xpr-.0003118 *xpr*xpr -.0093709*unempdur5-.4001096*inacdur5-.0853499*invaldur5
+                            +  1.409727  *isexec +.9432184*isnonexec+ 1.115748*issedencivil +1.619923  )
+                - dw_f: exp(.1766272*age -.0011156*age*age +  .022983 *xpr  -.0008284*xpr*xpr +.0066658*unempdur5 -.3844386*inacdur5 -.0746519*invaldur5
+                            + 1.603543 *isexec +  1.115299*isnonexec + 1.238593* issedencivil + 3.102629)
                 - deterministic_wage: if(ISINWORK, if(ISMALE,dw_m,dw_f), 0)
                 #
-                
+                - sigma_e_f: .72348526
+                - sigma_e_f: .80212114
                 #- alea_m:  normal(0,1)
                 #- alea_f: normal(0,1)               
                 #- alea_m:  .4690465*lag(alea_m) + .0346146

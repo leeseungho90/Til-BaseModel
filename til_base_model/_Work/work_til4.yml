@@ -162,14 +162,15 @@ entities:
                  - ISINVALID: (workstate == 12)
 
                 ################# Stage 1
-                
+               
+                 - alea: uniform()
                  - workstate: if(uniform()<=inwork_prob,IN_WORK, OUT_WORK)
                 
                 ################# Stage 2
                 
                  - alea: uniform()
                  - show("ALEA", alea)
-                 - workstate: if(ISINWORK, if(alea<=private_prob, PRIVATE, if(alea<=public_prob+private_prob, PUBLIC, INDEP)), if(alea<=inactive_prob, INACTIVE, if(alea<=unemployed_prob+inactive_prob, UNEMPLOYED, INVALID)))
+                 - workstate: if(workstate==IN_WORK, if(alea<=private_prob, PRIVATE, if(alea<=public_prob+private_prob, PUBLIC, INDEP)), if(alea<=inactive_prob, INACTIVE, if(alea<=unemployed_prob+inactive_prob, UNEMPLOYED, INVALID)))
                  - show("LABOR MARKET STATUS - LEVEL2", workstate, min(workstate), max(workstate))
                 
                 ################# Stage 3
