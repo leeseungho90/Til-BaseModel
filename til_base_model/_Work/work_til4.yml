@@ -167,15 +167,18 @@ entities:
                 
                 ################# Stage 2
                 
-                 - workstate: if(ISINWORK, if(uniform()<=private_prob, PRIVATE, if(uniform()<=public_prob, PUBLIC, INDEP)), if(uniform()<=inactive_prob, INACTIVE, if(uniform()<=unemployed_prob, UNEMPLOYED, INVALID)))
+                 - alea: uniform()
+                 - show("ALEA", alea)
+                 - workstate: if(ISINWORK, if(alea<=private_prob, PRIVATE, if(alea<=public_prob+private_prob, PUBLIC, INDEP)), if(alea<=inactive_prob, INACTIVE, if(alea<=unemployed_prob+inactive_prob, UNEMPLOYED, INVALID)))
                  - show("LABOR MARKET STATUS - LEVEL2", workstate, min(workstate), max(workstate))
                 
                 ################# Stage 3
                  - WORK_PUBLIC:  (workstate == 5)  or (workstate == 6) or (workstate == 50)
                  - WORK_PRIVE:   (workstate == 3) or (workstate == 4) or (workstate == 30)
                  
-                 - workstate: if(WORK_PRIVE, if(uniform()<= cadre_prob, CADRE, NON_CADRE), workstate)
-                 - workstate: if(WORK_PUBLIC, if(uniform()<= actif_prob, FONCT_A, FONCT_S), workstate)
+                 - alea: uniform()
+                 - workstate: if(WORK_PRIVE, if(alea<= cadre_prob, CADRE, NON_CADRE), workstate)
+                 - workstate: if(WORK_PUBLIC, if(alea<= actif_prob, FONCT_A, FONCT_S), workstate)
                  - show("LABOR MARKET STATUS - LEVEL3", workstate, min(workstate), max(workstate))
 
            # INDIVIDUAL CHARACTERISTIC (updating)
