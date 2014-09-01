@@ -88,4 +88,4 @@ simulation:
 
     # first simulated period
     init_period: 200901
-    periods: 20
+    periods: 5
